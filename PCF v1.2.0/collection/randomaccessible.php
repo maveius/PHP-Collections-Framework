@@ -1,6 +1,6 @@
 <?php
 
-namespace Resource\Collection;
+namespace Mysidia\Resource\Collection;
 
 /**
  * The RandomAccessible Interface, objects implementing this interface support fast random access.
