@@ -1,11 +1,11 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective; 
-use Resource\Native\Null;
-use Resource\Utility\Comparative;
-use Resource\Exception\NosuchElementException;
-use Resource\Exception\UnsupportedOperationException;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective; 
+use Mysidia\Resource\Native\Null;
+use Mysidia\Resource\Utility\Comparative;
+use Mysidia\Resource\Exception\NosuchElementException;
+use Mysidia\Resource\Exception\UnsupportedOperationException;
 
 /**
  * The TreeMap Class, extending from the abstract Map Class and implementing the NavigableMappable Interface.
