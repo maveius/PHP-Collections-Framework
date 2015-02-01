@@ -1,10 +1,10 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Exception\IllegalArgumentException;
-use Resource\Exception\IllegalStateException;
-use Resource\Exception\NosuchElementException;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Exception\IllegalArgumentException;
+use Mysidia\Resource\Exception\IllegalStateException;
+use Mysidia\Resource\Exception\NosuchElementException;
 
 /**
  * The abstract Queue Class, extending from abstract Collection class and implementing Queueable Interface.
