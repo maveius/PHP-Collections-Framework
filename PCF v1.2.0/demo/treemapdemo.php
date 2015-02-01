@@ -1,9 +1,9 @@
 <?php
 
 require "autoloader.php";
-use Resource\Native\String as String;
-use Resource\Collection\HashMap as HashMap;
-use Resource\Collection\TreeMap as TreeMap;
+use Mysidia\Resource\Native\String;
+use Mysidia\Resource\Collection\HashMap;
+use Mysidia\Resource\Collection\TreeMap;
 
 $mithosKey = new String("Mithos Yggdrasill");
 $martelKey = new String("Martel Yggdrasill");
