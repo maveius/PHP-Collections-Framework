@@ -1,8 +1,8 @@
 <?php
 
 require "autoloader.php";
-use Resource\Native\String as String;
-use Resource\Collection\ArrayList as ArrayList;
+use Mysidia\Resource\Native\String;
+use Mysidia\Resource\Collection\ArrayList;
 
 $seraphim = new ArrayList(4);    
 $mithos = new String("Mithos Yggdrasill");
