@@ -1,8 +1,8 @@
 <?php
 
-namespace Resource\Collection; 
-use Resource\Native\Objective;
-use Resource\Exception\IllegalArgumentException;
+namespace Mysidia\Resource\Collection; 
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Exception\IllegalArgumentException;
 
 /**
  * The AscendingSubMap Class, extending from the abstract SubMap Class.
