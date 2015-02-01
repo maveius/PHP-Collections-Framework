@@ -1,8 +1,8 @@
 <?php
 
 require "autoloader.php";
-use Resource\Native\String as String;
-use Resource\Collection\Stack as Stack;
+use Mysidia\Resource\Native\String;
+use Mysidia\Resource\Collection\Stack;
 
 $mithos = new String("Mithos Yggdrasill");
 $martel = new String("Martel Yggdrasill");
