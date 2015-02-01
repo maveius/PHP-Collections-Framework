@@ -1,6 +1,6 @@
 <?php
 
-namespace Resource\Native;
+namespace Mysidia\Resource\Native;
 
 /**
  * The Abstract Object Class, root of all Mysidia library files.
