@@ -1,8 +1,8 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Exception\IndexOutOfBoundsException;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Exception\IndexOutOfBoundsException;
 
 /**
  * The abstract SequantialList Class, extending from the abstract List Class.
