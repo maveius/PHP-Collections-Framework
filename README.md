@@ -1,5 +1,11 @@
 # PHP-Collections-Framework
-PHP Collections Framework(PCF), manipulate collections of objects like C++, Java and C#
+
+[![Status](http://img.shields.io/travis/HallofFamer/PHP-Collections-Framework.svg?style=flat-square)](https://travis-ci.org/HallofFamer/PHP-Collections-Framework)
+[![Quality](http://img.shields.io/scrutinizer/g/HallofFamer/PHP-Collections-Framework.svg?style=flat-square)](https://scrutinizer-ci.com/g/HallofFamer/PHP-Collections-Framework)
+[![Coverage](http://img.shields.io/scrutinizer/coverage/g/HallofFamer/PHP-Collections-Framework.svg?style=flat-square)](https://scrutinizer-ci.com/g/HallofFamer/PHP-Collections-Framework)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](license.md)
+
+PHP Collections Framework (PCF), manipulate collections of objects like C++, Java and C#.
 
 It consists of a groups of classes that implement data structures to manipulate collections of values like HashSet, ArrayList, LinkedList, Stack, Queue, HashMap and TreeMap. They can be found at /pcf/collection folder, the namespace is Mysidia\Resource\Collection. These data structures allow easy and powerful handling of PHP objects, as PHP arrays are not object oriented, and insufficient to manipulate object collections. For whoever familiar with the concept of Data Structure, this API should be very familiar to you, it also is written in a way to compensate for PHP's own language limitations. 
 
