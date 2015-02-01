@@ -1,9 +1,9 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Native\Arrays;
-use Resource\Exception\IllegalArgumentException; 
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Native\Arrays;
+use Mysidia\Resource\Exception\IllegalArgumentException; 
 
 /**
  * The HashMap Class, extending from the abstract Map Class.
