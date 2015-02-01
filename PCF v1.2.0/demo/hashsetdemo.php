@@ -1,9 +1,9 @@
 <?php
 
 require "autoloader.php";
-use Resource\Native\String as String;
-use Resource\Collection\HashSet as HashSet;
-use Resource\Collection\LinkedHashSet as LinkedHashSet;
+use Mysidia\Resource\Native\String;
+use Mysidia\Resource\Collection\HashSet;
+use Mysidia\Resource\Collection\LinkedHashSet;
 
 $mithos = new String("Mithos Yggdrasill");
 $martel = new String("Martel Yggdrasill");
