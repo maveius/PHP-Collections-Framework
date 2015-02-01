@@ -1,7 +1,7 @@
 <?php
 
-namespace Resource\Native;
-use Resource\Utility\Comparable;
+namespace Mysidia\Resource\Native;
+use Mysidia\Resource\Utility\Comparable;
 
 /**
  * The Boolean Class, extending the root Object class.
