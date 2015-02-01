@@ -1,11 +1,11 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Native\Arrays;
-use Resource\Exception\IllegalArgumentException; 
-use Resource\Exception\IllegalStateException;
-use Resource\Exception\NosuchElementException;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Native\Arrays;
+use Mysidia\Resource\Exception\IllegalArgumentException; 
+use Mysidia\Resource\Exception\IllegalStateException;
+use Mysidia\Resource\Exception\NosuchElementException;
 
 /**
  * The ArrayDeque Class, extending from abstract Collection class.
