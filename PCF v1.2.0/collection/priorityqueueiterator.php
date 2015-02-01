@@ -1,8 +1,8 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Exception\IllegalStateException;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Exception\IllegalStateException;
 
 /**
  * The PriorityQueueIterator Class, extending from QueueIterator Class.
