@@ -1,7 +1,7 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
 
 /**
  * The NavigableMappable Interface, extending from the SortedMappable interface.
