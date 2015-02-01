@@ -1,7 +1,7 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
 
 /**
  * The ValueSet Class, extending from the ValueMapSet Class.
