@@ -1,8 +1,8 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Exception\UnsupportedOperationException;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Exception\UnsupportedOperationException;
 
 /**
  * The abstract Lists Class, extending from the abstract Collection Class and implements Listable Interface.
