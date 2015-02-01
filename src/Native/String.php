@@ -831,11 +831,11 @@ class String extends Object implements Comparable, Iterator, Serializable{
     
     /**
      * The startsWith method, checks if the string starts with a substring.
-     * @param Primitive  $substr
+     * @param Objective  $substr
      * @access public
      * @return Boolean
      */
-    public function startsWith(Primitive $substr){
+    public function startsWith(Objective $substr){
         return ($this->indexOf($substr)->isZero());
     }
     
@@ -1164,3 +1164,4 @@ class String extends Object implements Comparable, Iterator, Serializable{
         return $this->value;
     }    
 }
+?>
