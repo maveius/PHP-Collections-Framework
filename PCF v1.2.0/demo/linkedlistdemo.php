@@ -1,9 +1,9 @@
 <?php
 
 require "autoloader.php";
-use Resource\Native\String as String;
-use Resource\Collection\ArrayList as ArrayList;
-use Resource\Collection\LinkedList as LinkedList;
+use Mysidia\Resource\Native\String;
+use Mysidia\Resource\Collection\ArrayList;
+use Mysidia\Resource\Collection\LinkedList;
 
 $mithos = new String("Mithos Yggdrasill");
 $martel = new String("Martel Yggdrasill");
