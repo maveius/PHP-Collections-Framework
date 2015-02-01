@@ -1,7 +1,7 @@
 <?php
 
-namespace Resource\Utility;
-use Resource\Native\Objective;
+namespace Mysidia\Resource\Utility;
+use Mysidia\Resource\Native\Objective;
 
 /**
  * The Comparative Interface, it defines special objects that can compare two other objects.
