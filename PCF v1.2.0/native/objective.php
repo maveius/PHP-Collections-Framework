@@ -1,7 +1,7 @@
 <?php
 
-namespace Resource\Native;
-use \Serializable as Serializable;
+namespace Mysidia\Resource\Native;
+use Serializable;
 
 /**
  * The Objective Interface, extending from Serializable Interfaces.
