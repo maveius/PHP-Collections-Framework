@@ -1,9 +1,9 @@
 <?php
 
-namespace Resource\Native;
+namespace Mysidia\Resource\Native;
 use Exception;
-use Resource\Utility\Comparable;
-use Resource\Exception\ClassCastException;
+use Mysidia\Resource\Utility\Comparable;
+use Mysidia\Resource\Exception\ClassCastException;
 
 /**
  * The Short Class, extending from the abstract Number class.
