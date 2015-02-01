@@ -1,8 +1,8 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Exception\UnsupportedOperationException; 
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Exception\UnsupportedOperationException; 
 
 /**
  * The ImmutableEntry Class, extending from the abstract Entry Class.
