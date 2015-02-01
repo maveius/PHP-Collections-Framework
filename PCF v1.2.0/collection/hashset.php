@@ -1,10 +1,10 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective; 
-use Resource\Native\Null;
-use Resource\Exception\IllegalArgumentException;
-use Resource\Exception\UnsupportedOperationException; 
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective; 
+use Mysidia\Resource\Native\Null;
+use Mysidia\Resource\Exception\IllegalArgumentException;
+use Mysidia\Resource\Exception\UnsupportedOperationException; 
 
 /**
  * The HashSet Class, extending from the abstract MapSet Class.
