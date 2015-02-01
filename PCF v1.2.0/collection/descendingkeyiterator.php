@@ -1,6 +1,6 @@
 <?php
 
-namespace Resource\Collection; 
+namespace Mysidia\Resource\Collection; 
 
 /**
  * The DescendingKeyIterator Class, extending from the abstract TreeMapIterator Class.
