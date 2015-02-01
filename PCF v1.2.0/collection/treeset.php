@@ -1,9 +1,9 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Native\Null;
-use Resource\Utility\Comparative;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Native\Null;
+use Mysidia\Resource\Utility\Comparative;
 
 /**
  * The TreeSet Class, extending from the abstract MapSet Class and implementing the NavigableSettable Interface.
