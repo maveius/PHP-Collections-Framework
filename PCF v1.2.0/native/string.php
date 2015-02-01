@@ -1,11 +1,11 @@
 <?php
 
-namespace Resource\Native;
+namespace Mysidia\Resource\Native;
 use Iterator, Exception;
-use Resource\Utility\Comparable;
-use Resource\Exception\BadFunctionCallException;
-use Resource\Exception\BadMethodCallException;
-use Resource\Exception\ClassCastException;
+use Mysidia\Resource\Utility\Comparable;
+use Mysidia\Resource\Exception\BadFunctionCallException;
+use Mysidia\Resource\Exception\BadMethodCallException;
+use Mysidia\Resource\Exception\ClassCastException;
 
 /**
  * The String Class, extending from the abstract Object class.
