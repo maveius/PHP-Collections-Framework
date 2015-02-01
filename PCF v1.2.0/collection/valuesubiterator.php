@@ -1,6 +1,6 @@
 <?php
 
-namespace Resource\Collection;
+namespace Mysidia\Resource\Collection;
 
 /**
  * The ValueSubIterator Class, extending from the abstract SubMapIterator Class.
