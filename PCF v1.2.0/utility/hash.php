@@ -1,8 +1,8 @@
 <?php
 
-namespace Resource\Utility;
-use Resource\Native\Object;
-use Resource\Native\Arrays;
+namespace Mysidia\Resource\Utility;
+use Mysidia\Resource\Native\Object;
+use Mysidia\Resource\Native\Arrays;
 
 /**
  * The Hash Class, it is part of the utility package and extends from the Object Class.
