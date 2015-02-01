@@ -24,7 +24,7 @@ class ArrayList extends Lists{
     const SERIALID = "8683452581122892189L";
 	
     /**
-	 * The array property, it stores the data passed to this ArrayList.
+	 * The array property, it stores the data passed to the ArrayList.
 	 * @access private
 	 * @var Arrays
      */
