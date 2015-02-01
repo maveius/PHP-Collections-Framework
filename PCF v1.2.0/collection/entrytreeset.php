@@ -1,7 +1,7 @@
 <?php
 
-namespace Resource\Collection;
-use \Resource\Native\Objective as Objective; 
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective; 
 
 /**
  * The EntryTreeSet Class, extending from the abstract MapSet Class.
