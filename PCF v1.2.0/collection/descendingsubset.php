@@ -1,6 +1,6 @@
 <?php
 
-namespace Resource\Collection; 
+namespace Mysidia\Resource\Collection; 
 
 /**
  * The DescendingSubSet Class, extending from the abstract EntrySubSet Class.
