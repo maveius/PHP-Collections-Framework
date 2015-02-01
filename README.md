@@ -7,6 +7,8 @@ The package also provides wrapper classes to encapsulate basic data types so the
 The Exception and Utility package provides additional classes that can be used together with PCF.
 
 Example 1: ArrayList
+
+```
 <?php
 
 require "autoloader.php";
@@ -93,3 +95,4 @@ while($aliveIterator->hasNext()){
     echo "<br>";
 }
 ?> 
+```
