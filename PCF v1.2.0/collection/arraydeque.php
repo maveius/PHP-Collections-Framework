@@ -20,8 +20,8 @@ use Mysidia\Resource\Exception\NosuchElementException;
 
 class ArrayDeque extends Collection implements Dequeable{
 
-	/**
-	 * serialID constant, it serves as identifier of the object being PriorityQueue.
+    /** 
+     * serialID constant, it serves as identifier of the object being PriorityQueue.
      */
     const SERIALID = "2340985798034038923L";
 
