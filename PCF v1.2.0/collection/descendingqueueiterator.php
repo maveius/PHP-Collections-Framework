@@ -1,8 +1,8 @@
 <?php
 
-namespace Resource\Collection; 
-use Resource\Exception\IllegalStateException;
-use Resource\Exception\NosuchElementException;
+namespace Mysidia\Resource\Collection; 
+use Mysidia\Resource\Exception\IllegalStateException;
+use Mysidia\Resource\Exception\NosuchElementException;
 
 /**
  * The DescendingQueueIterator Class, extending from DequeIterator Class.
