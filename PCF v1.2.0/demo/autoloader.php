@@ -6,7 +6,7 @@ function __autoload($class) {
 	$namespace = array_pop($stack);
 	$file = strtolower("../{$namespace}/{$class}.php");
     if(file_exists($file)) include($file);
-	else throw new \Resource\Exception\ClassNotFoundException("Cannot load class {$class}");		
+	else throw new \Mysidia\Resource\Exception\ClassNotFoundException("Cannot load class {$class}");		
 }
     
 ?>
