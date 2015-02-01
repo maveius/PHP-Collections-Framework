@@ -1,1315 +1,1165 @@
 <?php
 
 namespace Mysidia\Resource\Native;
-use Iterator, Exception;
+use Iterator, Serializable;
 use Mysidia\Resource\Utility\Comparable;
-use Mysidia\Resource\Exception\BadFunctionCallException;
-use Mysidia\Resource\Exception\BadMethodCallException;
-use Mysidia\Resource\Exception\ClassCastException;
 
 /**
- * The String Class, extending from the abstract Object class.
+ * The String Class, extending from the root Object class.
  * This class serves as a wrapper class for primitive data type string.
- * It is a final class, no child class shall derive from String.
+ * In Mysidia, String can have subclasses depending on the extension used.
  * @category Resource
  * @package Native
- * @author Unknown
- * @final
+ * @author Hall of Famer
+ * @copyright Mysidia Adoptables Script
+ * @link http://www.mysidiaadoptables.com
+ * @since 1.4.0
+ * @todo Not much at this moment.
  *
  */
 
-final class String extends Object implements Iterator{
-
+class String extends Object implements Comparable, Iterator, Primitive, Serializable{
+    
     /**
-	 * Alpha constant, wraps a string literal of available alphabetic chars.
-    */
-    const ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	 * Alphabatic constant, wraps a string literal of available alphabetic chars.
+     */
+    const Alphabatic = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	
 	/**
-	 * Alnum constant, specifies a collection of available alphanumeric chars.
-    */
-    const ALNUM = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+	 * AlphaNumeric constant, specifies a collection of available alphanumeric chars.
+     */
+    const AlphaNumeric = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 	
+	/**
+	 * LineBreak constant, defines the line break character.
+     */
+    const LineBreak = PHP_EOL;    
+    
 	/**
 	 * Numeric constant, contains a list of available number chars.
-    */
-    const NUMERIC = '0123456789';
+     */
+    const Numeric = '0123456789';
 	
 	/**
 	 * Space constant, defines the space char.
-    */
-    const SPACE = ' ';
+     */
+    const Space = ' ';
     
 	/**
-     * String's hash code.
-     * @var Int
+	 * The chars property, it stores the character array inside string object.
+	 * @access protected
+	 * @var Arrays
      */
-    private $hash = 0;	
-	
+    protected $chars;    
+    
 	/**
-     * Literal string.
-     * @var string
+	 * The count property, it specifies the number of characters in this string.
+	 * @access protected
+	 * @var Int
      */
-    private $_string = '';
+    protected $count;
+
+	/**
+	 * The hash property, it defines the hash code of this particular string.
+	 * @access protected
+	 * @var Int
+     */
+   protected $hash;
+   
+	/**
+	 * The length property, its an integer object representation of property $count.
+	 * @access protected
+	 * @var Integer
+     */
+    protected $length;   
+    
+	/**
+	 * The offset property, it specifies the first index of storage that is used.
+	 * @access protected
+	 * @var Int
+     */
+    protected $offset = 0;
+    
+	/**
+	 * The spaces property, it stores an array of all white space characters.
+	 * @access protected
+	 * @var Strings
+     */
+    protected $spaces;     
+    
+	/**
+	 * The value property, it stores the internal string literal.
+	 * @access protected
+	 * @var string
+     */
+    protected $value = ''; 
+    
     
     /**
-     * String's encoding.
-     * @var string uppercase
+     * Constructs of String Class, it creates a string with given parameters.
+     * @param mixed  $string 
+     * @access public
+     * @return Void
      */
-    private $_encoding = null;
-    
-    /**
-     * String's length.
-     * @var int
-     */
-    private $_length = null;
-    
-    /**
-     * Current position (Iterator).
-     * @var int
-     */
-    private $_index = 0;
-    
-    /**
-     * Default string encoding. Will be used if no encoding is specified.
-     * Value can changed at run-time with the static method {@link setDefaultEncoding()}.
-     * Use null for auto-detection of encoding.
-     * @var string
-	 * @static
-     */
-    private static $_defaultEncoding = null;
-    
-    private static $_caseSensitive = true;
-    
-    /**
-     * Whether the mbstring extension is installed and loaded.
-     * @access private
-     * @var bool
-     */
-    private static $_extMbstring = null;
-    
-    /**
-     * Whether the iconv extension is installed and loaded.
-     * @access private
-     * @var bool
-     */
-    private static $_extIconv = null;
-    
-    /**
-     * Whether the utf8 package is installed and loaded.
-     * @access private
-     * @var bool
-     */
-    private static $_extUtf8 = null;
-    
-    /**
-     * Overload method. Proxies to {@link callback()}.
-     * Example:
-     * <code>
-     * <?php
-     * $string = new String('123456');
-     * echo $string->md5(); // prints: e10adc3949ba59abbe56e057f20f883e
-     * ?>
-     * </code>
-     * @param mixed $name
-     * @param array $args
-     * @return mixed
-     * @throws BadFunctionCallException
-     */
-    public function __call($name, $args){
-        return $this->callback($name, $args);
+    public function __construct($string = ''){
+        if(is_scalar($string) or is_null($string)) $this->value = (string)$string;
+        else $this->initialize($string);
     }
     
     /**
-     * Constructs a string object.
-     * @param string $string literal string
-     * @param string $encoding string encoding (default null, auto-detection)
-     * @return String
-     */
-    public function __construct($string = '', $encoding = null){
-        $this->_string = (string)$string;
-        if ($encoding !== null) {
-            $this->_encoding = strtoupper(str_replace(' ', '-', (string)$encoding));
-        } 
-		else if (self::$_defaultEncoding !== null) {
-            $this->_encoding = self::$_defaultEncoding;
-        }
-    }
+     * The getChars method, getter method for property $chars.
+     * @access public
+     * @return Chars
+     */	
+    public function getChars(){
+        if(!$this->chars) $this->chars = $this->toCharArray();
+	    return $this->chars;
+	}    
     
     /**
-     * Overload method. Provides length and encoding properties.
-     * Example:
-     * <code>
-     * <?php
-     * $string = new String('123456');
-     * echo $string->getLength(); // prints: 6
-     * echo $string->length; // prints: 6
-     * ?>
-     * </code>
-     * @param string $key
-     * @return mixed
-     * @throws BadMethodCallException
-     */
-    public function __get($key){
-        $key = strtolower($key);
-        if ($key === 'length') {
-            return $this->getLength();
-        }
-        if ($key === 'encoding') {
-            return $this->getEncoding();
-        }
-        throw new BadMethodCallException('Undefined property.');
-    }
+     * The getValue method, getter method for property $length.
+     * @access public
+     * @return Integer
+     */	
+    public function getLength(){
+	    if(!$this->length) $this->length = new Integer($this->count());
+        return $this->length;
+	}    
     
     /**
-     * Returns the result of the callback function $name.
-     * The literal string will be sent as the first argument.
-     * @param mixed $name callback function
-     * @param array $args additional function arguments (default empty)
+     * The getOffset method, getter method for property $offset.
+     * @access public
+     * @return int
+     */	
+    public function getOffset(){
+	    return $this->offset;
+	}       
+    
+    /**
+     * The getSpaces method, getter method for property $spaces.
+     * @access public
+     * @return strings
+     */	
+    public function getSpaces(){
+        if(!$this->spaces){
+           $this->spaces = new Arrays/Strings(6);
+           $this->spaces->initialize(new String(" "), new String("\r"), new String("\n"), 
+                                     new String("\t"), new String("\0"), new String("\x0B"));           
+        }
+	    return $this->spaces;
+	}     
+    
+    /**
+     * The getValue method, getter method for property $value.
+     * @access public
+     * @return string
+     */	
+    public function getValue(){
+	    return $this->value;
+	}        
+    
+    
+    /**
+     * The callback method, carries out callback operation and returns the result.
+     * @param mixed  $name 
+     * @param array  $args 
      * @return mixed
-     * @throws BadFunctionCallException
-     * @see http://php.net/manual/en/language.pseudo-types.php#language.types.callback
+     * @throws IllegalArgumentException
      */
     public function callback($name, array $args = array()){
-        if (!is_callable($name)) throw new BadFunctionCallException('$name is not a valid callback.');
-        array_unshift($args, $this->_string);
+        if (!is_callable($name)) throw new IllegalArgumentException('$name is not a valid callback.');
+        array_unshift($args, $this->value);
         $result = call_user_func_array($name, $args);
-        if (!is_string($result)) {
-            return $result;
-        }
-        return new self($result);
+        if(!is_string($result)) return $result;
+        return new static($result);
     }
     
     /**
-     * Capitalizes a string.
-     * Changes the first letter to uppercase.
-     * Example:
-     * <code>
-     * <?php
-     * $string = new String('aBc');
-     * echo $string->capitalize(); // prints: ABc
-     * ?>
-     * </code>
+     * The capitalize method, capitalizes this given string.
+     * @access public
      * @return String
      */
     public function capitalize(){
-        if (function_exists('mb_ucfirst')) $string = mb_ucfirst($this->_string, $this->getEncoding());
-        else if (function_exists('mb_substr')) {
-            $encoding = $this->getEncoding();
-            $string = mb_strtoupper(mb_substr($this->_string, 0, 1, $encoding), $encoding) .
-                      mb_substr($this->_string, 1, null, $encoding);
-        } 
-		else $string = ucfirst($this->_string);
-        return new self($string);
+        return new static(ucfirst($this->value));
     }
     
     /**
-     * Returns the character at index $index, counting from zero.
-     * If the index doesn't exists, returns null.
-     * @param int $index character index, counting from zero.
-     * @return String
+     * The charAt method, finds the character at a specified index. 
+     * @param Int  $index
+     * @access public
+     * @return Char
      */
-    public function charAt($index){
+    public function charAt(Int $index){
         return $this->substring($index, 1);
+    } 
+    
+    /**
+     * The compareTo method, compares this string to another supplied string.
+     * @param Objective  $string
+     * @access public
+     * @return int
+     */    
+    public function compareTo(Objective $string){
+        return strcmp($this->value, (string)$string);        
     }
     
     /**
-     * Compares this string to the provided string.
-     * Returns positive number if this string is greater than $string,
-     * negative number if this string is less than $string,
-     * and 0 in case the strings are equal.
-     * This method is case-sensitive. See also {@link compareToIgnoreCase()}
-     * @param string
-     * @param int $characters upper limit of characters to use in comparison (default null)
+     * The compareToIgnoreCase method, carries out case-insensitive comparison for strings.
+     * @param String  $string
+     * @access public
      * @return int
      */
-    public function compareTo($string, $characters = null){
-        if ($characters === null) return strcmp($this->_string, (string)$string);
-        return strncmp($this->_string, (string)$string, (int)$characters);
+    public function compareToIgnoreCase(String $string){
+        return strncasecmp($this->value, (string)$string);
     }
     
     /**
-     * Similar to {@link compareTo()}, but case-insensitive.
-     * @param string $string
-     * @param int $characters upper limit of characters to use in comparison (default null)
-     * @return int
-     */
-    public function compareToIgnoreCase($string, $characters = null){
-        if ($characters === null) return strncasecmp($this->_string, (string)$string);
-        return strncasecmp($this->_string, (string)$string, (int)$characters);
-    }
-    
-    /**
-     * Concats a string and returns the new one.
-     * Actually, it is the same as the dot operator.
-     * @param string $string
+     * The concat method, concatenates this string by another and returns the combined string.
+     * @param string  $string
+     * @access public
      * @return String
      */
-    public function concat($string){
-        return new self($this->_string.(string)$string);
+    public function concat(String $string){
+        return new static($this->value.(string)$string);
     }
     
     /**
-     * Checks if the string contains a substring.
-     * @param string $substr
-     * @return bool true if the string contains $substr
+     * The contains method, checks if the string contains a substring.
+     * @param String  $substr
+     * @access public
+     * @return Boolean
      */
-    public function contains($substr){
-        return ($this->indexOf($substr) !== false);
-    }
+    public function contains(String $substr){
+        return ($this->indexOf($substr) !== FALSE);
+    }    
     
     /**
-     * Counts the number of characters in the string.
-     * Alias of {@link getLength()}. Intended to use with count().
-     * Example:
-     * <code>
-     * <?php
-     * $string = new String('123456');
-     * echo $string->getLength(); // prints: 6
-     * echo count($string); // prints: 6
-     * ?>
-     * </code>
+     * The count method, getter method for property $count.
+     * @access public
      * @return int
-     */
+     */	
     public function count(){
-        return $this->getLength();
-    }
+        if(!$this->count) $this->count = (int)strlen($this->value);
+	    return $this->count;
+	}
     
     /**
-     * Returns the current element.
-     * @return String
+     * The current method, it simply returns the character at current offset.
+     * @access public
+     * @return Char
      */
     public function current(){
-        return $this->charAt($this->_index);
+        return $this->charAt($this->offset);
     }
     
     /**
-     * Checks if the string ends with a substring.
-     * @param string $substr substring
-     * @return bool true if the string ends with $substr.
+     * The endsWith method, checks if the string ends with a substring.
+     * @param string  $substr 
+     * @access public
+     * @return Boolean
      */
     public function endsWith($substr){
-        $substr = new self($substr);
-        return ($this->lastIndexOf($substr) === $this->length() - $substr->length());
+        $substr = new static($substr);
+        return ($this->lastIndexOf($substr)->getValue() == $this->count() - $substr->count());
     }
     
     /**
-     * Checks is this string is equal to the provided string.
-     * This method is case-sensitive. See also {@link equalsIgnoreCase()}
-     * @param string $string
-     * @return bool true if the strings are equal
+     * The equals method, evaluates if the two strings are equal.
+     * This method is case sensitive, use equalsIgnoreCase() otherwise.
+     * @param String $string
+     * @access public
+     * @return Boolean
      */
     public function equals(Objective $string){
-        return ($this->compareTo($string->__toString()) === 0);
+        return ($this->compareTo($string) === 0);
     }
     
     /**
-     * Similar to {@link equals()}, but case-insensitive.
-     * @param string $string
-     * @return bool true if the strings are equal
+     * The equalsIgnoreCase method, checks string equality with case-insensitive.
+     * @param String  $string
+     * @access public
+     * @return Boolean
      */
-    public function equalsIgnoreCase($string){
+    public function equalsIgnoreCase(String $string){
         return ($this->compareToIgnoreCase($string) === 0);
     }
     
     /**
-     * Returns String's encoding, or false in failure.
-     * @return string|bool
+     * The explode method, convert a string to an array based on the delimiter provided.
+     * @param string  $delimiter
+     * @access public
+     * @return array
+     */
+    public function explode($delimiter = ","){
+        return explode($delimiter, $this->value);
+    }    
+    
+    /**
+     * The getEncoding method, by default it is UTF-8.
+     * @access public
+     * @return String
      */
     public function getEncoding(){
-        if ($this->_encoding === null) {
-            if (function_exists('mb_detect_encoding')) $this->_encoding = mb_detect_encoding($this->_string);
-			else if (function_exists('utf8_compliant') && utf8_compliant($this->_string)) $this->_encoding = 'UTF-8';
-			else $this->_encoding = false;
+        return new String("UTF-8");
+    }    
+    
+    /**
+     * The hashCode method, generates a hash code for the string object.
+     * @access public
+     * @return Int
+     */	
+	public function hashCode(){	    
+        if(!$this->hash){
+            $this->hash = 0;
+            $this->count = $this->count();
+		    $offset = $this->getOffset();
+            for($i = 0; $i < $this->count; $i++){
+                $this->hash = 31*$this->hash + ord($this->value[$offset++]);             
+            }
         }
-        return $this->_encoding;
+        return $this->hash;
     }
     
     /**
-     * Returns string's length.
-     * Counts the number of characters in the string.
-     * Example:
-     * <code>
-     * <?php
-     * $string = new String('123456');
-     * echo $string->getLength(); // prints: 6
-     * ?>
-     * </code>
-     * @return int
+     * The indexOf method, returns the index of the first occurance of $substr in the string.
+     * In case $substr is not a substring of the string, returns false.
+     * @param Objective  $substr
+     * @param Int  $offset
+     * @access public
+     * @return Integer/Boolean
      */
-    public function getLength(){
-        if ($this->_length === null) {
-            if (function_exists('mb_strlen')) {
-                $this->_length = (int)mb_strlen($this->_string, $this->getEncoding());
-            } 
-			else if ($this->getEncoding() === 'UTF-8' && function_exists('utf8_strlen')) {
-                $this->_length = (int)utf8_strlen($this->_string);
-            } 
-			else if (function_exists('iconv_strlen')) {
-                $this->_length = (int)iconv_strlen($this->_string, $this->getEncoding());
-            } 
-			else {
-                $this->_length = (int)strlen($this->_string);
-            }
-        }
-        return $this->_length;
+    public function indexOf(Objective $substr, Int $offset = NULL){
+        $offset = ($offset)?$offset():0;
+        $pos = strpos($this->value, (string)$substr, $offset);
+        return ($pos === FALSE)?new Integer(-1):new Integer($pos);
+    }    
+
+	/**
+     * The initialize method, completes string construction with given credentials
+     * @param Objective  $string
+     * @access private
+     * @return Void
+     */	    
+    private function initialize(Objective $string){
+        if($string instanceof String) $this->initWithString($string);
+        elseif($string instanceof Char) $this->initWithChar($string);
+        elseif($string instanceof Arrays) $this->initWithChars($string);
+        elseif($string instanceof Objective) $this->initWithObject($string);
+        else throw new IllegalArgumentException("Cannot create a string with the given credential");
     }
 
+	/**
+     * The initWithChar method, constructs string object with a given character.
+     * @param Char  $char
+     * @access private
+     * @return Void
+     */	    
+    private function initWithChar(Char $char){
+        $this->count = 1;
+        $this->value = (string)$char;
+    }     
+    
+	/**
+     * The initWithChars method, constructs string object with a given char array.
+     * @param Arrays  $chars
+     * @access private
+     * @return Void
+     */	    
+    private function initWithChars(Arrays $chars){
+        $this->chars = $chars;
+        $this->initWithString($chars->toString());
+    }        
+    
+	/**
+     * The initWithObject method, constructs string object with a given object.
+     * @param Objective  $object
+     * @access private
+     * @return Void
+     */	    
+    private function initWithObject(Objective $object){
+        $this->value = (string)$object;        
+        $this->count = count($this->value);
+    }     
+    
+	/**
+     * The initWithString method, constructs string object with a given string.
+     * @param String  $string
+     * @access private
+     * @return Void
+     */	    
+    private function initWithString(String $string){
+        $this->count = $string->count();
+        $this->offset = $string->getOffset();
+        $this->value = $string->getValue();
+    } 
+    
     /**
-     * Generates a hash code for the string.
-     * @return Int
-     */
-	public function hashCode(){	    
-        $hash = $this->hash;
-        $length = $this->getLength();
-        if ($hash == 0 and $length > 0) {
-		    $offset = $this->_index;
-            for($i = 0; $i < $length; $i++){
-                $hash = 31*$hash + ord($this->_string[$offset++]);             
-            }
-            $this->hash = $hash;
-        }
-        return $hash;
+     * The insert method, inserts another string into this string.
+     * @param Int  $offset
+     * @param Primitive  $string
+     * @access public
+     * @return Void
+     */      
+    public function insert(Int $offset, Primitive $string){
+        return $this->splice($offset, new Integer(0), $string);
     }
     
     /**
-     * Returns the index of the first occurance of $substr in the string.
-     * In case $substr is not a substring of the string, returns false.
-     * @param String $substr substring
-     * @param int $offset
-     * @return int|bool
-     */
-    public function indexOf($substr, $offset = 0){
-        if (function_exists('mb_strpos')) {
-            $pos = mb_strpos($this->_string, (string)$substr, (int)$offset, $this->getEncoding());
-        } 
-		else if ($this->getEncoding() === 'UTF-8' && function_exists('utf8_strpos')) {
-            $pos = utf8_strpos($this->_string, (string)$substr, ($offset === 0 ? null : $offset));
-        } 
-		else if (function_exists('iconv_strpos')) {
-            $pos = iconv_strpos($this->_string, (string)$substr, (int)$offset, $this->getEncoding());
-        } 
-		else {
-            $pos = strpos($this->_string, (string)$substr, (int)$offset);
-        }
-        return $pos;
-    }
-    
-    public function insert($offset, $string){
-        return $this->splice($offset, 0, $string);
-    }
-    
-    /**
-     * Checks if the string is empty or whitespace-only.
-     * @return bool true if the string is blank
+     * The isBlank method, checks if the string is empty or whitespace-only.
+     * @access public
+     * @return Boolean
      */
     public function isBlank(){
-        return ($this->trim()->_string === '');
+        return ($this->trim()->value === '');
     }
     
     /**
-     * Checks if the string is empty.
-     * @return bool true if the string is empty
+     * The isEmpty method, checks if the string is empty.
+     * @access public
+     * @return Boolean
      */
     public function isEmpty(){
-        return ($this->_string === '');
-    }
+        return ($this->value === '');
+    } 
     
     /**
-     * Checks if the string is lower case.
+     * The isLowerCase method, checks if the string is lower case.
      * String is considered lower case if all the characters are lower case.
-     * @return bool true if the string is lower case
+     * @access public
+     * @return Boolean
      */
     public function isLowerCase(){
         return $this->equals($this->toLowerCase());
     }
     
     /**
-     * Checks if the string is not empty or whitespace-only.
-     * @return bool true if the string is not blank
+     * The isNotBlank method, checks if the string is not empty or whitespace-only.
+     * @access public
+     * @return Boolean
      */
     public function isNotBlank(){
-        return ($this->trim()->_string !== '');
+        return ($this->trim()->value !== '');
     }
     
     /**
-     * Checks if the string is not empty.
-     * @return bool true if the string is not empty
+     * The isNotEmpty method, checks if the string is not empty.
+     * @access public
+     * @return Boolean
      */
     public function isNotEmpty(){
-        return ($this->_string !== '');
+        return ($this->value !== '');
     }
     
     /**
-     * Checks if the string is palindrome.
-     * @return bool true if the string is palindrome
+     * The isPalindrome, checks if the string is palindrome.
+     * @access public
+     * @return Boolean
      */
     public function isPalindrome(){
         return ($this->equals($this->reverse()));
     }
     
+	/**
+     * The isString method, checks if the object is a string or not.
+     * @access public
+     * @return Boolean
+     */
+	public function isString(){
+	    return TRUE;
+	}     
+    
     /**
-     * Checks is the string is unicase.
+     * The isUnicase method, checks is the string is unicase.
      * Unicase string is one that has no case for its letters.
-     * @return bool true if the string is unicase
+     * @access public
+     * @return Boolean
      */
     public function isUnicase(){
         return $this->toLowerCase()->equals($this->toUpperCase());
     }
     
     /**
-     * Checks if the string is upper case.
+     * The isUpperCase method, checks if the string is upper case.
      * String is considered upper case if all the characters are upper case.
-     * @return bool true if the string is upper case
+     * @access public
+     * @return Boolean
      */
     public function isUpperCase(){
         return $this->equals($this->toUpperCase());
     }
     
     /**
-     * Return the key of the current element.
-     * @return int
+     * The isZero method, checks if the string is zero.
+     * @access public
+     * @return Boolean
+     */
+    public function isZero(){
+        return ($this->value == '0');
+    }    
+    
+    /**
+     * The key method, return the key of the current element.
+     * @access public
+     * @return Integer
      */
     public function key(){
-        return $this->_index;
+        return new Integer($this->offset);
     }
     
     /**
-     * Returns the index of the last occurance of $substr in the string.
+     * The lastIndexOf method, returns the index of the last occurance of $substr in the string.
      * In case $substr is not a substring of the string, returns false.
-     * @param String $substr substring
-     * @param int $offset
-     * @return int|bool
+     * @param Objective  $substr 
+     * @param Int  $offset
+     * @access public
+     * @return Integer/Boolean
      */
-    public function lastIndexOf($substr, $offset = 0){
-        if (function_exists('mb_strrpos')) {
-            $pos = mb_strrpos($this->_string, (string)$substr, (int)$offset, $this->getEncoding());
-        } 
-		else if ($this->getEncoding() === 'UTF-8' && function_exists('utf8_strrpos')) {
-            $pos = utf8_strrpos($this->_string, (string)$substr, ($offset === 0 ? null : $offset));
-        } 
-		else if (function_exists('iconv_strrpos')) {
-            $pos = iconv_strrpos($this->_string, (string)$substr, (int)$offset, $this->getEncoding());
-        } 
-		else {
-            $pos = strrpos($this->_string, (string)$substr, (int)$offset);
-        }
-        return $pos;
+    public function lastIndexOf(Objective $substr, Int $offset = NULL){
+        $offset = ($offset)?$offset():0;
+        $pos = strrpos($this->value, (string)$substr, $offset);
+        return ($pos === FALSE)?new Integer(-1):new Integer($pos);
     }
     
     /**
-     * Returns the leftmost $length characters of a string.
-     * @param int $length number of characters.
+     * The left method, fetches the leftmost $length characters of a string.
+     * @param Int  $length
+     * @access public
      * @return String
      */
-    public function left($length){
-        return $this->substring(0, $length);
-    }
-    
-    public function matches($pattern){
-        return preg_match((string)$pattern, $this->_string);
-    }
-    
-    public function naturalCompareTo($string){
-        return strnatcmp($this->_string, (string)$string);
-    }
-    
-    public function naturalCompareToIgnoreCase($string){
-        return strnatcasecmp($this->_string, (string)$string);
+    public function left(Int $length){
+        return $this->substring(new Integer(0), $length);
     }
     
     /**
-     * Move forward to next element.
+     * The length method, alias to method getLength().
+     * @access public
+     * @return Integer
+     */	
+    public function length(){
+	    return $this->getLength();
+	}     
+    
+   /**
+     * The matches method, evaluates if the string matches a given pattern.
+     * @param String  $pattern
+     * @access public
+     * @return Boolean
+     */      
+    public function matches(String $pattern){
+        return preg_match((string)$pattern, $this->value);
+    }
+    
+   /**
+     * The naturalCompareTo method, carries out natural comparison.
+     * @param String  $string
+     * @access public
+     * @return Int
+     */        
+    public function naturalCompareTo(String $string){
+        return strnatcmp($this->value, (string)$string);
+    }
+
+   /**
+     * The naturalCompareToIgnoreCase method, carries out natural comparison with case insensitive.
+     * @param String  $string
+     * @access public
+     * @return Int
+     */        
+    public function naturalCompareToIgnoreCase(String $string){
+        return strnatcasecmp($this->value, (string)$string);
+    }
+    
+    /**
+     * The next method, moves forward to the next element.
+     * @access public
+     * @return Void
      */
     public function next(){
-        ++$this->_index;
+        $this->offset++;
     }
     
     /**
-     * Checks if the string contains character at $offset.
-     * Example:
-     * <code>
-     * <?php
-     * $string = new String('example');
-     * var_dump(isset($string[2])); // prints: bool(true)
-     * ?>
-     * </code>
-     * @param int $offset character index, counting from zero.
-     * @return bool
+     * The offsetExists method, checks if the string contains character at $offset.
+     * @param int $offset
+     * @access public
+     * @return Boolean
      */
     public function offsetExists($offset){
-        return ($offset >= 0 && $offset < $this->length());
+        if(!is_int($offset)) $offset = $offset();        
+        return ($offset >= 0 and $offset < $this->count());
     }
     
     /**
-     * Provides array access for accessing characters.
-     * Example:
-     * <code>
-     * <?php
-     * $string = new String('offsetGet');
-     * echo $string[3]; // prints: s
-     * ?>
-     * </code>
-     * @param int $offset character index, counting from zero.
-     * @uses String::charAt
+     * The offsetGet method, provides array access for accessing characters.
+     * @param Int  $offset 
+     * @access public
      * @return String
      */
     public function offsetGet($offset){
+        if(!is_int($offset)) $offset = $offset();
         return $this->charAt($offset);
     }
     
     /**
+     * The offsetSet method, attempts to set a char at given string index.
      * String is immutable. Calling this method will result in an exception.
-     * @param int $offset
-     * @param string $value
-     * @throws BadMethodCallException
+     * @param int  $offset
+     * @param string  $value
+     * @access public
+     * @return Void
+     * @throws IllegalStateException
      */
     public function offsetSet($offset, $value){
-        throw new BadMethodCallException;
+        throw new IllegalStateException;
     }
     
     /**
+     * The offsetUnset method, attempts to unset a char at given string index.
      * String is immutable. Calling this method will result in an exception.
-     * @param int $offset
-     * @param string $value
-     * @throws BadMethodCallException
+     * @param int  $offset
+     * @param string  $value
+     * @access public
+     * @return Void
+     * @throws IllegalStateException
      */
     public function offsetUnset($offset){
-        throw new BadMethodCallException;
+        throw new IllegalStateException;
     }
     
     /**
-     * Overlays part of a String with another String.
-     */
-    public function overlay($string, $start, $end){
-        
+     * The pad method, fetches the input string padded at both directions.
+     * @param Int  $length
+     * @param String  $padding
+     * @access public
+     * @return String
+     */    
+    public function pad(Int $length, String $padding = NULL){
+        if(!$padding) $padding = self::Space;
+        return new static(str_pad($this->value, $length(), (string)$padding, STR_PAD_BOTH));
     }
-    
-    public function pad($length, $padding = self::SPACE){
-        $func = (($this->getEncoding() === 'UTF-8' && function_exists('utf8_str_pad')) ? 'utf8_str_pad' : 'str_pad');
-        return new self($func($this->_string, (int)$length, (string)$padding, STR_PAD_BOTH));
-    }
-    
-    public function padEnd($length, $padding = self::SPACE){
-        $func = (($this->getEncoding() === 'UTF-8' && function_exists('utf8_str_pad')) ? 'utf8_str_pad' : 'str_pad');
-        return new self($func($this->_string, (int)$length, (string)$padding, STR_PAD_RIGHT));
-    }
-    
-    public function padStart($length, $padding = self::SPACE){
-        $func = (($this->getEncoding() === 'UTF-8' && function_exists('utf8_str_pad')) ? 'utf8_str_pad' : 'str_pad');
-        return new self($func($this->_string, (int)$length, (string)$padding, STR_PAD_LEFT));
+  
+    /**
+     * The padEnd method, fetches the input string padded at the right direction.
+     * @param Int  $length
+     * @param String  $padding
+     * @access public
+     * @return String
+     */       
+    public function padEnd(Int $length, String $padding = NULL){
+        if(!$padding) $padding = self::Space;        
+        return new static(str_pad($this->value, $length(), (string)$padding, STR_PAD_RIGHT));
     }
     
     /**
-     * Removes all occurrences of a substring from the string.
-     * @param string $substr substring
-     * @param bool $regex whether $substr is a regular expression
+     * The padStart method, fetches the input string padded at the left direction.
+     * @param Int  $length
+     * @param String  $padding
+     * @access public
+     * @return String
+     */       
+    public function padStart(Int $length, String $padding = NULL){
+        if(!$padding) $padding = self::Space;        
+        return new static(str_pad($this->value, $length(), (string)$padding, STR_PAD_LEFT));
+    }    
+    
+    /**
+     * The remove method, removes all occurrences of a substring from the string.
+     * @param Objective  $substr 
+     * @access public
      * @return String
      */
-    public function remove($substr){
-        return $this->replace($substr, '');
-    }
-    
-    public function removeDuplicates($substr){
-        $pattern = '/('.preg_quote($substr, '/').')+/';
-        return $this->replaceRegex($pattern, $substr);
+    public function remove(Objective $substr){
+        return $this->replace($substr);
     }
     
     /**
-     * Removes first occurrence of a substring from the string.
-     * @param string $substr substring
-     * @param bool $regex whether $substr is a regular expression
+     * The removeAll method, removes all occurrences of a an array of substrings from the string.
+     * @param Arrays  $array
+     * @access public
      * @return String
      */
-    public function removeOnce($substr){
-        return $this->removeRegex($substr, 1);
-    }
-    
-    public function removeRegex($pattern, $limit = null){
-        $this->replaceRegex($pattern, '', $limit);
-    }
-    
+    public function removeAll(Arrays $array){
+        return $this->replaceAll($array);
+    }    
+
+    /**
+     * The removeSpaces method, removes blank spaces from the string.
+     * @access public
+     * @return String
+     */    
     public function removeSpaces(){
-        return $this->remove(array(" ", "\r", "\n", "\t", "\0", "\x0B"));
+        $this->removeAll($this->getSpaces());
     }
     
     /**
-     * Repeats the string $multiplier times.
+     * The repeat method, repeats the string $multiplier times.
      * If seperator is not null, it will seperate the repeated string.
-     * @param int $multiplier number of times the string should be repeated.
-     * @param String $separator
+     * @param Objective  $separator
+     * @param Int  $multiplier 
+     * @access public
      * @return String
      */
-    public function repeat($multiplier, $separator = null){
-        if ($multiplier === 0) {
-            $string = '';
-        } 
-		else if ($separator === null) {
-            $string = str_repeat($this->_string, $multiplier);
-        } 
-		else {
-            $string = str_repeat($this->_string.(string)$separator, $multiplier - 1) . $this->_string;
-        }
-        return new self($string);
+    public function repeat(Objective $separator = NULL, Int $multiplier = NULL){
+        $multiplier = ($multiplier)?$multiplier():0; 
+        if ($multiplier === 0) $string = '';
+		elseif(!$separator) $string = str_repeat($this->value, $multiplier);
+		else $string = str_repeat($this->value.(string)$separator, $multiplier - 1) . $this->value;
+        return new static($string);
     }
-    
-    public function replace($search, $replace){
-        $string = str_replace($search, $replace, $this->_string);
-        return new self($string);
-    }
-    
-    public function replaceOnce($search, $replace){
-     	return $this->replaceRegex($search, $replace, 1);
-    }
-    
-    public function replaceRegex($search, $replace, $limit = null){
-        $limit = (($limit === null) ? -1 : (int)$limit);
-        $string = preg_replace($search, $replace, $this->_string, $limit);
-        return new self($string);
+   
+    /**
+     * The replace method, replaces a substring with a specified new substring.
+     * @param Objective  $search
+     * @param Objective  $replace
+     * @access public
+     * @return String
+     */    
+    public function replace(Objective $search, Objective $replace = NULL){
+        $string = str_replace((string)$search, (string)$replace, $this->value);
+        return new static($string);
     }
     
     /**
-     * Revereses a string.
+     * The replaceAll method, replaces an array of substring with a specified new substring.
+     * @param Arrays  $search
+     * @param Objective  $replace
+     * @access public
+     * @return String
+     */    
+    public function replaceAll(Arrays $search, Objective $replace = NULL){
+        $string = str_replace($search->toArray(), (string)$replace, $this->value);
+        return new static($string);
+    }    
+    
+    /**
+     * The replaceChar method, replaces a character with a specified new character.
+     * @param Char $search
+     * @param Char  $replace
+     * @access public
+     * @return String
+     */    
+    public function replaceChar(Char $search, Char $replace){
+        $string = str_replace((string)$search, (string)$replace, $this->value);
+        return new static($string);
+    }    
+    
+    /**
+     * The reverse method, revereses a string.
+     * @access public
      * @return String
      */
     public function reverse(){
-        if ($this->getEncoding() === 'UTF-8' && function_exists('utf8_strrev')) {
-            $string = utf8_strrev($this->_string);
-        } 
-		else {
-            $string = strrev($this->_string);
-        }
-        return new self($string);
+        return new static(strrev($this->value));
     }
     
     /**
-     * Rewind the Iterator to the first element.
+     * The rewind method, rewind the String Iterator to the first element.
+     * @access public
+     * @return Void
      */
     public function rewind(){
-        $this->_index = 0;
+        $this->offset = 0;
     }
     
     /**
-     * Returns the rightmost $length characters of a string.
-     * @param int $length number of characters.
+     * The right method, returns the rightmost $length characters of a string.
+     * @param Int  $length
+     * @access public
      * @return String
      */
-    public function right($length){
-        return $this->substring(-$length);
+    public function right(Int $length){
+        return $this->substring(new Integer($length() * -1));
     }
     
     /**
-     * Shuffles a string randomly.
+     * The shuffle method, shuffles a string randomly.
      * One permutation of all possible is created.
+     * @access public
      * @return String
      */
     public function shuffle(){
-        return new self(str_shuffle($this->_string));
+        return new static(str_shuffle($this->value));
     }
     
     /**
-     * Removes a part of the string and replace it with something else.
-     * Example:
-     * <code>
-     * $string = new String('The fox jumped over the lazy dog.');
-     * echo $string->splice(4, 0, 'quick brown ');
-     * </code>
-     * prints 'The quick brown fox jumped over the lazy dog.'
+     * The splice method, removes a part of the string and replace it with something else.
+     * @param Int  $offset
+     * @param Int  $length
+     * @param Objective  $replacement
      * @return String
      */
-    public function splice($offset, $length = null, $replacement = ''){
-        $count = $this->length();
+    public function splice(Int $offset, Int $length = NULL, Objective $replacement = NULL){
+        $count = $this->count();
+        $len = ($length)?$length():NULL;
+        $replacement = ($replacement)?(string)$replacement:'';
         
-        // Offset handling (negative values measure from end of string)
-        if ($offset < 0) {
-            $offset += $count;
-        }
-        
-        // Length handling (positive values measure from $offset; negative, from end of string; omitted = end of string)
-        if ($length === null) {
-            $length = $count;
-        } 
-		else if ($length < 0) {
-            $length += $count - $offset;
-        }
-
-        return new self($this->substring(0, $offset) .
-                        (string)$replacement .
-                        $this->substring($offset + $length)
-                        );
-    }
+        if($offset->isNegative()) $offset += $count;
+        if(!$len) $len = $count;
+		elseif($len < 0) $len += $count - $offset();
+        return new static((string)$this->substring(new Integer(0), $offset).(string)$replacement.
+                          (string)$this->substring($offset->plus(new Integer($len))));
+    }     
     
-    public function split($delimiter){
-        $array = explode($delimiter, $this->_string);
-        return $array;
-    }
-    
-    public function splitRegex($pattern){
-        $array = preg_split($pattern, $this->_string);
-        return $array;
+    /**
+     * The split method, convert a string to an array based on the delimiter provided.
+     * Different from explode, it returns a String Array object rather than PHP array.
+     * @param Objective  $delimiter
+     * @access public
+     * @return Arrays
+     */    
+    public function split(Objective $delimiter){
+        $array = $this->explode((string)$delimiter);
+        $count = count($array);
+        $strings = new Arrays($count);
+        for($i = 0; $i < $count; $i++){
+            $strings[$i] = new static($array[$i]);
+        }
+        return $strings;
     }
     
     /**
-     * Removes extra spaces and reduces string's length.
-     * Extra spaces are repeated, leading or trailing spaces.
-     * It will also convert all spaces to white-spaces.
+     * The squeeze method, removes extra spaces and reduces string's length.
+     * Extra spaces are repeated, it will also convert all spaces to white-spaces.
+     * @access public
      * @return String
      */
     public function squeeze(){
-        return $this
-               ->replace(array("\r\n", "\r", "\n", "\t", "\0", "\x0B"), ' ')
-               ->removeDuplicates(' ')
-               ->trim()
-               ;
+        return $this->replace($this->getSpaces(), new String(' '))
+                    ->removeDuplicates(' ')->trim();
     }
     
     /**
-     * Checks if the string starts with a substring.
-     * @param string $substr substring
-     * @return bool true if the string starts with $substr.
+     * The startsWith method, checks if the string starts with a substring.
+     * @param Primitive  $substr
+     * @access public
+     * @return Boolean
      */
-    public function startsWith($substr){
-        return ($this->indexOf($substr) === 0);
+    public function startsWith(Primitive $substr){
+        return ($this->indexOf($substr)->isZero());
     }
     
     /**
-     * Returns part of the string.
-     * @param int $start
-     * @param int $length
+     * The substring method, returns part of the string.
+     * @param Int  $start
+     * @param Int  $length
+     * @access public
      * @return String
      */
-    public function substring($start, $length = null){
-        if (function_exists('mb_substr')) {
-            $string = mb_substr($this->_string, $start, $length, $this->getEncoding());
-        } 
-		else if ($this->getEncoding() === 'UTF-8' && function_exists('utf8_substr')) {
-            $string = utf8_substr($this->_string, $start, $length);
-        } 
-		else if (function_exists('iconv_substr')) {
-            $string = iconv_substr($this->_string, $start, $length, $this->getEncoding());
-        } 
-		else {
-            $string = substr($this->_string, $start, $length);
-        }
-        return new self($string);
+    public function substring(Int $start, Int $length = NULL){
+        $start = $start();
+        $length = ($length)?$length():NULL;
+        return new static(substr($this->value, $start, $length));
     }
     
     /**
-     * Gets the substring after the first occurrence of a separator.
-     * If no match is found returns null.
-     * @param string $separator
-     * @param bool $inclusive whether to return the seperator (default false)
+     * The substringAfterFirst method, gets the substring after the first occurrence of a separator.
+     * If no match is found returns NULL.
+     * @param Objective  $separator
+     * @param Boolean  $inclusive 
+     * @access public
      * @return String
      */
-    public function substringAfterFirst($separator, $inclusive = false){
-        $incString = strstr($this->_string, $separator);
-        if ($incString === false) {
-            return null;
-        }
-        
-        $string = new self($incString);
-        if ($inclusive) {
-            return $string;
-        }
-        return $string->substring(1);
+    public function substringAfterFirst(Objective $separator, $inclusive = FALSE){
+        $incString = strstr($this->value, (string)$separator);
+        if($incString === FALSE) return NULL;
+        $string = new static($incString);
+        if($inclusive) return $string;
+        return $string->substring(new Integer(1));
         
     }
     
     /**
-     * Gets the substring after the last occurrence of a separator.
-     * If no match is found returns null.
-     * @param String $separator
-     * @param bool $inclusive whether to return the seperator (default false)
+     * The substringAfterLast method, gets the substring after the last occurrence of a separator.
+     * If no match is found returns NULL.
+     * @param Objective  $separator
+     * @param Boolean  $inclusive 
+     * @access public
      * @return String
      */
-    public function substringAfterLast($separator, $inclusive = false){
-        $incString = strrchr($this->_string, $separator);
-        if ($incString === false) {
-            return null;
-        }
-        
-        $string = new self($incString);
-        if ($inclusive) {
-            return $string;
-        }
-        return $string->substring(1);
+    public function substringAfterLast(Objective $separator, $inclusive = FALSE){
+        $incString = strrchr($this->value, (string)$separator);
+        if($incString === FALSE) return NULL;
+        $string = new static($incString);
+        if($inclusive) return $string;
+        return $string->substring(new Integer(1));
     }
     
     /**
-     * Gets the substring before the first occurrence of a separator.
-     * If no match is found returns null.
-     * @param String $separator
-     * @param bool $inclusive whether to return the seperator (default false)
+     * The substringBeforeFirst, gets the substring before the first occurrence of a separator.
+     * If no match is found returns NULL.
+     * @param Objective  $separator
+     * @param Boolean  $inclusive 
+     * @access public
      * @return String
      */
-    public function substringBeforeFirst($separator, $inclusive = false){
-        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-            $pos = $this->indexOf($separator);
-            if ($pos === false) {
-                return null;
-            }
-            if ($inclusive) {
-                ++$pos;
-            }
-            return $this->substring(0, $pos);
-        }
-        
-        $excString = strstr($this->_string, $separator, true);
-        if ($excString === false) {
-            return null;
-        }
-        
-        $string = new self($excString);
-        if ($inclusive) {
-            return $string->concat($separator);
-        }
+    public function substringBeforeFirst(Objective $separator, $inclusive = FALSE){   
+        $excString = strstr($this->value, (string)$separator, TRUE);
+        if($excString === FALSE) return NULL;
+        $string = new static($excString);
+        if($inclusive) return $string->concat($separator);
         return $string;
     }
     
     /**
-     * Gets the substring before the last occurrence of a separator.
-     * If no match is found returns null.
-     * @param String $separator
-     * @param bool $inclusive whether to return the seperator (default false)
+     * The substringBeforeLast, gets the substring before the last occurrence of a separator.
+     * If no match is found returns NULL.
+     * @param Objective  $separator
+     * @param Boolean  $inclusive 
      * @return String
      */
-    public function substringBeforeLast($separator, $inclusive = false){
-        $pos = $this->lastIndexOf($separator);
-        if ($pos === false) {
-                return null;
-        }
-        if ($inclusive) {
-            ++$pos;
-        }
-        return $this->substring(0, $pos);
+    public function substringBeforeLast(Objective $separator, $inclusive = FALSE){
+        $index = $this->lastIndexOf($separator);
+        if(!$index) return NULL;
+        if($inclusive) $index->next();
+        return $this->substring(new Integer(0), $index);
     }
     
     /**
-     * Gets the String that is nested in between two Strings.
+     * The substringBetween method, gets the String that is nested in between two Strings.
      * If one of the delimiters is null, it will use the other one.
      * Only the first match will be returned. If no match is found returns null.
-     * @param String $left  left  delimiter
-     * @param String $right right delimiter
+     * @param Objective  $left  
+     * @param Objective  $right 
+     * @access public
      * @return String
      */
-    public function substringBetween($left, $right = null){
-        if ($left === null && $right === null) {
-            return null;
-        }
-        if ($left === null) {
-            $left  = $right;
-        } 
-		else if ($right === null) {
-            $right = $left;
-        }
+    public function substringBetween(Objective $left = NULL, Objective $right = NULL){
+        if(!$left and !$right) return NULL;
+        if(!$left) $left = $right;
+		if(!$right) $right = $left;
         
-        if (!($left  instanceof self)) {
-            $left  = new self($left);
-        }
-        if (!($right instanceof self)) {
-            $right = new self($right);
-        }
+        $indexLeft  = $this->indexOf($left);
+        if(!$indexLeft) return NULL;
+        $indexLeft->increment($left->getLength());
         
-        $posLeft  = $this->indexOf($left);
-        if ($posLeft === false) {
-            return null;
-        }
-        $posLeft += $left->length();
-        
-        $posRight = $this->indexOf($right, $posLeft + 1);
-        if ($posRight === false) {
-            return null;
-        }
-        return $this->substring($posLeft, $posRight - $posLeft);
+        $indexRight = $this->indexOf($right, $indexLeft->succ());
+        if(!$indexRight) return NULL;
+        return $this->substring($indexLeft, $indexRight->minus($indexLeft));
     }
     
     /**
-     * Count the number of substring occurrences.
-     * @param string $substr
-     * @return int
+     * The substringCount method, count the number of substring occurrences.
+     * @param Objective  $substr
+     * @access public
+     * @return Integer
      */
-    public function substringCount($substr){
-        return substr_count($this->_string, (string)$substr);
-    }
-    
-    public function substringReplace($start, $length, $replacement = ''){
-        
+    public function substringCount(Objective $substr){
+        return new Integer(substr_count($this->value, (string)$substr));
     }
     
     /**
-     * Same as {@link substringBetween}, but returns array with all matches.
-     * If no match is found, returns null.
-     * @param String $substr1
-     * @param String $substr2
-     * @return array
-     */
-    public function substringsBetween($substr1, $substr2 = null){
-        return null;
+     * The substringReplace method, replaces a portion of this string by a substring.
+     * @param Int  $start
+     * @param Int  $length
+     * @param Objective  $replacement
+     * @access public
+     * @return Integer
+     */    
+    public function substringReplace(Int $start, Int $length = NULL, Objective $replacement = NULL){
+        $start = $start();
+        $length = ($length)?$length():NULL;
+        $replacement = ($replacement)?(string)$replacement:'';
+        return new static(substr_replace($this->value, $replacement, $start, $length));
     }
     
     /**
-     * Converts uppercase characters lowercase and vice versa.
+     * The substringSplit method, convert a string to an array with given length of substrings.
+     * @param Int  $length
+     * @access public
+     * @return Strings
+     */    
+    public function substringSplit(Int $length){
+        $array = str_split($this->value, $length());
+        $count = count($array);
+        $strings = new Arrays\Strings;
+        for($i = 0; $i < $count; $i++){
+            $strings[$i] = new static($array[$i]);
+        }
+        return $strings;
+    }    
+    
+    /**
+     * The swapCase method, converts uppercase characters lowercase and vice versa.
+     * @access public
      * @return String
      */
     public function swapCase(){
         $string = '';
-        $length = $this->length();
-        for ($i = 0; $i < $length; $i++) {
-            $char = $this->charAt($i);
-            if ($char->isLowerCase()) {
-                $string .= $char->toUpperCase();
-            } 
+        $length = $this->length()->getValue();
+        for($i = 0; $i < $length; $i++) {
+            $char = new String($this->charAt($i));
+            if($char->isLowerCase()) $string .= $char->toUpperCase();
 			else $string .= $char->toLowerCase();
         }
-        return new self($string);
-    }
+        return new static($string);
+    } 
     
     /**
-     * Converts the string to array.
+     * The toArray method, converts the string to a PHP built-in array.
      * Each element in the array contains one character.
+     * @access public
      * @return array
      */
     public function toArray(){
-        if ($this->getEncoding() === 'UTF-8' && function_exists('utf8_str_split')) {
-            return utf8_str_split($this->_string, 1);
-        }
-        return str_split($this->_string, 1);
-    }
+        return str_split($this->value, 1);
+    }    
     
     /**
-     * Returns JSON representation of the string.
+     * The toCharArray method, converts the string to a char array.
+     * Different from toArray(), this method returns a specialized CharArray Object.
+     * @access public
+     * @return Arrays
+     */	
+    public function toCharArray(){
+        $count = $this->count();
+        $chars = new Arrays($count);
+        for($i = 0; $i < $count; $i++){
+            $chars[$i] = new Char($this[$i]);
+        }
+        return $chars;
+	}
+    
+    /**
+     * The toJson method, returns JSON representation of the string.
+     * @access public
      * @return string
      */
      public function toJson(){
-        return json_encode($this->_string);
+        return json_encode($this->value);
      }
-    
+     
     /**
-     * Converts a string to lower case.
-     * Example:
-     * <code>
-     * <?php
-     * $string = new String('aBc');
-     * echo $string->toLowerCase(); // prints: abc
-     * ?>
-     * </code>
+     * The toLowerCase method, converts a string to lower case.
+     * @access public
      * @return String
      */
     public function toLowerCase(){
-        if (function_exists('mb_strtolower')) {
-            $string = mb_strtolower($this->_string, $this->getEncoding());
-        } 
-		else if ($this->getEncoding() === 'UTF-8' && function_exists('utf8_strtolower')) {
-            $string = utf8_strtolower($this->_string);
-        } 
-		else {
-            $string = strtolower($this->_string);
-        }
-        return new self($string);
-    }
-	
-    /**
-     * Returns the literal value of the string.
-     * @return string
-     */
-    public function toString(){
-        return $this->_string;
+        return new static(strtolower($this->value));
     }
     
     /**
-     * Converts a string to upper case.
-     * Example:
-     * <code>
-     * <?php
-     * $string = new String('aBc');
-     * echo $string->toUpperCase(); // prints: ABC
-     * ?>
-     * </code>
+     * The toString method, returns the actual string object.
+     * It can be used to enforce type safety when the variable type is unclear.
+     * @access public
+     * @return String
+     */
+    public function toString(){
+        return clone $this;
+    }
+    
+    /**
+     * The toUpperCase method, converts a string to upper case.
+     * @access public
      * @return String
      */
     public function toUpperCase(){
-        if (function_exists('mb_strtoupper')) {
-            $string = mb_strtoupper($this->_string, $this->getEncoding());
-        } 
-		else if ($this->getEncoding() === 'UTF-8' && function_exists('utf8_strtoupper')) {
-            $string = utf8_strtoupper($this->_string);
-        } 
-		else {
-            $string = strtoupper($this->_string);
-        }
-        return new self($string);
+        return new static(strtoupper($this->value));
     }
     
     /**
-     * Removes characters from both parts of the string.
+     * The trim method, removes characters from both parts of the string.
      * If $charlist is not provided, the default is to remove spaces.
-     * @param string $charlist characters to remove (default space characters)
+     * @param String  $charlist
+     * @access public
      * @return String
      */
-    public function trim($charlist = null){
-        if ($charlist !== null && $this->getEncoding() === 'UTF-8' && function_exists('utf8_trim')) {
-            $string = utf8_trim($this->_string, $charlist);
-        } 
-		else {
-            $string = trim($this->_string, $charlist);
-        }
-        return new self($string);
+    public function trim(String $charlist = NULL){
+        return new static(trim($this->value, $charlist));
     }
     
     /**
-     * Removes characters from the right part of the string.
+     * The trimEnd method, removes characters from the right part of the string.
      * If $charlist is not provided, the default is to remove spaces.
-     * @param string $charlist characters to remove (default space characters)
+     * @param string  $charlist 
+     * @access public
      * @return String
      */
-    public function trimEnd($charlist = null){
-        if ($charlist !== null && $this->getEncoding() === 'UTF-8' && function_exists('utf8_rtrim')) {
-            $string = utf8_rtrim($this->_string, $charlist);
-        } 
-		else {
-            $string = rtrim($this->_string, $charlist);
-        }
-        return new self($string);
+    public function trimEnd(String $charlist = NULL){
+        return new static(rtrim($this->value, (string)$charlist));
     }
     
     /**
-     * Removes characters from the left part of the string.
+     * The trimStart method, removes characters from the left part of the string.
      * If $charlist is not provided, the default is to remove spaces.
-     * @param string $charlist characters to remove (default space characters)
+     * @param String  $charlist 
+     * @access public
      * @return String
      */
-    public function trimStart($charlist = null){
-        if ($charlist !== null && $this->getEncoding() === 'UTF-8' && function_exists('utf8_ltrim')) {
-            $string = utf8_ltrim($this->_string, $charlist);
-        } 
-		else {
-            $string = ltrim($this->_string, $charlist);
-        }
-        return new self($string);
-    }
+    public function trimStart(String $charlist = NULL){
+        return new static(ltrim($this->value, $charlist));
+    } 
     
     /**
-     * Uncapitalizes a string.
-     * Changes the first letter to lowercase.
-     * Example:
-     * <code>
-     * <?php
-     * $string = new String('ABCdE');
-     * echo $string->uncapitalize(); // prints: aBCdE
-     * ?>
-     * </code>
+     * The uncapitalize method, uncapitalizes a string.
+     * It changes the first letter to lowercase.
+     * @access public
      * @return String
      */
     public function uncapitalize(){
-        if (function_exists('mb_lcfirst')) {
-            $string = mb_lcfirst($this->_string, $this->getEncoding());
-        } 
-		else if (function_exists('mb_substr')) {
-            $encoding = $this->getEncoding();
-            $string = mb_strtolower(mb_substr($this->_string, 0, 1, $encoding), $encoding) .
-                      mb_substr($this->_string, 1, null, $encoding);
-        } 
-		else if (function_exists('lcfirst')) {
-            $string = lcfirst($this->_string);
-        } 
-		else {
-            $string = strtolower(substr($this->_string, 0, 1)) .
-                      substr($this->_string, 1);
-        }
-        return new self($string);
+		$string = strtolower(substr($this->value, 0, 1)) . substr($this->value, 1);
+        return new static($string);
     }
     
     /**
-     * Checks if current position is valid.
-     * @return bool
+     * The valid method, checks if current position is valid.
+     * @access public
+     * @return Boolean
      */
     public function valid(){
-        return ($this->_index >= 0 && $this->_index < $this->length());
+        return ($this->offset >= 0 && $this->offset < $this->length());
     }
     
     /**
-     * Returns the literal value of the string.
+     * The valueOf method, returns the literal value of the string/
+     * It's alias to the value object method getValue().
+     * @access public
      * @return string
      */
     public function valueOf(){
-        return $this->_string;
-    }
+        return $this->value;
+    }    
     
-
     /**
-     * Checks if the mbstring extension is installed and loaded.
-     * @access private
-     * @return bool true if mbstring is available
+     * Magic method __call() for String class, delegates to the callback method.
+     * @param string  $name
+     * @param array  $args
+     * @access public
+     * @return String
      */
-    private static function _mbstringLoaded(){
-        if (self::$_extMbstring === null) {
-            self::$_extMbstring = (bool)extension_loaded('mbstring');
-        }
-        return self::$_extMbstring;
+    public function __call($name, $args){
+        return $this->callback($name, $args);
     }
     
-    /**
-     * Checks if the iconv extension is installed and loaded.
-     * @access private
-     * @return bool true if iconv is available
-     */
-    private static function _iconvLoaded(){
-        if (self::$_extIconv === null) {
-            self::$_extIconv = (bool)extension_loaded('iconv');
-        }
-        return self::$_extIconv;
-    }
-    
-    /**
-     * Checks if the utf8 package is installed and loaded.
-     * @access private
-     * @return bool true if utf8 package is available
-     */
-    private static function _utf8Loaded(){
-        if (self::$_extUtf8 === null) {
-            self::$_extUtf8 = (bool)(defined('UTF8_CORE') && UTF8_CORE === true);
-        }
-        return self::$_extUtf8;
-    }
-    
-    /**
-     * Returns an array with the string extensions that the class uses.
-     * Possible values: standard, mbstring, iconv, utf8.
-     * @return array
-     */
-    public static function getLoadedExtensions(){
-        $ext = array('standard');
-        if (self::_mbstringLoaded()) {
-            $ext[] = 'mbstring';
-        }
-        if (self::_iconvLoaded()) {
-            $ext[] = 'iconv';
-        }
-        if (self::_utf8Loaded()) {
-            $ext[] = 'utf8';
-        }
-        return $ext;
-    }
-    
-    /**
-     * Sets default encoding.
-     * Use null for auto-detection.
-     * @param string $encoding encoding (default null)
-     */
-    public static function setDefaultEncoding($encoding = null){
-        if ($encoding === null) {
-            self::$_defaultEncoding = null;
-        } else {
-            self::$_defaultEncoding = strtoupper(str_replace(' ', '-', (string)$encoding));
-        }
-    }
-    
-    /**
-     * Returns default encoding.
-     * @return string
-     */
-    public static function getDefaultEncoding(){
-        return self::$_defaultEncoding;
-    }
-    
-    /**
-     * Constructs a string object with the first argument as the string.
-     * Returns the result of the instance method $name.
-     * @param mixed $name callback function
-     * @param array $args function arguments. the first argument is the string literal.
+   /**
+     * Matic method __get() for String class, provides special accessible properties.
+     * @param string  $key
+     * @access public
      * @return mixed
-     * @throws BadFunctionCallException
+     * @throws IllegalArgumentException
      */
-    public static function callbackStatic($name, array $args){
-        if (empty($args)) {
-            throw new BadFunctionCallException('Static callback requires at least one parameter.');
-        }
-        $literal = array_shift($args);
-        $string = new self($literal);
-        return call_user_func_array(array($string, $name), $args);
+    public function __get($key){
+        $key = strtolower($key);
+        if ($key === "encoding") return $this->getEncoding();        
+        if ($key === "length") return $this->getLength();
+        throw new IllegalArgumentException('Undefined property specified.');
     }
     
-    /**
-     * Overload method. Proxies to {@link callbackStatic()}.
-     * Method name starts with an underscore to prevent name clashes.
-     * Example:
-     * <code>
-     * <?php
-     * echo String::_squeeze(' a  b c ') // prints: a b c
-     * ?>
-     * </code>
-     * @param mixed $name
-     * @param array $args
-     * @return mixed
-     * @throws BadFunctionCallException
-     */
-    public static function __callStatic($name, $args){
-        $name = substr($name, 1);
-        return self::callbackStatic($name, $args);
-    }
-    
-    /**
-     * Returns String with the first string argument.
-     * If no string is found, returns an empty String.
-     * Example:
-     * <code>
-     * <?php
-     * echo String::first(array(), 0, 'first', null, 'second'); // prints: first
-     * ?>
-     * </code>
+	/**
+     * Magic method __invoke() for String class, it returns the primitive data value for manipulation.
+     * @access public
      * @return String
      */
-    public static function first(){
-        $args = func_get_args();
-        foreach ($args as $arg) {
-            if (is_string($arg) || $arg instanceof self) {
-                return new self($arg);
-            }
-        }
-        return new self();
-    }
+    public function __invoke(){
+        return $this->value;  
+    }       
     
     /**
-     * Formats and returns String.
-     * @param string $string formatting string
-     * @param array $args
-     * @return String
-     */
-    public static function format($string, array $args){
-        return new self(vsprintf((string)$string), $args);
-    }
-    
-    /**
-     * Returns random String in length of $length.
-     * The String consists of characters in $charset.
-     * @param int $length String's length
-     * @param string $charset String's charset (default alpha-numeric characters)
-     * @return String
-     */
-    public static function random($length, $charset = self::ALNUM){
-        $length = (int)$length;
-        $count = (int)self::getLength($charset);
-        $str = '';
-        while ($length--) {
-            $str .= $charset[mt_rand(0, $count - 1)];
-        }
-        return new self($str);
-    }
-    
-    /**
-     * Overload method. Returns the literal value of the string.
+     * Magic method __toString() for string class, returns the literal value of the string.
      * Useful for string operations like printing and concatenation.
-     * For other uses, it is possible to use {@link toString()}.
-     * Example:
-     * <code>
-     * <?php
-     * $string = new String('123456');
-     * echo $string; // prints: 123456
-     * ?>
-     * </code>
+     * @access public
      * @return string
      */
     public function __toString(){
-        return $this->_string;
-    }
+        return $this->value;
+    }    
 }
