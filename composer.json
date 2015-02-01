@@ -1,0 +1,15 @@
+{
+    "name": "mysidia/php-collections-framework",
+    "description": "Manipulate collections of objects like C++, Java and C#",
+    "authors": [
+        {
+            "name": "Mysidia RPG, Inc",
+            "email": "worldoffame@hotmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Mysidia\\Resource\\": "src"
+        }
+    }
+}

@@ -3,7 +3,7 @@
 namespace Mysidia\Resource\Native;
 use Iterator, Serializable;
 use Mysidia\Resource\Utility\Comparable;
-use Mysidia\Resource\Exception\IllegalArgumentException
+use Mysidia\Resource\Exception\IllegalArgumentException;
 
 /**
  * The String Class, extending from the root Object class.
@@ -19,7 +19,7 @@ use Mysidia\Resource\Exception\IllegalArgumentException
  *
  */
 
-class String extends Object implements Comparable, Iterator, Primitive, Serializable{
+class String extends Object implements Comparable, Iterator, Serializable{
     
     /**
 	 * Alphabatic constant, wraps a string literal of available alphabetic chars.
