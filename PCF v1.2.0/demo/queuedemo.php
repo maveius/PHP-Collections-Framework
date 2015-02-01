@@ -1,13 +1,12 @@
 <?php
 
 require "autoloader.php";
-use Resource\Native\Objective as Objective;
-use Resource\Native\String as String;
-use Resource\Collection\ArrayList as ArrayList;
-use Resource\Utility\Comparative as Comparative;
-use Resource\Collection\ArrayList as ArrayList;
-use Resource\Collection\ArrayDeque as ArrayDeque;
-use Resource\Collection\PriorityQueue as PriorityQueue;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Native\String;
+use Mysidia\Resource\Collection\ArrayList;
+use Mysidia\Resource\Utility\Comparative;
+use Mysidia\Resource\Collection\ArrayDeque;
+use Mysidia\Resource\Collection\PriorityQueue;
 
 class StringComparator implements Comparative{
 
