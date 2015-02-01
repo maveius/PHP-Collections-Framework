@@ -2,9 +2,9 @@
 
 require __DIR__."/../vendor/autoload.php";
 
-use Mysidia\Resource\Native\String;
 use Mysidia\Resource\Collection\HashMap;
 use Mysidia\Resource\Collection\TreeMap;
+use Mysidia\Resource\Native\String;
 
 $mithosKey = new String("Mithos Yggdrasill");
 $martelKey = new String("Martel Yggdrasill");
@@ -49,7 +49,7 @@ $rodyleValue = new String("Iron Will Rodyle");
 $kvarValue = new String("Kvar the Fury Tempest ");
 $magniusValue = new String("Magnius the Pyrcoclasm");
 
-$map = new HashMap;
+$map = new HashMap();
 $map->put($mithosKey, $mithosValue);
 $map->put($martelKey, $martelValue);
 $map->put($yuanKey, $yuanValue);
@@ -82,13 +82,13 @@ foreach($entries as $entry){
     echo "Parent: ";
     $parent = ($entry->getParent() == NULL)?NULL:$entry->getParent();
     echo $parent;
-    echo "<br>";  
-    echo "<br>";       
+    echo "<br>";
+    echo "<br>";
 }
 */
 
 //echo $map->getFirstEntry()->getKey();
-$map2 = new TreeMap($map); 
+$map2 = new TreeMap($map);
 $map2->put($pronymaKey, $pronymaValue);
 $map2->put($forcystusKey, $forcystusValue);
 $map2->put($rodyleKey, $rodyleValue);
@@ -102,7 +102,7 @@ $iterator = $submap->iterator();
 
 //$descMap = $map2->descendingMap();
 $iterator = $map2->iterator();
-while($iterator->hasNext()){
+while ($iterator->hasNext()) {
     $entry = $iterator->next();
     //echo "{$entry}<br>";
     echo "{$entry->getKey()}: {$entry->getValue()}<br>";
@@ -191,4 +191,4 @@ $map2->clear();
 //var_dump($map->entrySet());
 //var_dump($iterator);
 //var_dump($map2)
-?>
+;

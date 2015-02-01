@@ -2,10 +2,10 @@
 
 require __DIR__."/../vendor/autoload.php";
 
-use Mysidia\Resource\Native\String;
 use Mysidia\Resource\Collection\ArrayList;
+use Mysidia\Resource\Native\String;
 
-$seraphim = new ArrayList(4);    
+$seraphim = new ArrayList(4);
 $mithos = new String("Mithos Yggdrasill");
 $martel = new String("Martel Yggdraill");
 $yuan = new String("Yuan Kafei");
@@ -18,7 +18,7 @@ $seraphim->insert(0, $mithos);
 $seraphIterator = $seraphim->iterator();
 
 echo "Cruxis has the following Four Seraphim:<br>";
-while($seraphIterator->hasNext()){
+while ($seraphIterator->hasNext()) {
     echo $seraphIterator->next();
     echo "<br>";
 }
@@ -38,7 +38,7 @@ $desians->add($magnius);
 $desianIterator = $desians->iterator();
 
 echo "<br>Cruxis has the following Five Grand Cardinals:<br>";
-while($desianIterator->hasNext()){
+while ($desianIterator->hasNext()) {
     echo $desianIterator->next();
     echo "<br>";
 }
@@ -54,19 +54,19 @@ $remiel = new String("Remiel");
 $cruxis->add($remiel);
 $cruxisIterator = $cruxis->iterator();
 echo "<br>The following members all belong to cruxis: <br>";
-while($cruxisIterator->hasNext()){
+while ($cruxisIterator->hasNext()) {
     echo $cruxisIterator->next();
     echo "<br>";
 }
 
-$deceaced = new ArrayList;
+$deceaced = new ArrayList();
 $deceaced->add($magnius);
 $deceaced->add($kvar);
 $deceaced->add($remiel);
 $deceaced->add($martel);
 $deceacedIterator = $deceaced->iterator();
 echo "<br>The following {$deceaced->size()} members are already dead before we visit Tethe'alla: <br>";
-while($deceacedIterator->hasNext()){
+while ($deceacedIterator->hasNext()) {
     echo $deceacedIterator->next();
     echo "<br>";
 }
@@ -74,7 +74,7 @@ while($deceacedIterator->hasNext()){
 $cruxis->removeAll($deceaced);
 $aliveIterator = $cruxis->iterator();
 echo "<br>As a result, only the following Cruxis Members are still alive: <br>";
-while($aliveIterator->hasNext()){
+while ($aliveIterator->hasNext()) {
     echo $aliveIterator->next();
     echo "<br>";
 }
@@ -82,7 +82,7 @@ while($aliveIterator->hasNext()){
 $cruxis->retainAll($desians);
 $aliveIterator = $cruxis->iterator();
 echo "<br>The Desian Grand Cardinals still alive are: <br>";
-while($aliveIterator->hasNext()){
+while ($aliveIterator->hasNext()) {
     echo $aliveIterator->next();
     echo "<br>";
 }
@@ -90,5 +90,4 @@ while($aliveIterator->hasNext()){
 //$cruxis->trimSize();
 //var_dump($cruxis);
 //var_dump($cruxis->get(1));
-
-?>
+;

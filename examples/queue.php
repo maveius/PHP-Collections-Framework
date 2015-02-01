@@ -2,22 +2,23 @@
 
 require __DIR__."/../vendor/autoload.php";
 
+use Mysidia\Resource\Collection\ArrayDeque;
+use Mysidia\Resource\Collection\ArrayList;
+use Mysidia\Resource\Collection\PriorityQueue;
 use Mysidia\Resource\Native\Objective;
 use Mysidia\Resource\Native\String;
-use Mysidia\Resource\Collection\ArrayList;
 use Mysidia\Resource\Utility\Comparative;
-use Mysidia\Resource\Collection\ArrayDeque;
-use Mysidia\Resource\Collection\PriorityQueue;
 
-class StringComparator implements Comparative{
-
-    public function compare(Objective $object = NULL, Objective $object2 = NULL){
-        $length = ($object == NULL)?0:$object->count();
-        $length2 = ($object2 == NULL)?0:$object2->count();
+class StringComparator implements Comparative
+{
+    public function compare(Objective $object = null, Objective $object2 = null)
+    {
+        $length = ($object == null) ? 0 : $object->count();
+        $length2 = ($object2 == null) ? 0 : $object2->count();
         $diff = $length - $length2;
+
         return $diff;
     }
-
 }
 
 $mithos = new String("Mithos Yggdrasill");
@@ -33,9 +34,9 @@ $arraylist = new ArrayList(3);
 $arraylist->add($mithos);
 $arraylist->add($martel);
 $arraylist->add($yuan);
-$arraylist->add($kratos); 
+$arraylist->add($kratos);
 $arraylist->add($remiel);
-$arraylist->add($zelos); 
+$arraylist->add($zelos);
 $arraylist->add($colette);
 $arraylist->add($botta);
 $queue = new PriorityQueue($arraylist);
@@ -49,12 +50,12 @@ $queue = new PriorityQueue($arraylist);
 //var_dump($queue->getArray());
 
 echo "Elements inside PriorityQueue are<br>";
-while($queue->peek()){
+while ($queue->peek()) {
     echo $queue->poll();
     echo "<br>";
 }
 
-$deque = new ArrayDeque;
+$deque = new ArrayDeque();
 $deque->offerLast($mithos);
 $deque->addLast($martel);
 $deque->addLast($yuan);
@@ -74,7 +75,7 @@ $deque->offerLast($yuan);
 echo "<br>Elements inside Deque are: <br>";
 $iterator = $deque->iterator();
 //$iterator = $deque->descendingIterator();
-while($iterator->hasNext()){
+while ($iterator->hasNext()) {
     echo $iterator->next();
     echo "<br>";
 }
@@ -86,6 +87,4 @@ while(!$deque->isEmpty()){
     echo "Deque size shrinks to {$deque->size()}<br>";
 }
 echo "Deque is now empty!";
-*/
-
-?>
+*/;
