@@ -1,8 +1,8 @@
 <?php
 
-namespace Resource\Native;
+namespace Mysidia\Resource\Native;
 use Exception;
-use Resource\Utility\Comparable;
+use Mysidia\Resource\Utility\Comparable;
 
 /**
  * The Char Class, extending from the root Object class.
