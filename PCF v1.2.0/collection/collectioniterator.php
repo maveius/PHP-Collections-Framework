@@ -1,7 +1,7 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Object;  
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Object;  
 
 /**
  * The CollectionIterator Class, extending from root Object Class and implements the Iterative interface.
