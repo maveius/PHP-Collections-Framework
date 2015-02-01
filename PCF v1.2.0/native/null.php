@@ -1,6 +1,6 @@
 <?php
 
-namespace Resource\Native;
+namespace Mysidia\Resource\Native;
 
 /**
  * The Null Class, extending from root Object Class.
