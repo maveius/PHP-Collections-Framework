@@ -1,8 +1,8 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Native\Object; 
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Native\Object; 
 
 /**
  * The Node Class, extending from the root Object Class.
