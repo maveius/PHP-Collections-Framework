@@ -1,8 +1,8 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Exception\EmptyStackException;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Exception\EmptyStackException;
 
 /**
  * The Stack Class, extending from ArrayList class and implementing Stackable Interface.
