@@ -1,9 +1,9 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Native\String; 
-use Resource\Exception\UnsupportedOperationException;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Native\String; 
+use Mysidia\Resource\Exception\UnsupportedOperationException;
 
 /**
  * The abstract Map Class, extending from the abstract Collection Class and implements Mappable Interface.
