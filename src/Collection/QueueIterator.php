@@ -4,52 +4,55 @@ namespace Mysidia\Resource\Collection;
 
 /**
  * The abstract QueueIterator Class, extending from abstract CollectionIterator Class.
- * It defines a standard queue iterator, but does not have full functionality as iterator yet. 
- * @category Resource
- * @package Collection
- * @author Ordland 
+ * It defines a standard queue iterator, but does not have full functionality as iterator yet.
+ * @category  Resource
+ * @package   Collection
+ * @author    Ordland
  * @copyright Mysidia RPG, Inc
- * @link http://www.mysidiarpg.com 
+ * @link      http://www.mysidiarpg.com
  * @abstract
  *
  */
-
-abstract class QueueIterator extends CollectionIterator{
+abstract class QueueIterator extends CollectionIterator
+{
+    /**
+     * The queue property, it stores a reference to the queue object.
+     * @access protected
+     * @var Queueable
+     */
+    protected $queue;
 
     /**
-	 * The queue property, it stores a reference to the queue object.
-	 * @access protected
-	 * @var Queueable
-    */
-	protected $queue;
-	
-	/**
-     * Constructor of QueueIterator Class, initializes basic properties for the queue iterator.    
-     * @param Queueable  $queue
+     * Constructor of QueueIterator Class, initializes basic properties for the queue iterator.
+     *
+     * @param Queueable $queue
+     *
      * @access public
      * @return Void
-     */		
-	public function __construct(Queueable $queue){
-	    $this->queue = $queue;
-		$this->cursor = 0;
-	}
+     */
+    public function __construct(Queueable $queue)
+    {
+        $this->queue = $queue;
+        $this->cursor = 0;
+    }
 
- 	/**
-     * The current method, returns the object at the current index. 
+    /**
+     * The current method, returns the object at the current index.
      * @access public
      * @return Objective
-     */			
-	public function current(){
-	    return $this->queue->get($this->cursor);
-	}
+     */
+    public function current()
+    {
+        return $this->queue->get($this->cursor);
+    }
 
- 	/**
+    /**
      * The getQueue method, fetches the internal Queue object to external script.
      * @access public
      * @return Queueable
-     */		
-	public function getQueue(){
-	    return $this->queue;
-	}
+     */
+    public function getQueue()
+    {
+        return $this->queue;
+    }
 }
-?>
