@@ -1,6 +1,6 @@
 <?php
 
-namespace Resource\Collection;
+namespace Mysidia\Resource\Collection;
 
 /**
  * The EntryIterator Class, extending from the abstract HashMapIterator Class.
