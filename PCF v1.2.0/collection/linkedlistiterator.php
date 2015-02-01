@@ -1,9 +1,9 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Exception\IllegalStateException;
-use Resource\Exception\NosuchElementException;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Exception\IllegalStateException;
+use Mysidia\Resource\Exception\NosuchElementException;
 
 /**
  * The LinkedListIterator Class, extending from ListIterator Class.
