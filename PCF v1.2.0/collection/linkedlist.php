@@ -1,9 +1,9 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Native\Arrays;
-use Resource\Exception\NosuchElementException;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Native\Arrays;
+use Mysidia\Resource\Exception\NosuchElementException;
 
 /**
  * The LinkedList Class, extending from abstract SequentialList class and implementing Dequeable and Stackable Interface.
