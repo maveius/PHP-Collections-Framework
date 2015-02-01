@@ -1,6 +1,6 @@
 <?php
 
-namespace Resource\Collection;
+namespace Mysidia\Resource\Collection;
 
 /**
  * The abstract QueueIterator Class, extending from abstract CollectionIterator Class.
