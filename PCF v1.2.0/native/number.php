@@ -1,6 +1,6 @@
 <?php
 
-namespace Resource\Native;
+namespace Mysidia\Resource\Native;
 
 /**
  * The Abstract Number Class, extends parent Object root class.
