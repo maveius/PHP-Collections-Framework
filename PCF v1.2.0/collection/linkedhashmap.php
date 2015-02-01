@@ -187,7 +187,7 @@ class LinkedHashMap extends HashMap{
      */			
 	public function transfer(Arrays $newEntries){
 		$newCapacity = $newEntries->length();
-		for($entry = $this->header->getAfter(); $entry != $this->header; $entry = $entry->getAfter()){
+		for($entry = $this->header->getAfter(); $entry !== $this->header; $entry = $entry->getAfter()){
 		    $index = $this->indexFor($entry->getHash(), $newCapacity);
 			$entry->setNext($newEntries[$index]);
 			$newEntries[$index] = $entry;
