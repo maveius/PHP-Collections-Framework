@@ -3,6 +3,7 @@
 namespace Mysidia\Resource\Native;
 use Iterator, Serializable;
 use Mysidia\Resource\Utility\Comparable;
+use Mysidia\Resource\Exception\IllegalArgumentException
 
 /**
  * The String Class, extending from the root Object class.
