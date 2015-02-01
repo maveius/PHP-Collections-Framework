@@ -1,7 +1,7 @@
 <?php
 
-namespace Resource\Utility;
-use Resource\Native;
+namespace Mysidia\Resource\Utility;
+use Mysidia\Resource\Native;
 
 /**
  * The Autoboxer Class, it is part of the utility package and extends from the Object Class.
