@@ -1,8 +1,8 @@
 <?php
 
-namespace Resource\Utility;
-use Resource\Native\Objective;
-use Resource\Native\Object;
+namespace Mysidia\Resource\Utility;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Native\Object;
 
 /**
  * The ReverseComparator Class, it is part of the utility package and extends from the Object Class.
