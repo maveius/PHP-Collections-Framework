@@ -1,10 +1,10 @@
 <?php
 
-namespace Resource\Collection;
-use Resource\Native\Objective;
-use Resource\Native\Object;
-use Resource\Native\String; 
-use Resource\Exception\UnsupportedOperationException;
+namespace Mysidia\Resource\Collection;
+use Mysidia\Resource\Native\Objective;
+use Mysidia\Resource\Native\Object;
+use Mysidia\Resource\Native\String; 
+use Mysidia\Resource\Exception\UnsupportedOperationException;
 
 /**
  * The abstract Collection Class, extending from the root Object Class and implements Collective Interface.
