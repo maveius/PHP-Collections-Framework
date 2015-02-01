@@ -5,4 +5,4 @@ It consists of a groups of classes that implement data structures to manipulate 
 
 The package also provides wrapper classes to encapsulate basic data types so they can be treated as objects in the collections, since it does not support primitive types. These wrapper classes are included in the /pcf/native folder, the namespace is Resource\Native. To create your own collectible objects, you need to either extend class Object, or to implement interface Objective. The later can be very useful if you extend from PHP built-in classes and cannot inherit from Object.
 
-The Exception and Utility package provides additional classes that can be used together with PCF. These classes introduce comparable, comparator and hashing functionality. Thery are included in the /pcf/utility folder, the namespace is Resource\Utility.
+The Exception and Utility package provides additional classes that can be used together with PCF. The Utility classes introduce comparable, comparator and hashing functionality. Thery are included in the /pcf/utility folder, the namespace is Resource\Utility.
