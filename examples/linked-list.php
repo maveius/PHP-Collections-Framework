@@ -2,9 +2,9 @@
 
 require __DIR__."/../vendor/autoload.php";
 
-use Mysidia\Resource\Native\String;
 use Mysidia\Resource\Collection\ArrayList;
 use Mysidia\Resource\Collection\LinkedList;
+use Mysidia\Resource\Native\String;
 
 $mithos = new String("Mithos Yggdrasill");
 $martel = new String("Martel Yggdrasill");
@@ -19,7 +19,7 @@ $arrayList->add(new String("Rodyle"));
 $arrayList->add(new String("Kvar"));
 $arrayList->add(new String("Magnius"));
 
-$linkedList = new LinkedList;
+$linkedList = new LinkedList();
 $linkedList->offerFirst($mithos);
 $linkedList->offerLast($martel);
 $linkedList->offerLast($yuan);
@@ -28,11 +28,11 @@ $linkedList->offerLast($kratos);
 $iterator = $linkedList->iterator();
 $iterator->add($martel);
 
-while($iterator->hasNext()){
+while ($iterator->hasNext()) {
     echo $iterator->next();
     echo "<br>";
 }
 
 //echo $linkedList->indexOf($mithos);
-//echo $linkedList->indexOf($yuan);     
-?>
+//echo $linkedList->indexOf($yuan);
+;

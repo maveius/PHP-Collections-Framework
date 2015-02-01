@@ -2,8 +2,8 @@
 
 require __DIR__."/../vendor/autoload.php";
 
-use Mysidia\Resource\Native\String;
 use Mysidia\Resource\Collection\HashMap;
+use Mysidia\Resource\Native\String;
 
 $mithosKey = new String("Mithos Yggdrasill");
 $martelKey = new String("Martel Yggdrasill");
@@ -36,7 +36,7 @@ echo $kratosValue->hashCode();
 echo "<br>";
 */
 
-$map = new HashMap;
+$map = new HashMap();
 $map->put($mithosKey, $mithosValue);
 $map->put($martelKey, $martelValue);
 $map->put($yuanKey, $yuanValue);
@@ -60,7 +60,7 @@ var_dump($map2);
 var_dump($map2->equals($map));
 */
 
-$map2 = new HashMap;
+$map2 = new HashMap();
 $map2->put($pronymaKey, $pronymaValue);
 $map2->put($forcystusKey, $forcystusValue);
 $map2->put($rodyleKey, $rodyleValue);
@@ -85,8 +85,6 @@ var_dump($map->containsValue($yuanValue));
 var_dump($map->containsValue($kratosValue));
 var_dump($map->containsValue($remielValue));
 */
-
-
 
 //$map->remove($martelKey);
 //$map->remove($yuanKey);
@@ -116,7 +114,7 @@ while($iterator->hasNext()){
 */
 
 $iterator = $map2->iterator();
-while($iterator->hasNext()){
+while ($iterator->hasNext()) {
     $entry = $iterator->nextEntry();
     echo "{$entry->getKey()}: {$entry->getValue()}<br>";
 }
@@ -135,4 +133,4 @@ $map2->clear();
 //var_dump($map->entrySet());
 //var_dump($iterator);
 //var_dump($map2)
-?>
+;
