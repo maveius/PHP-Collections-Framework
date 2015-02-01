@@ -1,6 +1,6 @@
 <?php
 
-namespace Resource\Exception;
+namespace Mysidia\Resource\Exception;
 use Exception;
 
 class NosuchElementException extends Exception{
