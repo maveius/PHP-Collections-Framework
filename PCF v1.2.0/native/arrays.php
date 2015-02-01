@@ -1,6 +1,6 @@
 <?php
 
-namespace Resource\Native;
+namespace Mysidia\Resource\Native;
 use SplFixedArray, ArrayIterator, Exception;
 
 /**
