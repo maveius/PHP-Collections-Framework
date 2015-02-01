@@ -1,6 +1,6 @@
 <?php
 
-namespace Resource\Collection; 
+namespace Mysidia\Resource\Collection; 
 
 /**
  * The EntryLinkedIterator Class, extending from the abstract LinkedHashMapIterator Class.
