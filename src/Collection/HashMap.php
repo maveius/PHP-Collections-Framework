@@ -395,7 +395,7 @@ class HashMap extends Map{
 	    $size = $map->size();
         if($size == 0) return;
 
-        if($size > $threshold){
+        if($size > $this->threshold){
             $targetCapacity = (int)($size/$this->loadFactor + 1);
 			$newCapacity = $this->entries->length();
 			while($newCapacity < $targetCapacity) $newCapacity = $newCapacity << 1;

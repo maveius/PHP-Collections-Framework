@@ -15,7 +15,7 @@ namespace Mysidia\Resource\Collection;
  *
  */
 
-final class ValueTreeIterator extends SubMapIterator{
+final class ValueSubIterator extends SubMapIterator{
 		
 	/**
      * The next method, returns the next value in iteration.

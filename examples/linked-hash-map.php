@@ -1,6 +1,7 @@
 <?php
 
-require "autoloader.php";
+require __DIR__."/../vendor/autoload.php";
+
 use Mysidia\Resource\Native\String;
 use Mysidia\Resource\Collection\LinkedHashMap;
 
