@@ -9,7 +9,7 @@ use SplFixedArray;
 /**
  * The Arrays Class, extending from SplFixedArray class.
  *
- * It defines how fixed sized numeric arrays are used in Mysidia Adoptables.
+ * It defines how fixed sized numeric arrays are used in Mysidia Framework.
  *
  * @category  Resource
  * @package   Native
