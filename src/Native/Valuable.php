@@ -21,4 +21,13 @@ interface Valuable
      * @return mixed
      */
     public function getValue();
+
+    /**
+     * Alias for getValue.
+     *
+     * @access public
+     *
+     * @return mixed
+     */
+    public function value();
 }
