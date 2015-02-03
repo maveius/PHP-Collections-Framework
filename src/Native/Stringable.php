@@ -33,7 +33,7 @@ interface Stringable
     public function toString();
 
     /**
-     * Alias for toString
+     * Alias for toString.
      *
      * @access public
      *
@@ -42,7 +42,7 @@ interface Stringable
     public function string();
 
     /**
-     * Alias for toString
+     * Alias for toString.
      *
      * @access public
      *
@@ -51,7 +51,7 @@ interface Stringable
     public function getClassName();
 
     /**
-     * Alias for toString
+     * Alias for toString.
      *
      * @access public
      *
