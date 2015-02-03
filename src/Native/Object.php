@@ -4,7 +4,9 @@ namespace Mysidia\Resource\Native;
 
 /**
  * The Abstract Object Class, root of all Mysidia library files.
+ *
  * Contrary to Java's Object root class, this one is abstract.
+ *
  * For this reason, one cannot instantiate an object of this class.
  *
  * @category  Resource
@@ -17,7 +19,8 @@ namespace Mysidia\Resource\Native;
 abstract class Object implements Objective
 {
     /**
-     * Constructor of Object Class, which simply serves as a marker for child classes.
+     * Constructor of Object Class, which simply serves as a marker for child
+     * classes.
      *
      * @access public
      */
@@ -26,7 +29,8 @@ abstract class Object implements Objective
     }
 
     /**
-     * Destructor of Object Class, which simply serves as a marker for child classes.
+     * Destructor of Object Class, which simply serves as a marker for child
+     * classes.
      *
      * @access public
      */
@@ -35,11 +39,7 @@ abstract class Object implements Objective
     }
 
     /**
-     * Magic method __clone() for Object Class, returns a copy of Object with additional operations.
-     *
-     * @access public
-     *
-     * @return Object
+     * {@inheritdoc}
      */
     public function __clone()
     {
@@ -47,13 +47,7 @@ abstract class Object implements Objective
     }
 
     /**
-     * The equals method, checks whether target object is equivalent to this one.
-     *
-     * @access public
-     *
-     * @param Objective $object
-     *
-     * @return Boolean
+     * {@inheritdoc}
      */
     public function equals(Objective $object)
     {
@@ -61,13 +55,7 @@ abstract class Object implements Objective
     }
 
     /**
-     * The getClassName method, returns class name of an instance.
-     *
-     * The return value may differ depending on child classes.
-     *
-     * @access public
-     *
-     * @return String
+     * {@inheritdoc}
      */
     public function getClassName()
     {
@@ -87,13 +75,7 @@ abstract class Object implements Objective
     }
 
     /**
-     * The serialize method, serializes an object into string format.
-     *
-     * A serialized string can be stored in Constants, Database and Sessions.
-     *
-     * @access public
-     *
-     * @return String
+     * {@inheritdoc}
      */
     public function serialize()
     {
@@ -101,15 +83,7 @@ abstract class Object implements Objective
     }
 
     /**
-     * The unserialize method, decode a string to its object representation.
-     *
-     * This method can be used to retrieve object info from Constants, Database and Sessions.
-     *
-     * @access public
-     *
-     * @param String $string
-     *
-     * @return String
+     * {@inheritdoc}
      */
     public function unserialize($string)
     {
@@ -117,11 +91,7 @@ abstract class Object implements Objective
     }
 
     /**
-     * Magic method __toString() for Object class, returns object information.
-     *
-     * @access public
-     *
-     * @return String
+     * {@inheritdoc}
      */
     public function __toString()
     {
