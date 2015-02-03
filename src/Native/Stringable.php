@@ -39,5 +39,23 @@ interface Stringable
      *
      * @return String
      */
+    public function string();
+
+    /**
+     * Alias for toString
+     *
+     * @access public
+     *
+     * @return String
+     */
     public function getClassName();
+
+    /**
+     * Alias for toString
+     *
+     * @access public
+     *
+     * @return String
+     */
+    public function className();
 }
