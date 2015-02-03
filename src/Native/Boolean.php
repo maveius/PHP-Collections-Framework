@@ -6,60 +6,54 @@ use Mysidia\Resource\Utility\Comparable;
 
 /**
  * The Boolean Class, extending the root Object class.
+ *
  * This class serves as a wrapper class for primitive data type boolean.
+ *
  * It is a final class, no child class shall derive from Boolean.
+ *
  * @category  Resource
  * @package   Native
  * @author    Ordland
  * @copyright Mysidia RPG, Inc
  * @link      http://www.mysidiarpg.com
  * @final
- *
  */
 final class Boolean extends Object implements Comparable
 {
     /**
-     * Size constant, specifies the size a boolean value occupies.
-     */
-    const Size = 8;
-
-    /**
-     * BooleanTrue constant, defines the True value for Boolean.
-     */
-    const BooleanTRUE = true;
-
-    /**
-     * BooleanFALSE constant, defines the False value for Boolean.
-     */
-    const BooleanFALSE = false;
-
-    /**
-     * The value property, which stores the primitive value for this Boolean object.
+     * The value property, which stores the primitive value for this Boolean
+     * object.
+     *
      * @access private
-     * @var Boolean
+     *
+     * @var bool
      */
     private $value;
 
     /**
      * Constructor of Boolean Class, initializes the Boolean wrapper class.
-     * If supplied argument is not of boolean type, type casting will be converted.
      *
-     * @param Any $param
+     * If supplied argument is not of boolean type, type casting will be
+     * converted.
+     *
+     * @param mixed $value
      *
      * @access public
-     * @return Void
      */
-    public function __construct($param)
+    public function __construct($value)
     {
-        if (!is_boolean($param)) {
-            $param = (boolean) $param;
+        if ($value !== true and $value !== false) {
+            $value = (boolean) $value;
         }
-        $this->value = $param;
+
+        $this->value = $value;
     }
 
     /**
      * The getValue method, returns the primitive boolean value.
+     *
      * @access public
+     *
      * @return Boolean
      */
     public function getValue()
@@ -70,29 +64,43 @@ final class Boolean extends Object implements Comparable
     /**
      * The compareTo method, compares a boolean object to another.
      *
-     * @param Boolean $target
-     *
      * @access public
-     * @return Int
+     *
+     * @param Objective $target
+     *
+     * @return int
      */
-    public function compareTo(Boolean $target)
+    public function compareTo(Objective $target)
     {
         return ($this->equals($target)) ? 0 : ($this->value ? 1 : -1);
     }
 
     /**
-     * Magic method to_String() for Boolean class, casts boolean value into string.
-     * @access public
-     * @return String
+     * {@inheritdoc}
      */
-    public function __toString()
+    public function getClassName()
     {
-        return (string) $this->value;
+        $label = $this->value ? "true" : "false";
+
+        return parent::getClassName()."(".$label.")";
     }
 
     /**
-     * Magic method __invoke() for Boolean class, it returns the primitive data value for manipulation.
+     * {@inheritdoc}
+     */
+    public function __toString()
+    {
+        $label = $this->value ? "true" : "false";
+
+        return parent::__toString()."(".$label.")";
+    }
+
+    /**
+     * Magic method __invoke() for Boolean class, it returns the primitive data
+     * value for manipulation.
+     *
      * @access public
+     *
      * @return Number
      */
     public function __invoke()
