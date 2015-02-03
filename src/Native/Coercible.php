@@ -2,6 +2,8 @@
 
 namespace Mysidia\Resource\Native;
 
+use InvalidArgumentException;
+
 /**
  * Defines methods for coercing values from any type to an expected type.
  *
@@ -19,6 +21,8 @@ interface Coercible
      * @param mixed $value
      *
      * @return mixed
+     *
+     * @throws InvalidArgumentException
      */
     public function coerce($value);
 }
