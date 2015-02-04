@@ -2,6 +2,7 @@
 
 namespace Mysidia\Resource\Test;
 
+use Mockery;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -16,4 +17,10 @@ use PHPUnit_Framework_TestCase;
  */
 abstract class Test extends PHPUnit_Framework_TestCase
 {
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+        Mockery::close();
+    }
 }
