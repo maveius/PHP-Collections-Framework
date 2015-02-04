@@ -7,8 +7,10 @@ use Exception;
 use SplFixedArray;
 
 /**
- * The Arrays Class, extending from SplFixedArray class
- * It defines how fixed sized numeric arrays are used in Mysidia Adoptables.
+ * The Arrays Class, extending from SplFixedArray class.
+ *
+ * It defines how fixed sized numeric arrays are used in Mysidia Framework.
+ *
  * @category  Resource
  * @package   Native
  * @author    Ordland
@@ -22,10 +24,13 @@ final class Arrays extends SplFixedArray implements Objective
     /**
      * The equals method, checks whether target array is equivalent to this one.
      *
-     * @param Arrays $array
-     *
      * @access public
-     * @return Boolean
+     *
+     * @param Objective $array
+     *
+     * @return bool
+     *
+     * @throws Exception
      */
     public function equals(Objective $array)
     {
@@ -38,18 +43,22 @@ final class Arrays extends SplFixedArray implements Objective
 
     /**
      * Magic method __clone() for Arrays Class, returns a copy of the array.
+     *
      * @access public
+     *
      * @return Arrays
      */
     public function __clone()
     {
-        return clone $this;
+        return unserialize(serialize($this));
     }
 
     /**
      * The serialize method, serializes an array into string format.
+     *
      * @access public
-     * @return String
+     *
+     * @return string
      */
     public function serialize()
     {
@@ -58,12 +67,14 @@ final class Arrays extends SplFixedArray implements Objective
 
     /**
      * The unserialize method, decode a string to its object representation.
+     *
      * This method can be used to retrieve object info from Constants, Database and Sessions.
      *
-     * @param String $string
-     *
      * @access public
-     * @return Arrays
+     *
+     * @param string $string
+     *
+     * @return $this
      */
     public function unserialize($string)
     {
@@ -72,8 +83,10 @@ final class Arrays extends SplFixedArray implements Objective
 
     /**
      * The length method, returns the size of the array in java way.
+     *
      * @access public
-     * @return Int
+     *
+     * @return int
      */
     public function length()
     {
@@ -82,7 +95,9 @@ final class Arrays extends SplFixedArray implements Objective
 
     /**
      * The iterator method, retrieves an ArrayIterator for this Array.
+     *
      * @access public
+     *
      * @return ArrayIterator
      */
     public function iterator()
@@ -92,21 +107,25 @@ final class Arrays extends SplFixedArray implements Objective
 
     /**
      * The getClassName method, acquires the class name as Array.
+     *
      * @access public
+     *
      * @return String
      */
     public function getClassName()
     {
-        return "Array";
+        return new String(get_class($this));
     }
 
     /**
      * Magic method to_String() for Arrays class, returns basic array information.
+     *
      * @access public
-     * @return String
+     *
+     * @return string
      */
     public function __toString()
     {
-        return "Array({$this->length()})";
+        return get_class($this)."(".$this->length().")";
     }
 }
