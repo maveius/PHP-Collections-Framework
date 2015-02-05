@@ -13,18 +13,12 @@ namespace Mysidia\Resource\Native;
  * @author    Ordland
  * @copyright Mysidia RPG, Inc
  * @link      http://www.mysidiarpg.com
+ * @final
  */
-class Null extends Object
+final class Null extends Object
 {
-    /**
-     * The getValue method, returns the primitive null value.
-     *
-     * @access public
-     *
-     * @return null
-     */
-    public function getValue()
+    public function __construct()
     {
-        return;
+        $this->value = null;
     }
 }

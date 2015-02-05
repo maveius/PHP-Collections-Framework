@@ -1,8 +1,6 @@
 <?php
 
-namespace Mysidia\Resource\Utility;
-
-use Mysidia\Resource\Native\Objective;
+namespace Mysidia\Resource;
 
 /**
  * The Comparable Interface, it defines objects that can be compared with
@@ -21,9 +19,21 @@ interface Comparable
      *
      * @access public
      *
-     * @param Objective $object
+     * @param Valuable $object
      *
      * @return int
      */
-    public function compareTo(Objective $object);
+    public function compareTo(Valuable $object);
+
+    /**
+     * The equals method, checks whether target object is equivalent to this
+     * one.
+     *
+     * @access public
+     *
+     * @param mixed $object
+     *
+     * @return bool
+     */
+    public function equals($object);
 }

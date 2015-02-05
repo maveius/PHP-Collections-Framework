@@ -3,7 +3,12 @@
 namespace Mysidia\Resource\Native;
 
 use ArrayIterator;
-use Exception;
+use InvalidArgumentException;
+use Mysidia\Resource\Cloneable;
+use Mysidia\Resource\Comparable;
+use Mysidia\Resource\Stringable;
+use Mysidia\Resource\Valuable;
+use Serializable;
 use SplFixedArray;
 
 /**
@@ -17,36 +22,23 @@ use SplFixedArray;
  * @copyright Mysidia RPG, Inc
  * @link      http://www.mysidiarpg.com
  * @final
- *
  */
-final class Arrays extends SplFixedArray implements Objective
+final class Arrays extends SplFixedArray implements Comparable, Cloneable, Serializable, Stringable, Valuable
 {
     /**
-     * The equals method, checks whether target array is equivalent to this one.
-     *
-     * @access public
-     *
-     * @param Objective $array
-     *
-     * @return bool
-     *
-     * @throws Exception
+     * {@inheritdoc}
      */
-    public function equals(Objective $array)
+    public function equals($array)
     {
         if (!($array instanceof Arrays)) {
-            throw new Exception("Argument array must be an instance of Arrays.");
+            throw new InvalidArgumentException("Argument array must be an instance of Arrays");
         }
 
         return ($this == $array);
     }
 
     /**
-     * Magic method __clone() for Arrays Class, returns a copy of the array.
-     *
-     * @access public
-     *
-     * @return Arrays
+     * {@inheritdoc}
      */
     public function __clone()
     {
@@ -54,11 +46,7 @@ final class Arrays extends SplFixedArray implements Objective
     }
 
     /**
-     * The serialize method, serializes an array into string format.
-     *
-     * @access public
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function serialize()
     {
@@ -66,15 +54,7 @@ final class Arrays extends SplFixedArray implements Objective
     }
 
     /**
-     * The unserialize method, decode a string to its object representation.
-     *
-     * This method can be used to retrieve object info from Constants, Database and Sessions.
-     *
-     * @access public
-     *
-     * @param string $string
-     *
-     * @return $this
+     * {@inheritdoc}
      */
     public function unserialize($string)
     {
@@ -106,26 +86,69 @@ final class Arrays extends SplFixedArray implements Objective
     }
 
     /**
-     * The getClassName method, acquires the class name as Array.
-     *
-     * @access public
-     *
-     * @return String
+     * {@inheritdoc}
      */
     public function getClassName()
     {
-        return new String(get_class($this));
+        return $this->toString();
     }
 
     /**
-     * Magic method to_String() for Arrays class, returns basic array information.
-     *
-     * @access public
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function __toString()
     {
         return get_class($this)."(".$this->length().")";
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function compareTo(Valuable $object)
+    {
+        $a = $this->getValue();
+        $b = $object->getValue();
+
+        return ($a < $b) ? -1 : (($a > $b) ? 1 : 0);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toString()
+    {
+        return new String(get_class($this)."(".$this->length().")");
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function string()
+    {
+        return $this->toString();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function className()
+    {
+        return $this->toString();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getValue()
+    {
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function value()
+    {
+        return $this->getValue();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mysidia\Resource\Native;
+namespace Mysidia\Resource;
 
 use InvalidArgumentException;
 

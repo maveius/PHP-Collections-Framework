@@ -5,42 +5,7 @@ namespace Mysidia\Resource\Test\Native;
 use Exception;
 use Mockery;
 use Mysidia\Resource\Native\Arrays;
-use Mysidia\Resource\Native\Objective;
 use Mysidia\Resource\Test\Test;
-
-class ConcreteObjective implements Objective
-{
-    public function serialize()
-    {
-        // stub method
-    }
-
-    public function unserialize($serialized)
-    {
-        // stub method
-    }
-
-    public function equals(Objective $object)
-    {
-        // stub method
-    }
-
-    public function getClassName()
-    {
-        // stub method
-    }
-
-    public function __clone()
-    {
-        // stub method
-    }
-
-    public function __toString()
-    {
-        // stub method
-
-        return "";
-}}
 
 class ArraysTest extends Test
 {
@@ -65,9 +30,9 @@ class ArraysTest extends Test
     {
         $arrays = new Arrays();
 
-        $objective = new ConcreteObjective();
+        $objective = Mockery::mock("stdClass");
 
-        $this->assertTrue($arrays->equals($objective));
+        $this->assertFalse($arrays->equals($objective));
     }
 
     /**

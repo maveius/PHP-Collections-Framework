@@ -1,6 +1,6 @@
 <?php
 
-namespace Mysidia\Resource\Native;
+namespace Mysidia\Resource;
 
 /**
  * Returns the primitive value of an object.
