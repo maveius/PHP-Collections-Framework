@@ -187,7 +187,7 @@ class String extends Object implements Iterator, Serializable
     /**
      * Returns chars
      *
-     * @return array
+     * @return Arrays
      */
     public function getChars()
     {
@@ -533,7 +533,7 @@ class String extends Object implements Iterator, Serializable
     /**
      * Checks if the string is a palindrome
      *
-     * @return BooleanObject
+     * @return bool
      */
     public function isPalindrome()
     {
@@ -567,7 +567,7 @@ class String extends Object implements Iterator, Serializable
     /**
      * Checks is the string is unicase
      *
-     * @return BooleanObject
+     * @return bool
      */
     public function isUnicase()
     {
@@ -605,7 +605,7 @@ class String extends Object implements Iterator, Serializable
     /**
      * Checks if the string is upper case
      *
-     * @return BooleanObject
+     * @return bool
      */
     public function isUpperCase()
     {
@@ -1272,7 +1272,7 @@ class String extends Object implements Iterator, Serializable
      * @param IntegerObject $length
      * @param StringObject  $replacement
      *
-     * @return IntegerObject
+     * @return StringObject
      */
     public function substringReplace(IntegerObject $start, IntegerObject $length = null, StringObject $replacement = null)
     {
@@ -1341,7 +1341,7 @@ class String extends Object implements Iterator, Serializable
     /**
      * Checks if the string is lower case
      *
-     * @return BooleanObject
+     * @return bool
      */
     public function isLowerCase()
     {
