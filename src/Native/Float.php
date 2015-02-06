@@ -44,7 +44,7 @@ final class Float extends Number
      *
      * @return int
      */
-    private function getExp($value)
+    private function exp($value)
     {
         return (int) log10(abs($value));
     }
@@ -54,7 +54,7 @@ final class Float extends Number
      *
      * @return float
      */
-    private function getMax()
+    private function max()
     {
         return (float) self::MaxCoeff * pow(self::Base, self::MaxExp);
     }
@@ -64,7 +64,7 @@ final class Float extends Number
      *
      * @return float
      */
-    private function getMin()
+    private function min()
     {
         return (float) -1 * self::MaxCoeff * pow(self::Base, self::MaxExp);
     }
@@ -76,13 +76,13 @@ final class Float extends Number
      *
      * @throws ClassCastException
      */
-    public function toByte()
+    public function byteObject()
     {
-        if ($this->intValue($this->getValue()) < Byte::MinValue or $this->intValue($this->getValue()) > Byte::MaxValue) {
+        if ($this->integerValue() < Byte::MinValue or $this->integerValue() > Byte::MaxValue) {
             throw new ClassCastException("Cannot convert to Byte type");
         }
 
-        return new Byte($this->getValue());
+        return new Byte($this->value());
     }
 
     /**
@@ -92,13 +92,13 @@ final class Float extends Number
      *
      * @throws ClassCastException
      */
-    public function toShort()
+    public function shortObject()
     {
-        if ($this->intValue($this->getValue()) < Short::MinValue or $this->intValue($this->getValue()) > Short::MaxValue) {
+        if ($this->integerValue() < Short::MinValue or $this->integerValue() > Short::MaxValue) {
             throw new ClassCastException("Cannot convert to Short type");
         }
 
-        return new Short($this->getValue());
+        return new Short($this->integerValue());
     }
 
     /**
@@ -108,13 +108,13 @@ final class Float extends Number
      *
      * @throws ClassCastException
      */
-    public function toInteger()
+    public function integerObject()
     {
-        if ($this->intValue($this->getValue()) < Integer::MinValue or $this->intValue($this->getValue()) > Integer::MaxValue) {
+        if ($this->integerValue() < Integer::MinValue or $this->integerValue() > Integer::MaxValue) {
             throw new ClassCastException("Cannot convert to Integer type");
         }
 
-        return new Integer($this->getValue());
+        return new Integer($this->integerValue());
     }
 
     /**
@@ -124,13 +124,13 @@ final class Float extends Number
      *
      * @throws ClassCastException
      */
-    public function toLong()
+    public function longObject()
     {
-        if ($this->intValue($this->getValue()) < Long::MinValue or $this->intValue($this->getValue()) > Long::MaxValue) {
+        if ($this->integerValue() < Long::MinValue or $this->integerValue() > Long::MaxValue) {
             throw new ClassCastException("Cannot convert to Long type");
         }
 
-        return new Long($this->getValue());
+        return new Long($this->integerValue());
     }
 
     /**
@@ -142,11 +142,11 @@ final class Float extends Number
             $value = (float) $value;
         }
 
-        if ($value > $this->getMax()) {
+        if ($value > $this->max()) {
             throw new InvalidArgumentException("Supplied value cannot be greater than 3.4*10e+38 for Float type");
-        } elseif ($value < $this->getMin()) {
+        } elseif ($value < $this->min()) {
             throw new InvalidArgumentException("Supplied value cannot be smaller than -3.4*10e+38 for Float type");
-        } elseif ($this->getExp($value) < self::MinExp) {
+        } elseif ($this->exp($value) < self::MinExp) {
             throw new InvalidArgumentException("Supplied value with exponent cannot be less than 1.4*10e-45 for Float type");
         }
 

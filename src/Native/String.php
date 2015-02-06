@@ -111,29 +111,29 @@ class String extends Object implements Iterator, Serializable
      */
     private function initWithString(StringObject $string)
     {
-        $this->length = $string->getLength();
-        $this->offset = $string->getOffset();
-        $this->value = $string->getValue();
+        $this->length = $string->length();
+        $this->offset = $string->offset();
+        $this->value = $string->value();
     }
 
     /**
      * Returns length
      *
-     * @return IntegerObject
+     * @return int
      */
-    public function getLength()
+    public function length()
     {
-        return new IntegerObject($this->length);
+        return $this->length;
     }
 
     /**
      * Returns offset
      *
-     * @return IntegerObject
+     * @return int
      */
-    public function getOffset()
+    public function offset()
     {
-        return new IntegerObject($this->offset);
+        return $this->offset;
     }
 
     /**
@@ -145,7 +145,7 @@ class String extends Object implements Iterator, Serializable
     {
         $this->length = 1;
 
-        $this->value = (string) $char;
+        $this->value = $char;
     }
 
     /**
@@ -157,7 +157,7 @@ class String extends Object implements Iterator, Serializable
     {
         $this->chars = $arrays;
 
-        $this->initWithString($arrays->toString());
+        $this->initWithString(new String($arrays->join()));
     }
 
     /**
@@ -167,9 +167,9 @@ class String extends Object implements Iterator, Serializable
      */
     private function initWithObject(Valuable $object)
     {
-        $this->value = (string) $object->getValue();
+        $this->value = $object->value();
 
-        $this->length = strlen((string) $this->getValue());
+        $this->length = strlen($this->value());
     }
 
     /**
@@ -205,11 +205,9 @@ class String extends Object implements Iterator, Serializable
      */
     public function toCharArray()
     {
-        $count = (integer) $this->getLength()->getValue();
+        $chars = new Arrays($this->length());
 
-        $chars = new Arrays($count);
-
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $this->length(); $i++) {
             $chars[$i] = new Char($this[$i]);
         }
 
@@ -224,7 +222,7 @@ class String extends Object implements Iterator, Serializable
     public function capitalize()
     {
         return new static(
-            ucfirst((string) $this->getValue())
+            ucfirst($this->value())
         );
     }
 
@@ -234,7 +232,7 @@ class String extends Object implements Iterator, Serializable
     public function compareTo(Valuable $object)
     {
         return strcmp(
-            (string) $this->getValue(), (string) $object->getValue()
+            $this->value(), $object->value()
         );
     }
 
@@ -248,7 +246,7 @@ class String extends Object implements Iterator, Serializable
     public function contains(StringObject $string)
     {
         return new BooleanObject(
-            $this->indexOf($string)->getValue() !== -1
+            $this->indexOf($string)->value() !== -1
         );
     }
 
@@ -269,7 +267,7 @@ class String extends Object implements Iterator, Serializable
         }
 
         $position = strpos(
-            (string) $this->getValue(), (string) $string->getValue(), (integer) $offset->getValue()
+            $this->value(), $string->value(), $offset->value()
         );
 
         return ($position === false) ? new IntegerObject(-1) : new IntegerObject($position);
@@ -283,7 +281,7 @@ class String extends Object implements Iterator, Serializable
     public function current()
     {
         return $this->charAt(
-            $this->getOffset()
+            new IntegerObject($this->offset())
         );
     }
 
@@ -297,7 +295,7 @@ class String extends Object implements Iterator, Serializable
     public function charAt(IntegerObject $index)
     {
         return $this->substring(
-            $index, new Integer(1)
+            $index, new IntegerObject(1)
         );
     }
 
@@ -312,12 +310,12 @@ class String extends Object implements Iterator, Serializable
     public function substring(IntegerObject $start, IntegerObject $length = null)
     {
         if ($length !== null) {
-            $length = (integer) $length->getValue();
+            $length = $length->value();
         }
 
         return new static(
             substr(
-                (string) $this->getValue(), (integer) $start->getValue(), $length
+                $this->value(), $start->value(), $length
             )
         );
     }
@@ -332,7 +330,7 @@ class String extends Object implements Iterator, Serializable
     public function endsWith(StringObject $string)
     {
         return new BooleanObject(
-            $this->lastIndexOf($string)->getValue() == (integer) $this->getLength()->getValue() - (integer) $string->getLength()->getValue()
+            $this->lastIndexOf($string)->value() == $this->length() - $string->length()
         );
     }
 
@@ -353,7 +351,7 @@ class String extends Object implements Iterator, Serializable
         }
 
         $position = strrpos(
-            (string) $this->getValue(), (string) $string->getValue(), (integer) $offset->getValue()
+            $this->value(), $string->value(), $offset->value()
         );
 
         return ($position === false) ? new IntegerObject(-1) : new IntegerObject($position);
@@ -383,7 +381,7 @@ class String extends Object implements Iterator, Serializable
     public function compareToIgnoreCase(StringObject $object)
     {
         return strcasecmp(
-            (string) $this->getValue(), (string) $object->getValue()
+            $this->value(), $object->value()
         );
     }
 
@@ -397,13 +395,13 @@ class String extends Object implements Iterator, Serializable
         if (!$this->hash) {
             $this->hash = 0;
 
-            $offset = $this->getOffset();
+            $offset = $this->offset();
 
             for ($i = 0; $i < $this->length; $i++) {
                 $this->hash = 31 * $this->hash + ord($this->value[$offset++]);
             }
 
-            $this->hash = new IntegerObject((integer) $this->hash);
+            $this->hash = new IntegerObject($this->hash);
         }
 
         return $this->hash;
@@ -419,7 +417,7 @@ class String extends Object implements Iterator, Serializable
      */
     public function insert(IntegerObject $offset, StringObject $string)
     {
-        return $this->splice($offset, new Integer(0), $string);
+        return $this->splice($offset, new IntegerObject(0), $string);
     }
 
     /**
@@ -433,18 +431,18 @@ class String extends Object implements Iterator, Serializable
      */
     public function splice(IntegerObject $offset, IntegerObject $length = null, StringObject $replacement = null)
     {
-        $count = (integer) $this->getLength()->getValue();
+        $count = $this->length();
 
         $len = null;
 
         if ($length !== null) {
-            $len = (integer) $length->getValue();
+            $len = $length->value();
         }
 
-        $replacement = ($replacement) ? (string) $replacement : '';
+        $replacement = $replacement ? $replacement->value() : "";
 
         if ($offset->isNegative()) {
-            $offset = new Integer((integer) $offset->getValue() + $count);
+            $offset = new IntegerObject($offset->value() + $count);
         }
 
         if ($len === null) {
@@ -452,11 +450,11 @@ class String extends Object implements Iterator, Serializable
         }
 
         if ($len !== null and $len < 0) {
-            $len += $count - (integer) $offset->getValue();
+            $len += $count - $offset->value();
         }
 
         return new static(
-            (string) $this->substring(new Integer(0), $offset).(string) $replacement->getValue().(string) $this->substring($offset->plus(new Integer($len))->getValue())
+            $this->substring(new IntegerObject(0), $offset) . $replacement->value() . $this->substring($offset->plus($len))
         );
     }
 
@@ -468,7 +466,7 @@ class String extends Object implements Iterator, Serializable
     public function isBlank()
     {
         return new BooleanObject(
-            (string) $this->trim()->getValue() === ""
+            $this->trim()->value() === ""
         );
     }
 
@@ -484,12 +482,12 @@ class String extends Object implements Iterator, Serializable
     public function trim(StringObject $mask = null)
     {
         if ($mask !== null) {
-            $mask = (string) $mask->getValue();
+            $mask = $mask->value();
         }
 
         return new static(
             trim(
-                (string) $this->getValue(), $mask
+                $this->value(), $mask
             )
         );
     }
@@ -502,7 +500,7 @@ class String extends Object implements Iterator, Serializable
     public function isEmpty()
     {
         return new BooleanObject(
-            (string) $this->getValue() === ""
+            $this->value() === ""
         );
     }
 
@@ -514,7 +512,7 @@ class String extends Object implements Iterator, Serializable
     public function isNotBlank()
     {
         return new BooleanObject(
-            (string) $this->trim()->getValue() !== ""
+            $this->trim()->value() !== ""
         );
     }
 
@@ -526,7 +524,7 @@ class String extends Object implements Iterator, Serializable
     public function isNotEmpty()
     {
         return new BooleanObject(
-            (string) $this->getValue() !== ""
+            $this->value() !== ""
         );
     }
 
@@ -549,7 +547,7 @@ class String extends Object implements Iterator, Serializable
     {
         return new static(
             strrev(
-                (string) $this->getValue()
+                $this->value()
             )
         );
     }
@@ -583,7 +581,7 @@ class String extends Object implements Iterator, Serializable
     {
         return new static(
             strtolower(
-                (string) $this->getValue()
+                $this->value()
             )
         );
     }
@@ -597,7 +595,7 @@ class String extends Object implements Iterator, Serializable
     {
         return new static(
             strtoupper(
-                (string) $this->getValue()
+                $this->value()
             )
         );
     }
@@ -620,7 +618,7 @@ class String extends Object implements Iterator, Serializable
     public function isZero()
     {
         return new BooleanObject(
-            (string) $this->getValue() == "0"
+            $this->value() == "0"
         );
     }
 
@@ -647,16 +645,6 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * Returns length
-     *
-     * @return IntegerObject
-     */
-    public function length()
-    {
-        return $this->getLength();
-    }
-
-    /**
      * Checks if the string matches a pattern
      *
      * @param StringObject $pattern
@@ -666,7 +654,7 @@ class String extends Object implements Iterator, Serializable
     public function matches(StringObject $pattern)
     {
         return new BooleanObject(
-            preg_match((string) $pattern->getValue(), (string) $this->getValue())
+            preg_match($pattern->value(), $this->value())
         );
     }
 
@@ -681,7 +669,7 @@ class String extends Object implements Iterator, Serializable
     {
         return new IntegerObject(
             strnatcmp(
-                (string) $this->getValue(), (string) $string->getValue()
+                $this->value(), $string->value()
             )
         );
     }
@@ -697,7 +685,7 @@ class String extends Object implements Iterator, Serializable
     {
         return new IntegerObject(
             strnatcasecmp(
-                (string) $this->getValue(), (string) $string->getValue()
+                $this->value(), $string->value()
             )
         );
     }
@@ -722,7 +710,7 @@ class String extends Object implements Iterator, Serializable
     public function offsetExists(IntegerObject $offset)
     {
         return new BooleanObject(
-            (integer) $offset->getValue() >= 0 and (integer) $offset->getValue() < (integer) $this->getLength()->getValue()
+            $offset->value() >= 0 and $offset->value() < $this->length()
         );
     }
 
@@ -782,7 +770,7 @@ class String extends Object implements Iterator, Serializable
 
         return new static(
             str_pad(
-                (string) $this->getValue(), (integer) $length->getValue(), (string) $padding->getValue(), STR_PAD_BOTH
+                $this->value(), $length->value(), $padding->value(), STR_PAD_BOTH
             )
         );
     }
@@ -803,7 +791,7 @@ class String extends Object implements Iterator, Serializable
 
         return new static(
             str_pad(
-                (string) $this->getValue(), (integer) $length->getValue(), (string) $padding->getValue(), STR_PAD_RIGHT
+                $this->value(), $length->value(), $padding->value(), STR_PAD_RIGHT
             )
         );
     }
@@ -824,7 +812,7 @@ class String extends Object implements Iterator, Serializable
 
         return new static(
             str_pad(
-                (string) $this->getValue(), (integer) (integer) $length->getValue(), (string) $padding->getValue(), STR_PAD_LEFT
+                $this->value(), $length->value(), $padding->value(), STR_PAD_LEFT
             )
         );
     }
@@ -853,7 +841,7 @@ class String extends Object implements Iterator, Serializable
     {
         return new static(
             str_replace(
-                (string) $search->getValue(), (string) $replace->getValue(), (string) $this->getValue()
+                $search->value(), $replace->value(), $this->value()
             )
         );
     }
@@ -892,7 +880,7 @@ class String extends Object implements Iterator, Serializable
     {
         return new static(
             str_replace(
-                $search->toArray(), (string) $replace->getValue(), (string) $this->getValue()
+                $search->value(), $replace->value(), $this->value()
             )
         );
     }
@@ -934,14 +922,14 @@ class String extends Object implements Iterator, Serializable
             $multiplier = new IntegerObject(0);
         }
 
-        $value = (integer) $multiplier->getValue();
+        $value = $multiplier->value();
 
         if ($value === 0) {
             $string = "";
         } elseif ($separator == null) {
-            $string = str_repeat((string) $this->getValue(), $value);
+            $string = str_repeat($this->value(), $value);
         } else {
-            $string = str_repeat((string) $this->getValue().(string) $separator->getValue(), $value - 1).(string) $this->getValue();
+            $string = str_repeat($this->value() . $separator->value(), $value - 1) . $this->value();
         }
 
         return new static($string);
@@ -959,7 +947,7 @@ class String extends Object implements Iterator, Serializable
     {
         return new static(
             str_replace(
-                (string) $search->getValue(), (string) $replace->getValue(), (string) $this->getValue()
+                $search->value(), $replace->value(), $this->value()
             )
         );
     }
@@ -984,8 +972,8 @@ class String extends Object implements Iterator, Serializable
     public function right(IntegerObject $length)
     {
         return $this->substring(
-            new Integer(
-                (integer) $length->getValue() * -1
+            new IntegerObject(
+                $length->value() * -1
             )
         );
     }
@@ -999,7 +987,7 @@ class String extends Object implements Iterator, Serializable
     {
         return new static(
             str_shuffle(
-                (string) $this->getValue()
+                $this->value()
             )
         );
     }
@@ -1013,7 +1001,7 @@ class String extends Object implements Iterator, Serializable
      */
     public function split(StringObject $delimiter)
     {
-        $array = $this->explode($delimiter->getValue());
+        $array = $this->explode($delimiter->value());
 
         $count = count($array);
 
@@ -1039,7 +1027,7 @@ class String extends Object implements Iterator, Serializable
             $delimiter = new StringObject(",");
         }
 
-        return explode((string) $delimiter->getValue(), (string) $this->getValue());
+        return explode($delimiter->value(), $this->value());
     }
 
     /**
@@ -1051,7 +1039,7 @@ class String extends Object implements Iterator, Serializable
     {
         return $this
             ->replace(
-                $this->getSpaces()->toString(), new StringObject(" ")
+                new StringObject($this->getSpaces()->join()), new StringObject(" ")
             )
             ->trim();
     }
@@ -1066,7 +1054,7 @@ class String extends Object implements Iterator, Serializable
     public function startsWith(StringObject $string)
     {
         return new BooleanObject(
-            (integer) $this->indexOf($string)->getValue() === 0
+            $this->indexOf($string)->value() === 0
         );
     }
 
@@ -1086,7 +1074,7 @@ class String extends Object implements Iterator, Serializable
             $inclusive = new BooleanObject(false);
         }
 
-        $incString = strstr((string) $this->getValue(), (string) $separator->getValue());
+        $incString = strstr($this->value(), $separator->value());
 
         if ($incString === false) {
             return;
@@ -1098,7 +1086,7 @@ class String extends Object implements Iterator, Serializable
             return $string;
         }
 
-        return $string->substring(new Integer(1));
+        return $string->substring(new IntegerObject(1));
     }
 
     /**
@@ -1117,7 +1105,7 @@ class String extends Object implements Iterator, Serializable
             $inclusive = new BooleanObject(false);
         }
 
-        $incString = strrchr((string) $this->getValue(), (string) $separator->getValue());
+        $incString = strrchr($this->value(), $separator->value());
 
         if ($incString === false) {
             return;
@@ -1129,7 +1117,7 @@ class String extends Object implements Iterator, Serializable
             return $string;
         }
 
-        return $string->substring(new Integer(1));
+        return $string->substring(new IntegerObject(1));
     }
 
     /**
@@ -1148,7 +1136,7 @@ class String extends Object implements Iterator, Serializable
             $inclusive = new BooleanObject(false);
         }
 
-        $excString = strstr((string) $this->getValue(), (string) $separator->getValue(), true);
+        $excString = strstr($this->value(), $separator->value(), true);
 
         if ($excString === false) {
             return;
@@ -1173,7 +1161,7 @@ class String extends Object implements Iterator, Serializable
     public function concat(StringObject $string)
     {
         return new static(
-            (string) $this->getValue().(string) $string->getValue()
+            $this->value() . $string->value()
         );
     }
 
@@ -1203,7 +1191,7 @@ class String extends Object implements Iterator, Serializable
             $index->next();
         }
 
-        return $this->substring(new Integer(0), $index);
+        return $this->substring(new IntegerObject(0), $index);
     }
 
     /**
@@ -1238,7 +1226,7 @@ class String extends Object implements Iterator, Serializable
             return;
         }
 
-        $indexLeft->increment($left->getLength());
+        $indexLeft->increment($left->length());
 
         $indexRight = $this->indexOf($right, $indexLeft->succ());
 
@@ -1260,7 +1248,7 @@ class String extends Object implements Iterator, Serializable
     {
         return new IntegerObject(
             substr_count(
-                (string) $this->getValue(), (string) $string->getValue()
+                $this->value(), $string->value()
             )
         );
     }
@@ -1276,19 +1264,19 @@ class String extends Object implements Iterator, Serializable
      */
     public function substringReplace(IntegerObject $start, IntegerObject $length = null, StringObject $replacement = null)
     {
-        $start = (integer) $start->getValue();
+        $start = $start->value();
 
         if ($length !== null) {
-            $length = (integer) $length->getValue();
+            $length = $length->value();
         }
 
         if ($replacement !== null) {
-            $replacement = (string) $replacement->getValue();
+            $replacement = $replacement->value();
         }
 
         return new static(
             substr_replace(
-                (string) $this->getValue(), $replacement, $start, $length
+                $this->value(), $replacement, $start, $length
             )
         );
     }
@@ -1302,7 +1290,7 @@ class String extends Object implements Iterator, Serializable
      */
     public function substringSplit(IntegerObject $length)
     {
-        $array = str_split((string) $this->getValue(), (integer) $length->getValue());
+        $array = str_split($this->value(), $length->value());
 
         $count = count($array);
 
@@ -1324,10 +1312,10 @@ class String extends Object implements Iterator, Serializable
     {
         $string = "";
 
-        $length = (integer) $this->getLength()->getValue();
+        $length = $this->length();
 
         for ($i = 0; $i < $length; $i++) {
-            $char = new String($this->charAt(new Integer($i)));
+            $char = new StringObject($this->charAt(new IntegerObject($i)));
             if ($char->isLowerCase()) {
                 $string .= $char->toUpperCase();
             } else {
@@ -1349,35 +1337,13 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * Converts the string to a scalar array
-     *
-     * Each element in the array contains one character
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        return str_split((string) $this->getValue(), 1);
-    }
-
-    /**
      * Returns a JSON representation of the string
      *
      * @return string
      */
-    public function toJson()
+    public function jsonValue()
     {
-        return json_encode((string) $this->getValue());
-    }
-
-    /**
-     * Returns a new String object
-     *
-     * @return StringObject
-     */
-    public function toString()
-    {
-        return clone $this;
+        return json_encode($this->value());
     }
 
     /**
@@ -1392,12 +1358,12 @@ class String extends Object implements Iterator, Serializable
     public function trimEnd(StringObject $mask = null)
     {
         if ($mask !== null) {
-            $mask = (string) $mask->getValue();
+            $mask = $mask->value();
         }
 
         return new static(
             rtrim(
-                (string) $this->getValue(), $mask
+                $this->value(), $mask
             )
         );
     }
@@ -1414,12 +1380,12 @@ class String extends Object implements Iterator, Serializable
     public function trimStart(String $mask = null)
     {
         if ($mask !== null) {
-            $mask = (string) $mask->getValue();
+            $mask = $mask->value();
         }
 
         return new static(
             ltrim(
-                (string) $this->getValue(), $mask
+                $this->value(), $mask
             )
         );
     }
@@ -1432,7 +1398,7 @@ class String extends Object implements Iterator, Serializable
     public function uncapitalize()
     {
         return new static(
-            strtolower(substr((string) $this->getValue(), 0, 1)).substr((string) $this->getValue(), 1)
+            strtolower(substr($this->value(), 0, 1)) . substr($this->value(), 1)
         );
     }
 
@@ -1444,7 +1410,7 @@ class String extends Object implements Iterator, Serializable
     public function valid()
     {
         return new BooleanObject(
-            $this->getOffset() >= 0 && $this->getOffset() < $this->getLength()
+            $this->offset() >= 0 && $this->offset() < $this->length()
         );
     }
 
@@ -1453,7 +1419,7 @@ class String extends Object implements Iterator, Serializable
      *
      * @return StringObject
      */
-    public function getEncoding()
+    public function encoding()
     {
         return new StringObject("UTF-8");
     }

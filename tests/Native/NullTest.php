@@ -14,6 +14,6 @@ class NullTest extends Test
     {
         $null = new Null();
 
-        $this->assertNull($null->getValue());
+        $this->assertNull($null->value());
     }
 }

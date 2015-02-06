@@ -6,6 +6,8 @@ use ArrayIterator;
 use InvalidArgumentException;
 use Mysidia\Resource\Cloneable;
 use Mysidia\Resource\Comparable;
+use Mysidia\Resource\Hashable;
+use Mysidia\Resource\Invokable;
 use Mysidia\Resource\Stringable;
 use Mysidia\Resource\Valuable;
 use Serializable;
@@ -16,7 +18,7 @@ use SplFixedArray;
  *
  * @author Ordland
  */
-final class Arrays extends SplFixedArray implements Comparable, Cloneable, Serializable, Stringable, Valuable
+final class Arrays extends SplFixedArray implements Cloneable, Comparable, Hashable, Invokable, Stringable, Valuable, Serializable
 {
     /**
      * {@inheritdoc}
@@ -27,7 +29,25 @@ final class Arrays extends SplFixedArray implements Comparable, Cloneable, Seria
             throw new InvalidArgumentException("Argument array must be an instance of Arrays");
         }
 
-        return ($this == $array);
+        return ($this->length() == $array->length());
+    }
+
+    /**
+     * @param string $delimiter
+     *
+     * @return string
+     */
+    public function join($delimiter = "")
+    {
+        return join($delimiter, $this->value());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hash()
+    {
+        return spl_object_hash($this);
     }
 
     /**
@@ -43,7 +63,7 @@ final class Arrays extends SplFixedArray implements Comparable, Cloneable, Seria
      */
     public function serialize()
     {
-        return serialize($this);
+        return serialize([$this->length(), $this->value()]);
     }
 
     /**
@@ -51,7 +71,24 @@ final class Arrays extends SplFixedArray implements Comparable, Cloneable, Seria
      */
     public function unserialize($string)
     {
-        return unserialize($string);
+        list($length, $value) = unserialize($string);
+
+        $this->setSize($length);
+        $this->fill($value);
+    }
+
+    /**
+     * @param array $items
+     *
+     * @return $this
+     */
+    public function fill(array $items)
+    {
+        foreach ($items as $i => $item) {
+            $this[$i] = $item;
+        }
+
+        return $this;
     }
 
     /**
@@ -77,17 +114,9 @@ final class Arrays extends SplFixedArray implements Comparable, Cloneable, Seria
     /**
      * {@inheritdoc}
      */
-    public function getClassName()
-    {
-        return $this->toString();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function __toString()
     {
-        return get_class($this)."(".$this->length().")";
+        return get_class($this)."(".$this->count().")";
     }
 
     /**
@@ -95,8 +124,12 @@ final class Arrays extends SplFixedArray implements Comparable, Cloneable, Seria
      */
     public function compareTo(Valuable $object)
     {
-        $a = $this->getValue();
-        $b = $object->getValue();
+        if (!($object instanceof Arrays)) {
+            throw new InvalidArgumentException("Argument array must be an instance of Arrays");
+        }
+
+        $a = $this->length();
+        $b = $object->length();
 
         return ($a < $b) ? -1 : (($a > $b) ? 1 : 0);
     }
@@ -104,40 +137,16 @@ final class Arrays extends SplFixedArray implements Comparable, Cloneable, Seria
     /**
      * {@inheritdoc}
      */
-    public function toString()
-    {
-        return new String(get_class($this)."(".$this->length().")");
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function string()
-    {
-        return $this->toString();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function className()
-    {
-        return $this->toString();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getValue()
-    {
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function value()
     {
-        return $this->getValue();
+        return $this->toArray();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __invoke()
+    {
+        return $this->toArray();
     }
 }

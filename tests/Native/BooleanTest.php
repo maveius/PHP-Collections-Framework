@@ -10,34 +10,29 @@ class BooleanTest extends Test
     /**
      * @test
      */
-    public function it_coerces_constructor_values()
+    public function testCoerce()
     {
-        $values = [
-            true,
-            1,
-            "anything",
-        ];
-
-        foreach ($values as $value) {
+        foreach ([true, 1, "anything"] as $value) {
             $boolean = new Boolean($value);
 
-            $this->assertTrue($boolean->getValue());
-
-            $boolean = null;
+            $this->assertTrue($boolean->value());
         }
 
-        $values = [
-            false,
-            0,
-            "",
-        ];
-
-        foreach ($values as $value) {
+        foreach ([false, 0, ""] as $value) {
             $boolean = new Boolean($value);
 
-            $this->assertFalse($boolean->getValue());
-
-            $boolean = null;
+            $this->assertFalse($boolean->value());
         }
+    }
+
+    public function testToString()
+    {
+        $firstObject = new Boolean(true);
+
+        $this->assertEquals("Mysidia\\Resource\\Native\\Boolean(true)", (string) $firstObject);
+
+        $secondObject = new Boolean(false);
+
+        $this->assertEquals("Mysidia\\Resource\\Native\\Boolean(false)", (string) $secondObject);
     }
 }

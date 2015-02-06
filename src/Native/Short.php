@@ -29,7 +29,7 @@ final class Short extends Number
      */
     public function binaryString()
     {
-        return new String(decbin($this->getValue()));
+        return new String(decbin($this->value()));
     }
 
     /**
@@ -39,7 +39,7 @@ final class Short extends Number
      */
     public function octalString()
     {
-        return new String(decoct($this->getValue()));
+        return new String(decoct($this->value()));
     }
 
     /**
@@ -51,11 +51,11 @@ final class Short extends Number
      */
     public function toByte()
     {
-        if ($this->getValue() < Byte::MinValue or $this->getValue() > Byte::MaxValue) {
+        if ($this->value() < Byte::MinValue or $this->value() > Byte::MaxValue) {
             throw new ClassCastException("Cannot convert to Byte type");
         }
 
-        return new Byte($this->getValue());
+        return new Byte($this->value());
     }
 
     /**

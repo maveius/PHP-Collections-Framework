@@ -2,104 +2,104 @@
 
 namespace Mysidia\Resource\Test\Native;
 
-use Exception;
+use InvalidArgumentException;
 use Mockery;
 use Mysidia\Resource\Native\Arrays;
 use Mysidia\Resource\Test\Test;
+use Mysidia\Resource\Valuable;
 
 class ArraysTest extends Test
 {
+    use Traits\TestClone;
+    use Traits\TestCompareTo;
+    use Traits\TestEquals;
+    use Traits\TestHash;
+    use Traits\TestInvoke;
+    use Traits\TestSerialize;
+    use Traits\TestToString;
+
     /**
-     * @test
+     * @var int
      */
-    public function it_can_be_cloned()
+    protected $firstLength;
+
+    /**
+     * @var array
+     */
+    protected $firstValue;
+
+    /**
+     * @var Arrays
+     */
+    protected $firstObject;
+
+    /**
+     * @var int
+     */
+    protected $secondLength;
+
+    /**
+     * @var array
+     */
+    protected $secondValue;
+
+    /**
+     * @var Arrays
+     */
+    protected $secondObject;
+
+    protected function setUp()
     {
-        $arrays = new Arrays();
+        parent::setUp();
 
-        $clone = clone $arrays;
+        $this->firstLength = 1;
 
-        $this->assertInstanceOf(get_class($arrays), $clone);
+        $this->firstValue = ["foo"];
+
+        $this->firstObject = new Arrays($this->firstLength);
+
+        $this->firstObject[0] = $this->firstValue[0];
+
+        $this->secondLength = 2;
+
+        $this->secondValue = ["bar", "baz"];
+
+        $this->secondObject = new Arrays($this->secondLength);
+
+        $this->secondObject[0] = $this->secondValue[0];
+        $this->secondObject[1] = $this->secondValue[1];
     }
 
     /**
-     * @test
-     *
-     * @expectedException Exception
+     * @expectedException InvalidArgumentException
      */
-    public function it_throws_for_invalid_arguments()
+    public function testThrowsForInvalidArgumentsOnEquals()
     {
-        $arrays = new Arrays();
+        $mock = Mockery::mock("stdClass");
 
-        $objective = Mockery::mock("stdClass");
-
-        $this->assertFalse($arrays->equals($objective));
+        $this->firstObject->equals($mock);
     }
 
     /**
-     * @test
+     * @expectedException InvalidArgumentException
      */
-    public function it_can_be_compared()
+    public function testThrowsForInvalidArgumentsOnCompareTo()
     {
-        $firstArrays = new Arrays();
+        /**
+         * @var $mock Valuable
+         */
+        $mock = Mockery::mock("Mysidia\\Resource\\Valuable");
 
-        $secondArrays = new Arrays();
-
-        $this->assertTrue($firstArrays->equals($secondArrays));
+        $this->firstObject->compareTo($mock);
     }
 
-    /**
-     * @test
-     */
-    public function it_can_return_length()
+    public function testLength()
     {
-        $arrays = new Arrays(3);
-
-        $this->assertEquals(3, $arrays->length());
+        $this->assertEquals($this->firstLength, $this->firstObject->length());
     }
 
-    /**
-     * @test
-     */
-    public function it_acn_return_an_iterator()
+    public function testIterator()
     {
-        $arrays = new Arrays();
-
-        $this->assertInstanceOf("Iterator", $arrays->iterator());
-    }
-
-    /**
-     * @test
-     */
-    public function it_returns_enhanced_class_name()
-    {
-        $arrays = new Arrays();
-
-        $this->assertInstanceOf("Mysidia\\Resource\\Native\\String", $arrays->getClassName());
-    }
-
-    /**
-     * @test
-     */
-    public function it_can_be_serialized_and_unserialized()
-    {
-        $arrays = new Arrays();
-
-        $serialized = serialize($arrays);
-
-        $this->assertInternalType("string", $serialized);
-
-        $unserialized = unserialize($serialized);
-
-        $this->assertEquals($arrays, $unserialized);
-    }
-
-    /**
-     * @test
-     */
-    public function it_can_be_cast_to_string()
-    {
-        $arrays = new Arrays();
-
-        $this->assertInternalType("string", (string) $arrays);
+        $this->assertInstanceOf("Iterator", $this->firstObject->iterator());
     }
 }
