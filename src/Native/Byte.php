@@ -5,34 +5,25 @@ namespace Mysidia\Resource\Native;
 use InvalidArgumentException;
 
 /**
- * The Byte Class, extending from the abstract Number class.
+ * A byte type wrapper
  *
- * This class serves as a wrapper class for primitive data type byte.
- *
- * It is a final class, no child class shall derive from Byte.
- *
- * @category  Resource
- * @package   Native
- * @author    Ordland
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
- * @final
+ * @author Ordland
  */
 final class Byte extends Number
 {
     /**
-     * MinValue constant, a byte cannot contain number less than -128.
+     * A byte cannot contain number less than -128
      */
     const MinValue = -128;
 
     /**
-     * MaxValue constant, a byte cannot contain number greater than 127.
+     * A byte cannot contain number greater than 127
      */
     const MaxValue = 127;
 
     /**
-     * The binaryString method, converts numeric values to binary strings.
-     * @access public
+     * Converts numeric values to binary strings
+     *
      * @return String
      */
     public function binaryString()

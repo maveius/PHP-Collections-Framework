@@ -6,54 +6,43 @@ use InvalidArgumentException;
 use Mysidia\Resource\Exception\ClassCastException;
 
 /**
- * The Float Class, extending from the abstract Number class.
+ * A float type wrapper
  *
- * This class serves as a wrapper class for primitive data type float.
- *
- * It is a final class, no child class shall derive from Float.
- *
- * @category  Resource
- * @package   Native
- * @author    Ordland
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
- * @final
+ * @author Ordland
  */
 final class Float extends Number
 {
     /**
-     * Base constant, stores the base used for exponent.
+     * Base used for exponent
      */
     const Base = 10;
 
     /**
-     * MinCoeff constant, specifies the coefficient for minimum exponent.
+     * Coefficient for minimum exponent
      */
     const MinCoeff = 1.4;
 
     /**
-     * MaxCoeff constant, specifies the coefficient for maximum exponent.
+     * Coefficient for maximum exponent
      */
     const MaxCoeff = 3.4;
 
     /**
-     * MinExp constant, defines the minimum allowable exponent.
+     * Minimum allowable exponent
      */
     const MinExp = -45;
 
     /**
-     * MaxExp constant, defines the maximum allowable exponent.
+     * Maximum allowable exponent
      */
     const MaxExp = 38;
 
     /**
-     * The getExp method, gets the exponent of this number.
-     *
-     * @access private
+     * Returns the exponent of this number
      *
      * @param int|float $value
      *
-     * @return Int
+     * @return int
      */
     private function getExp($value)
     {
@@ -61,33 +50,27 @@ final class Float extends Number
     }
 
     /**
-     * The getMax method, gets the maximum allowable number in Float class.
+     * Returns the maximum allowable number in Float class
      *
-     * @access private
-     *
-     * @return Float
+     * @return float
      */
     private function getMax()
     {
-        return (self::MaxCoeff * pow(self::Base, self::MaxExp));
+        return (float) self::MaxCoeff * pow(self::Base, self::MaxExp);
     }
 
     /**
-     * The getMin method, gets the minimum allowable number in Float class.
+     * Returns the minimum allowable number in Float class
      *
-     * @access private
-     *
-     * @return Float
+     * @return float
      */
     private function getMin()
     {
-        return (-1 * self::MaxCoeff * pow(self::Base, self::MaxExp));
+        return (float) -1 * self::MaxCoeff * pow(self::Base, self::MaxExp);
     }
 
     /**
-     * The toByte method, converts value and returns a Byte Object.
-     *
-     * @access public
+     * Converts value and returns a Byte object
      *
      * @return Byte
      *
@@ -103,9 +86,7 @@ final class Float extends Number
     }
 
     /**
-     * The toShort method, converts value and returns a Short Object.
-     *
-     * @access public
+     * Converts value and returns a Short object
      *
      * @return Short
      *
@@ -121,9 +102,7 @@ final class Float extends Number
     }
 
     /**
-     * The toInteger method, converts value and returns an Integer Object.
-     *
-     * @access public
+     * Converts value and returns an Integer object
      *
      * @return Integer
      *
@@ -139,9 +118,7 @@ final class Float extends Number
     }
 
     /**
-     * The toLong method, converts value and returns a Long Object.
-     *
-     * @access public
+     * Converts value and returns a Long object
      *
      * @return Long
      *

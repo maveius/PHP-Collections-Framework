@@ -8,12 +8,7 @@ use PHPUnit_Framework_TestCase;
 /**
  * This is a hook for future cross-cutting concerns.
  *
- * @category  Resource
- * @package   Native
- * @author    Christopher Pitt <cgpitt@gmail.com>
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
- * @abstract
+ * @author Christopher Pitt <cgpitt@gmail.com>
  */
 abstract class Test extends PHPUnit_Framework_TestCase
 {

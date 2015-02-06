@@ -6,54 +6,43 @@ use InvalidArgumentException;
 use Mysidia\Resource\Exception\ClassCastException;
 
 /**
- * The Double Class, extending from the abstract Number class.
+ * A double type wrapper
  *
- * This class serves as a wrapper class for primitive data type double.
- *
- * It is a final class, no child class shall derive from Double.
- *
- * @category  Resource
- * @package   Native
- * @author    Ordland
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
- * @final
+ * @author Ordland
  */
 final class Double extends Number
 {
     /**
-     * Base constant, stores the base used for exponent.
+     * Base constant for exponent
      */
     const Base = 10;
 
     /**
-     * MinCoeff constant, specifies the coefficient for minimum exponent.
+     * Coefficient for minimum exponent
      */
     const MinCoeff = 1.8;
 
     /**
-     * MaxCoeff constant, specifies the coefficient for maximum exponent.
+     * Coefficient for maximum exponent
      */
     const MaxCoeff = 4.9;
 
     /**
-     * MinExp constant, defines the minimum allowable exponent.
+     * Minimum allowable exponent
      */
     const MinExp = -324;
 
     /**
-     * MaxExp constant, defines the maximum allowable exponent.
+     * Maximum allowable exponent
      */
     const MaxExp = 308;
 
     /**
-     * The getExp method, gets the exponent of this number.
-     *
-     * @access private
+     * Returns the exponent of this number
      *
      * @param int|float $value
      *
-     * @return Int
+     * @return int
      */
     private function getExp($value)
     {
@@ -61,29 +50,27 @@ final class Double extends Number
     }
 
     /**
-     * The getMax method, gets the maximum allowable number in Double class.
-     * @access private
-     * @return Double
+     * Returns the maximum allowable number in Double class
+     *
+     * @return float
      */
     private function getMax()
     {
-        return (self::MaxCoeff * pow(self::Base, self::MaxExp));
+        return (float) self::MaxCoeff * pow(self::Base, self::MaxExp);
     }
 
     /**
-     * The getMin method, gets the minimum allowable number in Double class.
-     * @access private
-     * @return Double
+     * Returns the minimum allowable number in Double class
+     *
+     * @return float
      */
     private function getMin()
     {
-        return (-1 * self::MaxCoeff * pow(self::Base, self::MaxExp));
+        return (float) -1 * self::MaxCoeff * pow(self::Base, self::MaxExp);
     }
 
     /**
-     * The toByte method, converts value and returns a Byte Object.
-     *
-     * @access public
+     * Converts value and returns a Byte object
      *
      * @return Byte
      *
@@ -99,9 +86,7 @@ final class Double extends Number
     }
 
     /**
-     * The toShort method, converts value and returns a Short Object.
-     *
-     * @access public
+     * Converts value and returns a Short object
      *
      * @return Short
      *
@@ -117,9 +102,7 @@ final class Double extends Number
     }
 
     /**
-     * The toInteger method, converts value and returns an Integer Object.
-     *
-     * @access public
+     * Converts value and returns an Integer object
      *
      * @return Integer
      *
@@ -135,9 +118,7 @@ final class Double extends Number
     }
 
     /**
-     * The toLong method, converts value and returns a Long Object.
-     *
-     * @access public
+     * Converts value and returns a Long object
      *
      * @return Long
      *
@@ -153,9 +134,9 @@ final class Double extends Number
     }
 
     /**
-     * The toFloat method, converts value and returns a Float Object.
+     * Converts value and returns a Float object
      *
-     * In Mysidia Adoptables, converting from double to float type is disabled.
+     * Converting from double to float type is disabled
      *
      * @access public
      *

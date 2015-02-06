@@ -3,29 +3,21 @@
 namespace Mysidia\Resource;
 
 /**
- * Returns the primitive value of an object.
+ * Returns the primitive value of an object
  *
- * @category  Resource
- * @package   Collection
- * @author    Christopher Pitt <cgpitt@gmail.com>
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
+ * @author Christopher Pitt <cgpitt@gmail.com>
  */
 interface Valuable
 {
     /**
-     * Returns the primitive value of an object.
-     *
-     * @access public
+     * Returns the primitive value of an object
      *
      * @return mixed
      */
     public function getValue();
 
     /**
-     * Alias for getValue.
-     *
-     * @access public
+     * Returns the primitive value of an object
      *
      * @return mixed
      */

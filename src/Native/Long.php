@@ -6,30 +6,19 @@ use InvalidArgumentException;
 use Mysidia\Resource\Exception\ClassCastException;
 
 /**
- * The Long Class, extending from the abstract Number class.
+ * A long type wrapper
  *
- * This class serves as a wrapper class for primitive data type long.
- *
- * It is a final class, no child class shall derive from Long.
- *
- * @category  Resource
- * @package   Native
- * @author    Ordland
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
- * @final
+ * @author Ordland
  */
 final class Long extends Number
 {
     /**
-     * MinValue constant, a Long cannot contain number less than
-     * -9223372036854775808.
+     * A long cannot contain number less than -9223372036854775808
      */
     const MinValue = -9223372036854775808;
 
     /**
-     * MaxValue constant, a Long cannot contain number greater than
-     * 9223372036854775807.
+     * A long cannot contain number greater than 9223372036854775807
      */
     const MaxValue = 9223372036854775807;
 
@@ -52,9 +41,7 @@ final class Long extends Number
     }
 
     /**
-     * The binaryString method, converts numeric values to binary strings.
-     *
-     * @access public
+     * Converts numeric values to binary String
      *
      * @return String
      */
@@ -64,9 +51,7 @@ final class Long extends Number
     }
 
     /**
-     * The hexString method, converts numeric values to hex strings.
-     *
-     * @access public
+     * Converts numeric values to hex String
      *
      * @return String
      */
@@ -76,9 +61,7 @@ final class Long extends Number
     }
 
     /**
-     * The octalString method, converts numeric values to octal strings.
-     *
-     * @access public
+     * Converts numeric values to octal String
      *
      * @return String
      */
@@ -88,9 +71,7 @@ final class Long extends Number
     }
 
     /**
-     * The toByte method, converts value and returns a Byte Object.
-     *
-     * @access public
+     * Converts value and returns a Byte object
      *
      * @return Byte
      *
@@ -106,9 +87,7 @@ final class Long extends Number
     }
 
     /**
-     * The toShort method, converts value and returns a Short Object.
-     *
-     * @access public
+     * Converts value and returns a Short object
      *
      * @return Short
      *
@@ -124,9 +103,7 @@ final class Long extends Number
     }
 
     /**
-     * The toInteger method, converts value and returns an Integer Object.
-     *
-     * @access public
+     * Converts value and returns an Integer object
      *
      * @return Integer
      *

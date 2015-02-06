@@ -3,20 +3,14 @@
 namespace Mysidia\Resource;
 
 /**
- * Returns a deep copy of an object.
+ * Returns a unique object hash
  *
- * @category  Resource
- * @package   Collection
- * @author    Christopher Pitt <cgpitt@gmail.com>
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
+ * @author Christopher Pitt <cgpitt@gmail.com>
  */
 interface Hashable
 {
     /**
-     * Returns a unique object hash.
-     *
-     * @access public
+     * Returns a unique object hash
      *
      * @return float
      */

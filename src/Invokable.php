@@ -3,18 +3,14 @@
 namespace Mysidia\Resource;
 
 /**
- * Defines methods for invoking objects.
+ * Invokes the object
  *
- * @category  Resource
- * @package   Collection
- * @author    Christopher Pitt <cgpitt@gmail.com>
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
+ * @author Christopher Pitt <cgpitt@gmail.com>
  */
 interface Invokable
 {
     /**
-     * Invokes the object.
+     * Invokes the object
      *
      * @return mixed
      */

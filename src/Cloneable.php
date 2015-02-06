@@ -3,20 +3,14 @@
 namespace Mysidia\Resource;
 
 /**
- * Returns a deep copy of an object.
+ * Returns a deep copy of an object
  *
- * @category  Resource
- * @package   Collection
- * @author    Christopher Pitt <cgpitt@gmail.com>
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
+ * @author Christopher Pitt <cgpitt@gmail.com>
  */
 interface Cloneable
 {
     /**
-     * Returns a deep copy of an object.
-     *
-     * @access public
+     * Returns a deep copy of an object
      *
      * @return $this
      */

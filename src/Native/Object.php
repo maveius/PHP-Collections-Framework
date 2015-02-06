@@ -12,18 +12,9 @@ use Mysidia\Resource\Valuable;
 use Serializable;
 
 /**
- * The Abstract Object Class, root of all Mysidia library files.
+ * Base type class
  *
- * Contrary to Java's Object root class, this one is abstract.
- *
- * For this reason, one cannot instantiate an object of this class.
- *
- * @category  Resource
- * @package   Native
- * @author    Ordland
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
- * @abstract
+ * @author Ordland
  */
 abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Invokable, Stringable, Valuable, Serializable
 {
@@ -33,10 +24,7 @@ abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Inv
     protected $value;
 
     /**
-     * Constructor of Object Class, which simply serves as a marker for child
-     * classes.
-     *
-     * @access public
+     * Coerces and sets value
      *
      * @param mixed $value
      */
@@ -56,10 +44,7 @@ abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Inv
     }
 
     /**
-     * Destructor of Object Class, which simply serves as a marker for child
-     * classes.
-     *
-     * @access public
+     * Destroys stored value
      */
     public function __destruct()
     {

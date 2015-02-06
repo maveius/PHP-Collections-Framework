@@ -12,99 +12,49 @@ use Mysidia\Resource\Valuable;
 use Serializable;
 
 /**
- * The String Class, extending from the root Object class.
+ * A string type wrapper
  *
- * This class serves as a wrapper class for primitive data type string.
- *
- * In Mysidia, String can have subclasses depending on the extension used.
- *
- * @category  Resource
- * @package   Native
- * @author    Hall of Famer
- * @copyright Mysidia Adoptables Script
- * @link      http://www.mysidiaadoptables.com
- * @since     1.4.0
+ * @author Hall of Famer
  */
 class String extends Object implements Iterator, Serializable
 {
     /**
-     * Alphabetic constant, wraps a string literal of available alphabetic
-     * chars.
-     */
-    const Alphabetic = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-    /**
-     * AlphaNumeric constant, specifies a collection of available alphanumeric
-     * chars.
-     */
-    const AlphaNumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-    /**
-     * LineBreak constant, defines the line break character.
-     */
-    const LineBreak = PHP_EOL;
-
-    /**
-     * Numeric constant, contains a list of available number chars.
-     */
-    const Numeric = "0123456789";
-
-    /**
-     * Space constant, defines the space char.
-     */
-    const Space = " ";
-
-    /**
-     * The chars property, it stores the character array inside string object.
-     *
-     * @access protected
+     * Stores the character array inside string object
      *
      * @var Arrays
      */
     protected $chars;
 
     /**
-     * The hash property, it defines the hash code of this particular string.
-     *
-     * @access protected
+     * Defines the hash code of this particular string
      *
      * @var int
      */
     protected $hash;
 
     /**
-     * The length property, its an integer object representation of property
-     * $count.
-     *
-     * @access protected
+     * Stores the length of the string
      *
      * @var int
      */
     protected $length = 0;
 
     /**
-     * The offset property, it specifies the first index of storage that is
-     * used.
-     *
-     * @access protected
+     * Specifies the first index of storage that is used
      *
      * @var int
      */
     protected $offset = 0;
 
     /**
-     * The spaces property, it stores an array of all white space characters.
-     *
-     * @access protected
+     * Stores an array of all white space characters
      *
      * @var array
      */
     protected $spaces;
 
     /**
-     * The value property, it stores the internal string literal.
-     *
-     * @access protected
+     * Stores the internal string literal
      *
      * @var string
      */
@@ -119,10 +69,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The initialize method, completes string construction with given
-     * credentials.
-     *
-     * @access private
+     * Evaluates string to set cached properties
      *
      * @param mixed $object
      *
@@ -146,10 +93,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The initWithScalarString method, constructs string object with a given
-     * string.
-     *
-     * @access private
+     * Constructs String object from a scalar string
      *
      * @param string $string
      */
@@ -161,9 +105,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The initWithString method, constructs string object with a given string.
-     *
-     * @access private
+     * Constructs String object from a String object
      *
      * @param StringObject $string
      */
@@ -175,9 +117,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The getValue method, getter method for property $length.
-     *
-     * @access public
+     * Returns length
      *
      * @return IntegerObject
      */
@@ -187,9 +127,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The getOffset method, getter method for property $offset.
-     *
-     * @access public
+     * Returns offset
      *
      * @return IntegerObject
      */
@@ -199,9 +137,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The initWithChar method, constructs string object with a given character.
-     *
-     * @access private
+     * Constructs String object from a Char object
      *
      * @param Char $char
      */
@@ -213,24 +149,19 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The initWithChars method, constructs string object with a given char
-     * array.
+     * Constructs String object from an Arrays object
      *
-     * @access private
-     *
-     * @param Arrays $chars
+     * @param Arrays $arrays
      */
-    private function initWithChars(Arrays $chars)
+    private function initWithChars(Arrays $arrays)
     {
-        $this->chars = $chars;
+        $this->chars = $arrays;
 
-        $this->initWithString($chars->toString());
+        $this->initWithString($arrays->toString());
     }
 
     /**
-     * The initWithObject method, constructs string object with a given object.
-     *
-     * @access private
+     * Constructs String object from a Valuable object
      *
      * @param Valuable $object
      */
@@ -254,11 +185,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The getChars method, getter method for property $chars.
+     * Returns chars
      *
-     * @access public
-     *
-     * @return array
+     * @return Arrays
      */
     public function getChars()
     {
@@ -270,11 +199,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The toCharArray method, converts the string to a char array.
-     * Different from toArray(), this method returns a specialized CharArray
-     * Object.
-     *
-     * @access public
+     * Converts the string to a Char array
      *
      * @return Arrays
      */
@@ -292,11 +217,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The capitalize method, capitalizes this given string.
+     * Capitalizes the string
      *
-     * @access public
-     *
-     * @return String
+     * @return StringObject
      */
     public function capitalize()
     {
@@ -316,9 +239,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The contains method, checks if the string contains a substring.
-     *
-     * @access public
+     * Checks if the string contains a substring
      *
      * @param StringObject $string
      *
@@ -332,11 +253,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The indexOf method, returns the index of the first occurrence of $string
-     * in the string. In case $string is not a substring of the string, returns
-     * false.
+     * Returns the index of the first occurrence of a substring in the string
      *
-     * @access public
+     * Returns -1 if the substring is missing
      *
      * @param StringObject  $string
      * @param IntegerObject $offset
@@ -357,11 +276,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The current method, it simply returns the character at current offset.
+     * Returns the character at the current offset
      *
-     * @access public
-     *
-     * @return Char
+     * @return StringObject
      */
     public function current()
     {
@@ -371,23 +288,21 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The charAt method, finds the character at a specified index.
-     *
-     * @access public
+     * Returns the character at a specified index
      *
      * @param IntegerObject $index
      *
-     * @return Char
+     * @return StringObject
      */
     public function charAt(IntegerObject $index)
     {
-        return $this->substring((integer) $index->getValue(), 1);
+        return $this->substring(
+            $index, new Integer(1)
+        );
     }
 
     /**
-     * The substring method, returns part of the string.
-     *
-     * @access public
+     * Returns part of the string
      *
      * @param IntegerObject      $start
      * @param null|IntegerObject $length
@@ -408,9 +323,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The endsWith method, checks if the string ends with a substring.
-     *
-     * @access public
+     * Checks if the string ends with a substring
      *
      * @param StringObject $string
      *
@@ -424,11 +337,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The lastIndexOf method, returns the index of the last occurrence of
-     * $object in the string. In case $object is not a substring of the string,
-     * returns false.
+     * Returns the index of the last occurrence of a substring in the string
      *
-     * @access public
+     * Returns -1 of the substring is missing
      *
      * @param StringObject       $string
      * @param null|IntegerObject $offset
@@ -449,10 +360,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The equalsIgnoreCase method, checks string equality with
-     * case-insensitive.
-     *
-     * @access public
+     * Checks case-insensitive string equality
      *
      * @param StringObject $string
      *
@@ -466,10 +374,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The compareToIgnoreCase method, carries out case-insensitive comparison
-     * for strings.
-     *
-     * @access public
+     * Compares the string to another  without case sensitivity
      *
      * @param StringObject $object
      *
@@ -483,9 +388,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The hashCode method, generates a hash code for the string object.
-     *
-     * @access public
+     * Returns a hash code for the String object
      *
      * @return IntegerObject
      */
@@ -496,7 +399,7 @@ class String extends Object implements Iterator, Serializable
 
             $offset = $this->getOffset();
 
-            for ($i = 0; $i < $this->count; $i++) {
+            for ($i = 0; $i < $this->length; $i++) {
                 $this->hash = 31 * $this->hash + ord($this->value[$offset++]);
             }
 
@@ -507,9 +410,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The insert method, inserts another string into this string.
-     *
-     * @access public
+     * Inserts a substring into this string
      *
      * @param IntegerObject $offset
      * @param StringObject  $string
@@ -522,8 +423,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The splice method, removes a part of the string and replace it with
-     * something else.
+     * Replace a substring with another
      *
      * @param IntegerObject $offset
      * @param IntegerObject $length
@@ -561,9 +461,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The isBlank method, checks if the string is empty or whitespace-only.
-     *
-     * @access public
+     * Checks if the string is empty or whitespace-only
      *
      * @return BooleanObject
      */
@@ -575,11 +473,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The trim method, removes characters from both parts of the string.
+     * Removes characters from both ends of the string
      *
-     * If $mask is not provided, the default is to remove spaces.
-     *
-     * @access public
+     * Removes spaces if mask is missing
      *
      * @param StringObject $mask
      *
@@ -599,9 +495,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The isEmpty method, checks if the string is empty.
-     *
-     * @access public
+     * Checks if the string is empty
      *
      * @return BooleanObject
      */
@@ -613,10 +507,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The isNotBlank method, checks if the string is not empty or
-     * whitespace-only.
-     *
-     * @access public
+     * Checks if the string is not empty or whitespace-only
      *
      * @return BooleanObject
      */
@@ -628,9 +519,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The isNotEmpty method, checks if the string is not empty.
-     *
-     * @access public
+     * Checks if the string is not empty
      *
      * @return BooleanObject
      */
@@ -642,11 +531,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The isPalindrome, checks if the string is palindrome.
+     * Checks if the string is a palindrome
      *
-     * @access public
-     *
-     * @return BooleanObject
+     * @return bool
      */
     public function isPalindrome()
     {
@@ -654,9 +541,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The reverse method, reverses a string.
-     *
-     * @access public
+     * Reverses the string
      *
      * @return StringObject
      */
@@ -670,9 +555,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The isString method, checks if the object is a string or not.
-     *
-     * @access public
+     * Checks if the object is a String object
      *
      * @return BooleanObject
      */
@@ -682,13 +565,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The isUnicase method, checks is the string is unicase.
+     * Checks is the string is unicase
      *
-     * Unicase string is one that has no case for its letters.
-     *
-     * @access public
-     *
-     * @return BooleanObject
+     * @return bool
      */
     public function isUnicase()
     {
@@ -696,9 +575,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The toLowerCase method, converts a string to lower case.
-     *
-     * @access public
+     * Converts the string to lower case
      *
      * @return StringObject
      */
@@ -712,9 +589,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The toUpperCase method, converts a string to upper case.
-     *
-     * @access public
+     * Converts the string to upper case
      *
      * @return StringObject
      */
@@ -728,13 +603,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The isUpperCase method, checks if the string is upper case.
+     * Checks if the string is upper case
      *
-     * String is considered upper case if all the characters are upper case.
-     *
-     * @access public
-     *
-     * @return BooleanObject
+     * @return bool
      */
     public function isUpperCase()
     {
@@ -742,9 +613,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The isZero method, checks if the string is zero.
-     *
-     * @access public
+     * Checks if the string is zero
      *
      * @return BooleanObject
      */
@@ -756,9 +625,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The key method, return the key of the current element.
-     *
-     * @access public
+     * Returns the key of the current element
      *
      * @return IntegerObject
      */
@@ -768,9 +635,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The left method, fetches the leftmost $length characters of a string.
-     *
-     * @access public
+     * Returns the leftmost characters of the string
      *
      * @param IntegerObject $length
      *
@@ -782,9 +647,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The length method, alias to method getLength().
-     *
-     * @access public
+     * Returns length
      *
      * @return IntegerObject
      */
@@ -794,9 +657,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The matches method, evaluates if the string matches a given pattern.
-     *
-     * @access public
+     * Checks if the string matches a pattern
      *
      * @param StringObject $pattern
      *
@@ -810,9 +671,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The naturalCompareTo method, carries out natural comparison.
-     *
-     * @access public
+     * Compares strings naturally
      *
      * @param StringObject $string
      *
@@ -828,10 +687,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The naturalCompareToIgnoreCase method, carries out natural comparison
-     * with case insensitive.
-     *
-     * @access public
+     * Compares strings naturally without case sensitivity
      *
      * @param StringObject $string
      *
@@ -847,7 +703,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The next method, moves forward to the next element.
+     * Moves to the next element
      *
      * @access public
      */
@@ -857,10 +713,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The offsetExists method, checks if the string contains character at
-     * $offset.
-     *
-     * @access public
+     * Checks if the string contains a character at an offset
      *
      * @param IntegerObject $offset
      *
@@ -874,9 +727,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The offsetGet method, provides array access for accessing characters.
-     *
-     * @access public
+     * Gets a character at an offset
      *
      * @param IntegerObject $offset
      *
@@ -888,13 +739,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The offsetSet method, attempts to set a char at given string index.
+     * Sets a character at an offset
      *
-     * String is immutable.
-     *
-     * Calling this method will result in an exception.
-     *
-     * @access public
+     * Calling this method will result in an exception
      *
      * @param IntegerObject $offset
      * @param StringObject  $string
@@ -907,13 +754,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The offsetUnset method, attempts to unset a char at given string index.
-     *
-     * String is immutable.
-     *
-     * Calling this method will result in an exception.
-     *
-     * @access public
+     * Unsets a character at an offset
      *
      * @param IntegerObject $offset
      * @param StringObject  $string
@@ -926,9 +767,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The pad method, fetches the input string padded at both directions.
-     *
-     * @access public
+     * Returns the string padded at both ends
      *
      * @param IntegerObject     $length
      * @param null|StringObject $padding
@@ -938,7 +777,7 @@ class String extends Object implements Iterator, Serializable
     public function pad(IntegerObject $length, StringObject $padding = null)
     {
         if ($padding === null) {
-            $padding = static::Space;
+            $padding = " ";
         }
 
         return new static(
@@ -949,10 +788,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The padEnd method, fetches the input string padded at the right
-     * direction.
-     *
-     * @access public
+     * Returns the string padded at the right end
      *
      * @param IntegerObject     $length
      * @param null|StringObject $padding
@@ -962,7 +798,7 @@ class String extends Object implements Iterator, Serializable
     public function padEnd(IntegerObject $length, String $padding = null)
     {
         if ($padding === null) {
-            $padding = static::Space;
+            $padding = " ";
         }
 
         return new static(
@@ -973,10 +809,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The padStart method, fetches the input string padded at the left
-     * direction.
-     *
-     * @access public
+     * Returns the string padded at the left end
      *
      * @param IntegerObject     $length
      * @param null|StringObject $padding
@@ -986,7 +819,7 @@ class String extends Object implements Iterator, Serializable
     public function padStart(IntegerObject $length, String $padding = null)
     {
         if (!$padding) {
-            $padding = self::Space;
+            $padding = " ";
         }
 
         return new static(
@@ -997,14 +830,11 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The remove method, removes all occurrences of a substring from the
-     * string.
-     *
-     * @access public
+     * Removes all occurrences of a substring from the string
      *
      * @param StringObject $string
      *
-     * @return String
+     * @return StringObject
      */
     public function remove(StringObject $string)
     {
@@ -1012,9 +842,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The replace method, replaces a substring with a specified new substring.
-     *
-     * @access public
+     * Replaces a substring with another
      *
      * @param StringObject $search
      * @param StringObject $replace
@@ -1031,9 +859,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The removeSpaces method, removes blank spaces from the string.
-     *
-     * @access public
+     * Removes blank spaces from the string
      *
      * @return StringObject
      */
@@ -1043,10 +869,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The removeAll method, removes all occurrences of an array of
-     * strings from a string.
-     *
-     * @access public
+     * Removes all occurrences of an array of strings from a string
      *
      * @param Arrays $array
      *
@@ -1058,10 +881,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The replaceAll method, replaces an array of substring with a specified
-     * new substring.
-     *
-     * @access public
+     * Replaces an array of substrings with a specified new substring
      *
      * @param Arrays       $search
      * @param StringObject $replace
@@ -1078,9 +898,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The getSpaces method, getter method for property $spaces.
-     *
-     * @access public
+     * Returns spaces
      *
      * @return Arrays
      */
@@ -1103,10 +921,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The repeat method, repeats the string $multiplier times.
-     * If separator is not null, it will separate the repeated string.
-     *
-     * @access public
+     * Returns the string repeated
      *
      * @param StringObject  $separator
      * @param IntegerObject $multiplier
@@ -1133,10 +948,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The replaceChar method, replaces a character with a specified new
-     * character.
-     *
-     * @access public
+     * Replaces a character with another
      *
      * @param Char $search
      * @param Char $replace
@@ -1153,7 +965,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The rewind method, rewind the String Iterator to the first element.
+     * Rewinds the string offset
      *
      * @access public
      */
@@ -1163,9 +975,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The right method, returns the rightmost $length characters of a string.
-     *
-     * @access public
+     * Returns the rightmost characters of the string
      *
      * @param IntegerObject $length
      *
@@ -1181,11 +991,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The shuffle method, shuffles a string randomly.
-     *
-     * One permutation of all possible is created.
-     *
-     * @access public
+     * Shuffles the string
      *
      * @return StringObject
      */
@@ -1199,11 +1005,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The split method, convert a string to an array based on the delimiter
-     * provided. Different from explode, it returns a String Array object
-     * rather than PHP array.
-     *
-     * @access public
+     * Convert a string to an array based on a delimiter
      *
      * @param StringObject $delimiter
      *
@@ -1225,10 +1027,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The explode method, convert a string to an array based on the delimiter
-     * provided.
-     *
-     * @access public
+     * Converts the string to an array based on a delimiter
      *
      * @param null|StringObject $delimiter
      *
@@ -1244,11 +1043,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The squeeze method, removes extra spaces and reduces string's length.
-     * Extra spaces are repeated, it will also convert all spaces to
-     * white-spaces.
-     *
-     * @access public
+     * Removes extra spaces
      *
      * @return StringObject
      */
@@ -1262,9 +1057,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The startsWith method, checks if the string starts with a substring.
-     *
-     * @access public
+     * Checks if the string starts with a substring
      *
      * @param StringObject $string
      *
@@ -1278,12 +1071,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The substringAfterFirst method, gets the substring after the first
-     * occurrence of a separator.
+     * Returns the substring after the first occurrence of a separator
      *
-     * If no match is found returns NULL.
-     *
-     * @access public
+     * Returns null if no match is found
      *
      * @param StringObject       $separator
      * @param null|BooleanObject $inclusive
@@ -1312,10 +1102,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The substringAfterLast method, gets the substring after the last
-     * occurrence of a separator. If no match is found returns NULL.
+     * Returns the substring after the last occurrence of a separator
      *
-     * @access public
+     * Returns null if no match is found
      *
      * @param StringObject       $separator
      * @param null|BooleanObject $inclusive
@@ -1344,17 +1133,14 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The substringBeforeFirst, gets the substring before the first occurrence
-     * of a separator.
+     * Returns the substring before the first occurrence of a separator
      *
-     * If no match is found returns NULL.
-     *
-     * @access public
+     * Returns null if no match is found
      *
      * @param StringObject  $separator
      * @param BooleanObject $inclusive
      *
-     * @return StringObject
+     * @return null|StringObject
      */
     public function substringBeforeFirst(StringObject $separator, BooleanObject $inclusive = null)
     {
@@ -1378,14 +1164,11 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The concat method, concatenates this string by another and returns the
-     * combined string.
-     *
-     * @access public
+     * Concatenates the string with another
      *
      * @param StringObject $string
      *
-     * @return String
+     * @return StringObject
      */
     public function concat(StringObject $string)
     {
@@ -1395,15 +1178,14 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The substringBeforeLast, gets the substring before the last occurrence
-     * of a separator.
+     * Returns the substring before the last occurrence of a separator
      *
-     * If no match is found returns NULL.
+     * Returns null if no match is found
      *
      * @param StringObject  $separator
      * @param BooleanObject $inclusive
      *
-     * @return StringObject
+     * @return null|StringObject
      */
     public function substringBeforeLast(StringObject $separator, BooleanObject $inclusive = null)
     {
@@ -1425,20 +1207,16 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The substringBetween method, gets the String that is nested in between
-     * two Strings.
+     * Returns a substring nested in between who others
      *
-     * If one of the delimiters is null, it will use the other one. Only the
-     * first match will be returned.
+     * Only the first match is returned
      *
-     * If no match is found returns null.
-     *
-     * @access public
+     * Returns null if no match is found
      *
      * @param StringObject $left
      * @param StringObject $right
      *
-     * @return String
+     * @return null|StringObject
      */
     public function substringBetween(StringObject $left = null, StringObject $right = null)
     {
@@ -1472,9 +1250,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The substringCount method, count the number of substring occurrences.
-     *
-     * @access public
+     * Counts the number of substring occurrences
      *
      * @param StringObject $string
      *
@@ -1490,16 +1266,13 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The substringReplace method, replaces a portion of this string by a
-     * substring.
-     *
-     * @access public
+     * Replaces a substring with another
      *
      * @param IntegerObject $start
      * @param IntegerObject $length
      * @param StringObject  $replacement
      *
-     * @return IntegerObject
+     * @return StringObject
      */
     public function substringReplace(IntegerObject $start, IntegerObject $length = null, StringObject $replacement = null)
     {
@@ -1521,10 +1294,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The substringSplit method, convert a string to an array with given
-     * length of strings.
-     *
-     * @access public
+     * Converts a string to an array
      *
      * @param IntegerObject $length
      *
@@ -1546,10 +1316,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The swapCase method, converts uppercase characters lowercase and vice
-     * versa.
-     *
-     * @access public
+     * Swaps the case of characters in the string
      *
      * @return StringObject
      */
@@ -1572,13 +1339,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The isLowerCase method, checks if the string is lower case.
+     * Checks if the string is lower case
      *
-     * String is considered lower case if all the characters are lower case.
-     *
-     * @access public
-     *
-     * @return BooleanObject
+     * @return bool
      */
     public function isLowerCase()
     {
@@ -1586,10 +1349,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The toArray method, converts the string to a PHP built-in array.
-     * Each element in the array contains one character.
+     * Converts the string to a scalar array
      *
-     * @access public
+     * Each element in the array contains one character
      *
      * @return array
      */
@@ -1599,9 +1361,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The toJson method, returns JSON representation of the string.
-     *
-     * @access public
+     * Returns a JSON representation of the string
      *
      * @return string
      */
@@ -1611,13 +1371,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The toString method, returns the actual string object.
+     * Returns a new String object
      *
-     * It can be used to enforce type safety when the variable type is unclear.
-     *
-     * @access public
-     *
-     * @return String
+     * @return StringObject
      */
     public function toString()
     {
@@ -1625,11 +1381,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The trimEnd method, removes characters from the right part of the string.
+     * Removes characters from the right end of the string
      *
-     * If $mask is not provided, the default is to remove spaces.
-     *
-     * @access public
+     * Removes spaces is mask is missing
      *
      * @param StringObject $mask
      *
@@ -1649,12 +1403,9 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The trimStart method, removes characters from the left part of the
-     * string.
+     * Removes characters from the left end of the string
      *
-     * If $mask is not provided, the default is to remove spaces.
-     *
-     * @access public
+     * Removes spaces if mask is missing
      *
      * @param StringObject $mask
      *
@@ -1674,11 +1425,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The uncapitalize method, uncapitalizes a string.
-     *
-     * It changes the first letter to lowercase.
-     *
-     * @access public
+     * Uncapitalizes the string
      *
      * @return StringObject
      */
@@ -1690,9 +1437,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * The valid method, checks if current position is valid.
-     *
-     * @access public
+     * Checks if current position is valid
      *
      * @return BooleanObject
      */
@@ -1704,79 +1449,7 @@ class String extends Object implements Iterator, Serializable
     }
 
     /**
-     * Magic method __call() for String class, delegates to the callback method.
-     *
-     * @access public
-     *
-     * @param string     $name
-     * @param null|array $parameters
-     *
-     * @return StringObject
-     */
-    public function __call($name, array $parameters = array())
-    {
-        return $this->callback($name, $parameters);
-    }
-
-    /**
-     * The callback method, carries out callback operation and returns the
-     * result.
-     *
-     * @param mixed $name
-     * @param array $parameters
-     *
-     * @return mixed
-     *
-     * @throws InvalidArgumentException
-     */
-    public function callback($name, array $parameters = array())
-    {
-        if (!is_callable($name)) {
-            throw new InvalidArgumentException("Argument name is not a valid callback");
-        }
-
-        array_unshift($parameters, (string) $this->getValue());
-
-        $result = call_user_func_array($name, $parameters);
-
-        if (!is_string($result)) {
-            return $result;
-        }
-
-        return new static($result);
-    }
-
-    /**
-     * Magic method __get() for String class, provides special accessible
-     * properties.
-     *
-     * @access public
-     *
-     * @param string $key
-     *
-     * @return mixed
-     *
-     * @throws InvalidArgumentException
-     */
-    public function __get($key)
-    {
-        $key = strtolower($key);
-
-        if ($key === "encoding") {
-            return (string) $this->getEncoding()->getValue();
-        }
-
-        if ($key === "length") {
-            return (integer) $this->getLength()->getValue();
-        }
-
-        throw new InvalidArgumentException("Undefined property specified");
-    }
-
-    /**
-     * The getEncoding method, by default it is UTF-8.
-     *
-     * @access public
+     * Returns encoding
      *
      * @return StringObject
      */
