@@ -1,9 +1,9 @@
 <?php
 
-namespace Mysidia\Resource\Native;
+namespace Mysidia\Resource;
 
 /**
- * Defines methods for invoking objects.
+ * Returns a deep copy of an object.
  *
  * @category  Resource
  * @package   Collection
@@ -11,12 +11,14 @@ namespace Mysidia\Resource\Native;
  * @copyright Mysidia RPG, Inc
  * @link      http://www.mysidiarpg.com
  */
-interface Invokable
+interface Cloneable
 {
     /**
-     * Invokes the object.
+     * Returns a deep copy of an object.
      *
-     * @return mixed
+     * @access public
+     *
+     * @return $this
      */
-    public function __invoke();
+    public function __clone();
 }

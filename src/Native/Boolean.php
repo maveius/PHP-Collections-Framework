@@ -2,8 +2,6 @@
 
 namespace Mysidia\Resource\Native;
 
-use Mysidia\Resource\Utility\Comparable;
-
 /**
  * The Boolean Class, extending the root Object class.
  *
@@ -18,61 +16,18 @@ use Mysidia\Resource\Utility\Comparable;
  * @link      http://www.mysidiarpg.com
  * @final
  */
-final class Boolean extends Object implements Comparable
+final class Boolean extends Object
 {
     /**
-     * The value property, which stores the primitive value for this Boolean
-     * object.
-     *
-     * @access private
-     *
-     * @var bool
+     * {@inheritdoc}
      */
-    private $value;
-
-    /**
-     * Constructor of Boolean Class, initializes the Boolean wrapper class.
-     *
-     * If supplied argument is not of boolean type, type casting will be
-     * converted.
-     *
-     * @param mixed $value
-     *
-     * @access public
-     */
-    public function __construct($value)
+    public function coerce($value)
     {
         if ($value !== true and $value !== false) {
             $value = (boolean) $value;
         }
 
-        $this->value = $value;
-    }
-
-    /**
-     * The getValue method, returns the primitive boolean value.
-     *
-     * @access public
-     *
-     * @return Boolean
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * The compareTo method, compares a boolean object to another.
-     *
-     * @access public
-     *
-     * @param Objective $target
-     *
-     * @return int
-     */
-    public function compareTo(Objective $target)
-    {
-        return ($this->equals($target)) ? 0 : ($this->value ? 1 : -1);
+        return $value;
     }
 
     /**
@@ -82,7 +37,7 @@ final class Boolean extends Object implements Comparable
     {
         $label = $this->value ? "true" : "false";
 
-        return parent::getClassName()."(".$label.")";
+        return parent::toString()->value()."(".$label.")";
     }
 
     /**
@@ -93,18 +48,5 @@ final class Boolean extends Object implements Comparable
         $label = $this->value ? "true" : "false";
 
         return parent::__toString()."(".$label.")";
-    }
-
-    /**
-     * Magic method __invoke() for Boolean class, it returns the primitive data
-     * value for manipulation.
-     *
-     * @access public
-     *
-     * @return Number
-     */
-    public function __invoke()
-    {
-        return $this->value;
     }
 }

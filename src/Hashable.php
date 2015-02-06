@@ -1,6 +1,6 @@
 <?php
 
-namespace Mysidia\Resource\Native;
+namespace Mysidia\Resource;
 
 /**
  * Returns a deep copy of an object.
@@ -11,14 +11,14 @@ namespace Mysidia\Resource\Native;
  * @copyright Mysidia RPG, Inc
  * @link      http://www.mysidiarpg.com
  */
-interface Cloneable
+interface Hashable
 {
     /**
-     * Returns a deep copy of an object.
+     * Returns a unique object hash.
      *
      * @access public
      *
-     * @return $this
+     * @return float
      */
-    public function __clone();
+    public function hashCode();
 }

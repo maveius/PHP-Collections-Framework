@@ -1,6 +1,6 @@
 <?php
 
-namespace Mysidia\Resource\Native;
+namespace Mysidia\Resource;
 
 /**
  * Stringable defines methods for converting objects to strings and String
@@ -28,7 +28,7 @@ interface Stringable
      *
      * @access public
      *
-     * @return String
+     * @return \Mysidia\Resource\Native\String
      */
     public function toString();
 
@@ -37,7 +37,7 @@ interface Stringable
      *
      * @access public
      *
-     * @return String
+     * @return \Mysidia\Resource\Native\String
      */
     public function string();
 
@@ -46,7 +46,7 @@ interface Stringable
      *
      * @access public
      *
-     * @return String
+     * @return \Mysidia\Resource\Native\String
      */
     public function getClassName();
 
@@ -55,7 +55,7 @@ interface Stringable
      *
      * @access public
      *
-     * @return String
+     * @return \Mysidia\Resource\Native\String
      */
     public function className();
 }
