@@ -24,11 +24,11 @@ final class Byte extends Number
     /**
      * Converts numeric values to binary strings
      *
-     * @return String
+     * @return string
      */
-    public function binaryString()
+    public function binaryValue()
     {
-        return new String(decbin($this->value));
+        return decbin($this->value);
     }
 
     /**

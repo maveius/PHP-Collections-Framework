@@ -12,7 +12,7 @@ interface Hashable
     /**
      * Returns a unique object hash
      *
-     * @return float
+     * @return string
      */
-    public function hashCode();
+    public function hash();
 }

@@ -70,41 +70,9 @@ abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Inv
     /**
      * {@inheritdoc}
      */
-    public function string()
+    public function hash()
     {
-        return $this->toString();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toString()
-    {
-        return new String(get_class($this));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getClassName()
-    {
-        return $this->toString();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function className()
-    {
-        return $this->toString();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function hashCode()
-    {
-        return hexdec(spl_object_hash($this));
+        return spl_object_hash($this);
     }
 
     /**
@@ -112,7 +80,7 @@ abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Inv
      */
     public function serialize()
     {
-        return serialize($this);
+        return serialize($this->value());
     }
 
     /**
@@ -120,7 +88,7 @@ abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Inv
      */
     public function unserialize($string)
     {
-        return unserialize($string);
+        $this->value = unserialize($string);
     }
 
     /**
@@ -136,8 +104,8 @@ abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Inv
      */
     public function compareTo(Valuable $object)
     {
-        $a = $this->getValue();
-        $b = $object->getValue();
+        $a = $this->value();
+        $b = $object->value();
 
         return ($a < $b) ? -1 : (($a > $b) ? 1 : 0);
     }
@@ -145,7 +113,7 @@ abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Inv
     /**
      * {@inheritdoc}
      */
-    public function getValue()
+    public function value()
     {
         return $this->value;
     }
@@ -153,16 +121,8 @@ abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Inv
     /**
      * {@inheritdoc}
      */
-    public function value()
-    {
-        return $this->getValue();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke()
     {
-        return $this->getValue();
+        return $this->value();
     }
 }

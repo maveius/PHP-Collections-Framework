@@ -11,81 +11,44 @@ class ConcreteObject extends Object
 
 class ObjectTest extends Test
 {
-    /**
-     * @test
-     */
-    public function it_can_be_cloned()
-    {
-        $object = new ConcreteObject();
-
-        $clone = clone $object;
-
-        $this->assertInstanceOf(get_class($object), $clone);
-    }
+    use Traits\TestClone;
+    use Traits\TestCompareTo;
+    use Traits\TestEquals;
+    use Traits\TestHash;
+    use Traits\TestInvoke;
+    use Traits\TestSerialize;
+    use Traits\TestToString;
 
     /**
-     * @test
+     * @var int
      */
-    public function it_can_be_compared()
-    {
-        $firstObject = new ConcreteObject();
-
-        $secondObject = new ConcreteObject();
-
-        $this->assertTrue($firstObject->equals($secondObject));
-    }
+    protected $firstValue;
 
     /**
-     * @test
+     * @var ConcreteObject
      */
-    public function it_returns_enhanced_class_name()
-    {
-        $object = new ConcreteObject();
-
-        $this->assertInstanceOf("Mysidia\\Resource\\Native\\String", $object->getClassName());
-    }
+    protected $firstObject;
 
     /**
-     * @test
+     * @var int
      */
-    public function it_returns_a_unique_hash_code()
-    {
-        $firstObject = new ConcreteObject();
-
-        $firstHash = $firstObject->hashCode();
-
-        $this->assertInternalType("float", $firstHash);
-
-        $secondObject = new ConcreteObject();
-
-        $secondHash = $secondObject->hashCode();
-
-        $this->assertNotEquals($firstHash, $secondHash);
-    }
+    protected $secondValue;
 
     /**
-     * @test
+     * @var ConcreteObject
      */
-    public function it_can_be_serialized_and_unserialized()
+    protected $secondObject;
+
+    protected function setUp()
     {
-        $object = new ConcreteObject();
+        parent::setUp();
 
-        $serialized = serialize($object);
+        $this->firstValue = 1;
 
-        $this->assertInternalType("string", $serialized);
+        $this->firstObject = new ConcreteObject($this->firstValue);
 
-        $unserialized = unserialize($serialized);
+        $this->secondValue = 2;
 
-        $this->assertEquals($object, $unserialized);
-    }
-
-    /**
-     * @test
-     */
-    public function it_can_be_cast_to_string()
-    {
-        $object = new ConcreteObject();
-
-        $this->assertInternalType("string", (string) $object);
+        $this->secondObject = new ConcreteObject($this->secondValue);
     }
 }

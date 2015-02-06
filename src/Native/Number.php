@@ -15,7 +15,7 @@ abstract class Number extends Object
      *
      * @return int
      */
-    public function intValue()
+    public function integerValue()
     {
         return (int) $this->value;
     }
@@ -47,7 +47,7 @@ abstract class Number extends Object
      */
     public function isPositive()
     {
-        return ($this->getValue() > 0) ? true : false;
+        return ($this->value() > 0) ? true : false;
     }
 
     /**
@@ -57,7 +57,7 @@ abstract class Number extends Object
      */
     public function isNegative()
     {
-        return ($this->getValue() < 0) ? true : false;
+        return ($this->value() < 0) ? true : false;
     }
 
     /**
@@ -65,9 +65,9 @@ abstract class Number extends Object
      *
      * @return Byte
      */
-    public function toByte()
+    public function byteObject()
     {
-        return new Byte($this->getValue());
+        return new Byte($this->value());
     }
 
     /**
@@ -75,9 +75,9 @@ abstract class Number extends Object
      *
      * @return Short
      */
-    public function toShort()
+    public function shortObject()
     {
-        return new Short($this->getValue());
+        return new Short($this->value());
     }
 
     /**
@@ -85,9 +85,9 @@ abstract class Number extends Object
      *
      * @return Integer
      */
-    public function toInteger()
+    public function integerObject()
     {
-        return new Integer($this->getValue());
+        return new Integer($this->value());
     }
 
     /**
@@ -95,9 +95,9 @@ abstract class Number extends Object
      *
      * @return Long
      */
-    public function toLong()
+    public function longObject()
     {
-        return new Long($this->getValue());
+        return new Long($this->value());
     }
 
     /**
@@ -105,9 +105,9 @@ abstract class Number extends Object
      *
      * @return Float
      */
-    public function toFloat()
+    public function floatObject()
     {
-        return new Float($this->getValue());
+        return new Float($this->value());
     }
 
     /**
@@ -115,9 +115,9 @@ abstract class Number extends Object
      *
      * @return Double
      */
-    public function toDouble()
+    public function doubleObject()
     {
-        return new Double($this->getValue());
+        return new Double($this->value());
     }
 
     /**
@@ -125,14 +125,6 @@ abstract class Number extends Object
      */
     public function __toString()
     {
-        return parent::__toString()."(".$this->getValue().")";
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getClassName()
-    {
-        return parent::getClassName()."(".$this->getValue().")";
+        return parent::__toString()."(".$this->value().")";
     }
 }

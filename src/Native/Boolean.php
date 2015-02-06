@@ -14,21 +14,11 @@ final class Boolean extends Object
      */
     public function coerce($value)
     {
-        if ($value !== true and $value !== false) {
+        if (!is_bool($value)) {
             $value = (boolean) $value;
         }
 
         return $value;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getClassName()
-    {
-        $label = $this->value ? "true" : "false";
-
-        return parent::toString()->value()."(".$label.")";
     }
 
     /**

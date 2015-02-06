@@ -25,31 +25,31 @@ final class Integer extends Number
     /**
      * Converts numeric values to a binary String
      *
-     * @return String
+     * @return string
      */
-    public function binaryString()
+    public function binaryValue()
     {
-        return new String(decbin($this->getValue()));
+        return decbin($this->value());
     }
 
     /**
      * Converts numeric values to hex String
      *
-     * @return String
+     * @return string
      */
-    public function hexString()
+    public function hexValue()
     {
-        return new String(dechex($this->getValue()));
+        return dechex($this->value());
     }
 
     /**
      * Converts numeric values to octal String
      *
-     * @return String
+     * @return string
      */
-    public function octalString()
+    public function octalValue()
     {
-        return new String(decoct($this->getValue()));
+        return decoct($this->value());
     }
 
     /**
@@ -59,13 +59,13 @@ final class Integer extends Number
      *
      * @throws ClassCastException
      */
-    public function toByte()
+    public function byteObject()
     {
-        if ($this->getValue() < Byte::MinValue or $this->getValue() > Byte::MaxValue) {
+        if ($this->value() < Byte::MinValue or $this->value() > Byte::MaxValue) {
             throw new ClassCastException("Cannot convert to Byte type");
         }
 
-        return new Byte($this->getValue());
+        return new Byte($this->value());
     }
 
     /**
@@ -75,13 +75,13 @@ final class Integer extends Number
      *
      * @throws ClassCastException
      */
-    public function toShort()
+    public function shortObject()
     {
-        if ($this->getValue() < Short::MinValue or $this->getValue() > Short::MaxValue) {
+        if ($this->value() < Short::MinValue or $this->value() > Short::MaxValue) {
             throw new ClassCastException("Cannot convert to Short type");
         }
 
-        return new Short($this->getValue());
+        return new Short($this->value());
     }
 
     /**
