@@ -33,6 +33,16 @@ final class Arrays extends SplFixedArray implements Cloneable, Comparable, Hasha
     }
 
     /**
+     * @param string $delimiter
+     *
+     * @return string
+     */
+    public function join($delimiter = "")
+    {
+        return join($delimiter, $this->value());
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function hash()

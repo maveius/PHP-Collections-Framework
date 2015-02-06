@@ -29,7 +29,7 @@ class ArraysTest extends Test
     protected $firstValue;
 
     /**
-     * @var ConcreteObject
+     * @var Arrays
      */
     protected $firstObject;
 
@@ -44,7 +44,7 @@ class ArraysTest extends Test
     protected $secondValue;
 
     /**
-     * @var ConcreteObject
+     * @var Arrays
      */
     protected $secondObject;
 
