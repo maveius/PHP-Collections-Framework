@@ -12,16 +12,9 @@ use Serializable;
 use SplFixedArray;
 
 /**
- * The Arrays Class, extending from SplFixedArray class.
+ * An array abstraction
  *
- * It defines how fixed sized numeric arrays are used in Mysidia Framework.
- *
- * @category  Resource
- * @package   Native
- * @author    Ordland
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
- * @final
+ * @author Ordland
  */
 final class Arrays extends SplFixedArray implements Comparable, Cloneable, Serializable, Stringable, Valuable
 {
@@ -62,9 +55,7 @@ final class Arrays extends SplFixedArray implements Comparable, Cloneable, Seria
     }
 
     /**
-     * The length method, returns the size of the array in java way.
-     *
-     * @access public
+     * Returns the size of the array
      *
      * @return int
      */
@@ -74,9 +65,7 @@ final class Arrays extends SplFixedArray implements Comparable, Cloneable, Seria
     }
 
     /**
-     * The iterator method, retrieves an ArrayIterator for this Array.
-     *
-     * @access public
+     * Returns an ArrayIterator for this array
      *
      * @return ArrayIterator
      */

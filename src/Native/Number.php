@@ -3,28 +3,17 @@
 namespace Mysidia\Resource\Native;
 
 /**
- * The Abstract Number Class, extends parent Object root class.
+ * A number type wrapper
  *
- * Similar to Java's number class, it's parent to all numeric type wrapper
- * classes. A number cannot be instantiated using new keyword, since it's
- * abstract.
- *
- * @category  Resource
- * @package   Native
- * @author    Ordland
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
- * @abstract
+ * @author Ordland
  *
  */
 abstract class Number extends Object
 {
     /**
-     * The intValue method, casts and fetches int primitive value.
+     * Returns integer value
      *
-     * @access public
-     *
-     * @return Int
+     * @return int
      */
     public function intValue()
     {
@@ -32,9 +21,7 @@ abstract class Number extends Object
     }
 
     /**
-     * The floatValue method, casts and fetches float primitive value.
-     *
-     * @access public
+     * Returns float value
      *
      * @return Float
      */
@@ -44,11 +31,9 @@ abstract class Number extends Object
     }
 
     /**
-     * The doubleValue method, casts and fetches double primitive value.
+     * Returns double value
      *
-     * @
-     * access public
-     * @return Double
+     * @return double
      */
     public function doubleValue()
     {
@@ -56,11 +41,9 @@ abstract class Number extends Object
     }
 
     /**
-     * The isPositive method, checks if the number is positive or not.
+     * Checks if the number is positive
      *
-     * @access public
-     *
-     * @return Boolean
+     * @return bool
      */
     public function isPositive()
     {
@@ -68,11 +51,9 @@ abstract class Number extends Object
     }
 
     /**
-     * The isNegative method, checks if the number is negative or not.
+     * Checks if the number is negative
      *
-     * @access public
-     *
-     * @return Boolean
+     * @return bool
      */
     public function isNegative()
     {
@@ -80,9 +61,7 @@ abstract class Number extends Object
     }
 
     /**
-     * The toByte method, converts value and returns a Byte Object.
-     *
-     * @access public
+     * Converts value and returns a Byte object
      *
      * @return Byte
      */
@@ -92,9 +71,7 @@ abstract class Number extends Object
     }
 
     /**
-     * The toShort method, converts value and returns a Short Object.
-     *
-     * @access public
+     * Converts value and returns a Short object
      *
      * @return Short
      */
@@ -104,9 +81,7 @@ abstract class Number extends Object
     }
 
     /**
-     * The toInteger method, converts value and returns an Integer Object.
-     *
-     * @access public
+     * Converts value and returns an Integer object
      *
      * @return Integer
      */
@@ -116,9 +91,7 @@ abstract class Number extends Object
     }
 
     /**
-     * The toLong method, converts value and returns a Long Object.
-     *
-     * @access public
+     * Converts value and returns a Long object
      *
      * @return Long
      */
@@ -128,9 +101,7 @@ abstract class Number extends Object
     }
 
     /**
-     * The toFloat method, converts value and returns a Float Object.
-     *
-     * @access public
+     * Converts value and returns a Float object
      *
      * @return Float
      */
@@ -140,9 +111,7 @@ abstract class Number extends Object
     }
 
     /**
-     * The toFloat method, converts value and returns a Double Object.
-     *
-     * @access public
+     * Converts value and returns a Double object
      *
      * @return Double
      */

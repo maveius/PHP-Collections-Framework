@@ -3,17 +3,9 @@
 namespace Mysidia\Resource\Native;
 
 /**
- * The Null Class, extending from root Object Class.
+ * A null type wrapper
  *
- * It defines a Null Object that does not do anything but to serve as
- * placeholder or NulL Values.
- *
- * @category  Resource
- * @package   Native
- * @author    Ordland
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
- * @final
+ * @author Ordland
  */
 final class Null extends Object
 {

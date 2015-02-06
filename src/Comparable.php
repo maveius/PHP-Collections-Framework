@@ -3,21 +3,14 @@
 namespace Mysidia\Resource;
 
 /**
- * The Comparable Interface, it defines objects that can be compared with
- * another.
+ * Compares and equates objects with one another
  *
- * @category  Resource
- * @package   Utility
- * @author    Ordland
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
+ * @author Ordland
  */
 interface Comparable
 {
     /**
-     * The compareTo method, compares this object with another.
-     *
-     * @access public
+     * Compares this object with another
      *
      * @param Valuable $object
      *
@@ -26,10 +19,7 @@ interface Comparable
     public function compareTo(Valuable $object);
 
     /**
-     * The equals method, checks whether target object is equivalent to this
-     * one.
-     *
-     * @access public
+     * Checks whether another object is equivalent to this object
      *
      * @param mixed $object
      *

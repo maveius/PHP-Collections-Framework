@@ -6,35 +6,24 @@ use InvalidArgumentException;
 use Mysidia\Resource\Exception\ClassCastException;
 
 /**
- * The Short Class, extending from the abstract Number class.
+ * A short type wrapper
  *
- * This class serves as a wrapper class for primitive data type short.
- *
- * It is a final class, no child class shall derive from Short.
- *
- * @category  Resource
- * @package   Native
- * @author    Ordland
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
- * @final
+ * @author Ordland
  */
 final class Short extends Number
 {
     /**
-     * MinValue constant, a Short cannot contain number less than -32768.
+     * A short cannot contain number less than -32768
      */
     const MinValue = -32768;
 
     /**
-     * MaxValue constant, a Short cannot contain number greater than 32767.
+     * A short cannot contain number greater than 32767
      */
     const MaxValue = 32767;
 
     /**
-     * The binaryString method, converts numeric values to binary strings.
-     *
-     * @access public
+     * Converts numeric values to binary String
      *
      * @return String
      */
@@ -44,9 +33,7 @@ final class Short extends Number
     }
 
     /**
-     * The octalString method, converts numeric values to octal strings.
-     *
-     * @access public
+     * Converts numeric values to octal String
      *
      * @return String
      */
@@ -56,9 +43,7 @@ final class Short extends Number
     }
 
     /**
-     * The toByte method, converts value and returns a Byte Object.
-     *
-     * @access public
+     * Converts value and returns a Byte object
      *
      * @return Byte
      *

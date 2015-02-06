@@ -6,37 +6,24 @@ use InvalidArgumentException;
 use Mysidia\Resource\Exception\ClassCastException;
 
 /**
- * The Integer Class, extending from the abstract Number class.
+ * An integer type wrapper
  *
- * This class serves as a wrapper class for primitive data type int.
- *
- * It is a final class, no child class shall derive from Integer.
- *
- * @category  Resource
- * @package   Native
- * @author    Ordland
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
- * @final
+ * @author Ordland
  */
 final class Integer extends Number
 {
     /**
-     * MinValue constant, an integer cannot contain number less than
-     * -2147483648.
+     * An integer cannot contain number less than -2147483648
      */
     const MinValue = -2147483648;
 
     /**
-     * MaxValue constant, an integer cannot contain number greater than
-     * 2147483647.
+     * An integer cannot contain number greater than 2147483647
      */
     const MaxValue = 2147483647;
 
     /**
-     * The binaryString method, converts numeric values to binary strings.
-     *
-     * @access public
+     * Converts numeric values to a binary String
      *
      * @return String
      */
@@ -46,9 +33,7 @@ final class Integer extends Number
     }
 
     /**
-     * The hexString method, converts numeric values to hex strings.
-     *
-     * @access public
+     * Converts numeric values to hex String
      *
      * @return String
      */
@@ -58,9 +43,7 @@ final class Integer extends Number
     }
 
     /**
-     * The octalString method, converts numeric values to octal strings.
-     *
-     * @access public
+     * Converts numeric values to octal String
      *
      * @return String
      */
@@ -70,9 +53,7 @@ final class Integer extends Number
     }
 
     /**
-     * The toByte method, converts value and returns a Byte Object.
-     *
-     * @access public
+     * Converts value and returns a Byte object
      *
      * @return Byte
      *
@@ -88,9 +69,7 @@ final class Integer extends Number
     }
 
     /**
-     * The toShort method, converts value and returns a Short Object.
-     *
-     * @access public
+     * Converts value and returns a Short object
      *
      * @return Short
      *

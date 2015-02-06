@@ -2,60 +2,47 @@
 
 namespace Mysidia\Resource;
 
+use Mysidia\Resource\Native\String as StringObject;
+
 /**
- * Stringable defines methods for converting objects to strings and String
- * objects.
+ * Returns string or string object representation of an object
  *
- * @category  Resource
- * @package   Native
- * @author    Christopher Pitt <cgpitt@gmail.com>
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
+ * @author Christopher Pitt <cgpitt@gmail.com>
  */
 interface Stringable
 {
     /**
-     * Returns string representation of an object.
-     *
-     * @access public
+     * Returns string representation of an object
      *
      * @return string
      */
     public function __toString();
 
     /**
-     * Returns String object representation of an object.
+     * Returns String object representation of an object
      *
-     * @access public
-     *
-     * @return \Mysidia\Resource\Native\String
+     * @return StringObject
      */
     public function toString();
 
     /**
-     * Alias for toString.
+     * Returns String object representation of an object
      *
-     * @access public
-     *
-     * @return \Mysidia\Resource\Native\String
+     * @return StringObject
      */
     public function string();
 
     /**
-     * Alias for toString.
+     * Returns String object representation of an object
      *
-     * @access public
-     *
-     * @return \Mysidia\Resource\Native\String
+     * @return StringObject
      */
     public function getClassName();
 
     /**
-     * Alias for toString.
+     * Returns String object representation of an object
      *
-     * @access public
-     *
-     * @return \Mysidia\Resource\Native\String
+     * @return StringObject
      */
     public function className();
 }

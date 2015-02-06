@@ -3,18 +3,9 @@
 namespace Mysidia\Resource\Native;
 
 /**
- * The Boolean Class, extending the root Object class.
+ * A boolean type wrapper
  *
- * This class serves as a wrapper class for primitive data type boolean.
- *
- * It is a final class, no child class shall derive from Boolean.
- *
- * @category  Resource
- * @package   Native
- * @author    Ordland
- * @copyright Mysidia RPG, Inc
- * @link      http://www.mysidiarpg.com
- * @final
+ * @author Ordland
  */
 final class Boolean extends Object
 {
