@@ -51,4 +51,28 @@ class ObjectTest extends Test
 
         $this->secondObject = new ConcreteObject($this->secondValue);
     }
+
+    /**
+     * @return mixed
+     */
+    public function firstObject()
+    {
+        return $this->firstObject;
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function secondObject()
+    {
+        return $this->secondObject;
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function firstValue()
+    {
+        return $this->firstValue;
+    }
 }

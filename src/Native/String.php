@@ -28,7 +28,7 @@ class String extends Object implements Iterator, Serializable
     /**
      * Defines the hash code of this particular string
      *
-     * @var int
+     * @var string
      */
     protected $hash;
 
@@ -145,7 +145,7 @@ class String extends Object implements Iterator, Serializable
     {
         $this->length = 1;
 
-        $this->value = $char;
+        $this->value = $char->value();
     }
 
     /**
@@ -388,9 +388,9 @@ class String extends Object implements Iterator, Serializable
     /**
      * Returns a hash code for the String object
      *
-     * @return IntegerObject
+     * @return string
      */
-    public function hashCode()
+    public function hash()
     {
         if (!$this->hash) {
             $this->hash = 0;
@@ -401,7 +401,7 @@ class String extends Object implements Iterator, Serializable
                 $this->hash = 31 * $this->hash + ord($this->value[$offset++]);
             }
 
-            $this->hash = new IntegerObject($this->hash);
+            $this->hash = (string) $this->hash;
         }
 
         return $this->hash;
@@ -1405,13 +1405,11 @@ class String extends Object implements Iterator, Serializable
     /**
      * Checks if current position is valid
      *
-     * @return BooleanObject
+     * @return bool
      */
     public function valid()
     {
-        return new BooleanObject(
-            $this->offset() >= 0 && $this->offset() < $this->length()
-        );
+        return $this->offset() >= 0 && $this->offset() < $this->length();
     }
 
     /**
