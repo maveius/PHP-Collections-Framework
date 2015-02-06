@@ -20,15 +20,7 @@ use SplFixedArray;
  */
 final class Arrays extends SplFixedArray implements Cloneable, Comparable, Hashable, Invokable, Stringable, Valuable, Serializable
 {
-    /**
-     * @var bool
-     */
-    protected $makeFluent = false;
-
-    /**
-     * @var bool
-     */
-    protected $useObjectParameters = false;
+    use Traits\FlagsTrait;
 
     /**
      * @param int      $size
@@ -38,15 +30,7 @@ final class Arrays extends SplFixedArray implements Cloneable, Comparable, Hasha
     {
         parent::__construct($size);
 
-        if ($flags !== null) {
-            if ($flags & MakeFluent) {
-                $this->makeFluent = true;
-            }
-
-            if ($flags & UseObjectParameters) {
-                $this->useObjectParameters = true;
-            }
-        }
+        $this->setFlags($flags);
     }
 
     /**

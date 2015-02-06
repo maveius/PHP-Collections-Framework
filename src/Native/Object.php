@@ -18,20 +18,12 @@ use Serializable;
  */
 abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Invokable, Stringable, Valuable, Serializable
 {
+    use Traits\FlagsTrait;
+
     /**
      * @var mixed
      */
     protected $value;
-
-    /**
-     * @var bool
-     */
-    protected $makeFluent = false;
-
-    /**
-     * @var bool
-     */
-    protected $useObjectParameters = false;
 
     /**
      * Coerces and sets value
@@ -45,15 +37,7 @@ abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Inv
             $this->value = $this->coerce($value);
         }
 
-        if ($flags !== null) {
-            if ($flags & MakeFluent) {
-                $this->makeFluent = true;
-            }
-
-            if ($flags & UseObjectParameters) {
-                $this->useObjectParameters = true;
-            }
-        }
+        $this->setFlags($flags);
     }
 
     /**
