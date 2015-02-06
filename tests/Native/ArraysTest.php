@@ -102,4 +102,35 @@ class ArraysTest extends Test
     {
         $this->assertInstanceOf("Iterator", $this->firstObject->iterator());
     }
+
+    public function testJoin()
+    {
+        $this->assertEquals("foo", $this->firstObject->join());
+        
+        $this->assertEquals("bar,baz", $this->secondObject->join(","));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function firstObject()
+    {
+        return $this->firstObject;
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function secondObject()
+    {
+        return $this->secondObject;
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function firstValue()
+    {
+        return $this->firstValue;
+    }
 }
