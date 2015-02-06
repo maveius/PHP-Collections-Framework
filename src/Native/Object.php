@@ -119,7 +119,7 @@ abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Inv
      */
     public function hashCode()
     {
-        return (float) hexdec(spl_object_hash($this));
+        return hexdec(spl_object_hash($this));
     }
 
     /**
