@@ -18,6 +18,8 @@ use Serializable;
  */
 abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Invokable, Stringable, Valuable, Serializable
 {
+    use Traits\FlagsTrait;
+
     /**
      * @var mixed
      */
@@ -26,13 +28,16 @@ abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Inv
     /**
      * Coerces and sets value
      *
-     * @param mixed $value
+     * @param mixed    $value
+     * @param null|int $flags
      */
-    public function __construct($value = null)
+    public function __construct($value = null, $flags = null)
     {
         if ($value !== null) {
             $this->value = $this->coerce($value);
         }
+
+        $this->setFlags($flags);
     }
 
     /**
@@ -80,7 +85,11 @@ abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Inv
      */
     public function serialize()
     {
-        return serialize($this->value());
+        return serialize([
+            $this->value(),
+            $this->makeFluent,
+            $this->useObjectParameters,
+        ]);
     }
 
     /**
@@ -88,7 +97,11 @@ abstract class Object implements Cloneable, Coercible, Comparable, Hashable, Inv
      */
     public function unserialize($string)
     {
-        $this->value = unserialize($string);
+        list($value, $makeFluent, $useObjectParameters) = unserialize($string);
+
+        $this->value = $value;
+        $this->makeFluent = $makeFluent;
+        $this->useObjectParameters = $useObjectParameters;
     }
 
     /**

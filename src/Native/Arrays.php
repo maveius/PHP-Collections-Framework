@@ -20,6 +20,19 @@ use SplFixedArray;
  */
 final class Arrays extends SplFixedArray implements Cloneable, Comparable, Hashable, Invokable, Stringable, Valuable, Serializable
 {
+    use Traits\FlagsTrait;
+
+    /**
+     * @param int      $size
+     * @param null|int $flags
+     */
+    public function __construct($size = 0, $flags = null)
+    {
+        parent::__construct($size);
+
+        $this->setFlags($flags);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -63,7 +76,12 @@ final class Arrays extends SplFixedArray implements Cloneable, Comparable, Hasha
      */
     public function serialize()
     {
-        return serialize([$this->length(), $this->value()]);
+        return serialize([
+            $this->length(),
+            $this->value(),
+            $this->makeFluent,
+            $this->useObjectParameters,
+        ]);
     }
 
     /**
@@ -71,10 +89,12 @@ final class Arrays extends SplFixedArray implements Cloneable, Comparable, Hasha
      */
     public function unserialize($string)
     {
-        list($length, $value) = unserialize($string);
+        list($length, $value, $makeFluent, $useObjectParameters) = unserialize($string);
 
         $this->setSize($length);
         $this->fill($value);
+        $this->makeFluent = $makeFluent;
+        $this->useObjectParameters = $useObjectParameters;
     }
 
     /**
